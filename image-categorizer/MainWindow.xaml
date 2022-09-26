@@ -1,0 +1,61 @@
+﻿<Window x:Class="image_categorizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:image_categorizer"
+        xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        Title="MainWindow" Height="600" Width="920">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
+    
+    <Border Background="#24252a" CornerRadius="25">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Logo?"
+                       Foreground="#f2f2f2"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       FontSize="35"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="UserControlName?"
+                       Foreground="#f2f2f2"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       FontSize="35"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <RadioButton Content="Run Categorizer"
+                             Style="{StaticResource MenuButtonThemes}"
+                             Command="{Binding RunViewCommand}"
+                             IsChecked="True"/>
+                <RadioButton Content="Summery"
+                             Style="{StaticResource MenuButtonThemes}"
+                             Command="{Binding SummeryViewCommand}"
+                             IsChecked="True"/>
+                <RadioButton Content="Setting"
+                             Style="{StaticResource MenuButtonThemes}"
+                             Command="{Binding SettingViewCommand}"
+                             IsChecked="True"/>
+            </StackPanel>
+            <ContentControl Grid.Column="1" Grid.Row="1"
+                            Content="{Binding CurrentView}"/>
+        </Grid>
+    </Border>
+</Window>

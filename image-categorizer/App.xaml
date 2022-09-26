@@ -1,0 +1,24 @@
+﻿<Application x:Class="image_categorizer.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:image_categorizer"
+             xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
+             xmlns:view="clr-namespace:image_categorizer.MVVM.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/MenuButtonThemes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type viewModel:RunViewModel}">
+                <view:RunView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SummeryViewModel}">
+                <view:SummeryView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SettingViewModel}">
+                <view:SettingView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
