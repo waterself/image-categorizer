@@ -13,8 +13,8 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    
-    <Border Background="#24252a" CornerRadius="25">
+
+    <Border Background="#4f5b62" CornerRadius="25">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>
@@ -26,13 +26,14 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Logo?"
-                       Foreground="#f2f2f2"
+                       Foreground="#ffffff"
                        Grid.Column="0"
                        Grid.Row="0"
                        FontSize="35"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
-            <StackPanel Grid.Row="0" Grid.Column="1">
+            <StackPanel Grid.Row="0" Grid.Column="1"
+                        >
                 <Button HorizontalAlignment="Right"
                         
                         Style="{StaticResource TitleButtonThemes}">CloseButton</Button>

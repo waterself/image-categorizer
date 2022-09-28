@@ -13,7 +13,7 @@
                               Background="{TemplateBinding Background}">
 
                             <TextBlock  VerticalAlignment="Center"
-                                        Foreground="#bdc3c7"
+                                        Foreground="#ffffff"
                                         Margin="20, 0, 0, 0"
                                         FontSize="20"
                                         Text="{TemplateBinding Property=Content}"/>
@@ -26,7 +26,7 @@
         </Style.Setters>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#080e2c"/>
+                <Setter Property="Background" Value="#263238"/>
             </Trigger>
         </Style.Triggers>
     </Style>
