@@ -32,15 +32,12 @@
                        FontSize="35"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
-            <TextBlock Text="UserControlName?"
-                       Foreground="#f2f2f2"
-                       Grid.Row="0"
-                       Grid.Column="1"
-                       FontSize="35"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-
-            <StackPanel Grid.Row="1" Grid.Column="0">
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <Button HorizontalAlignment="Right"
+                        
+                        Style="{StaticResource TitleButtonThemes}">CloseButton</Button>
+            </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0">
                 <RadioButton Content="Run Categorizer"
                              Style="{StaticResource MenuButtonThemes}"
                              Command="{Binding RunViewCommand}"
