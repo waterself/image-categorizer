@@ -13,7 +13,7 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-
+    
     <Border Background="#4f5b62" CornerRadius="25">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -46,11 +46,11 @@
                 <RadioButton Content="Summery"
                              Style="{StaticResource MenuButtonThemes}"
                              Command="{Binding SummeryViewCommand}"
-                             IsChecked="True"/>
+                             IsChecked="False"/>
                 <RadioButton Content="Setting"
                              Style="{StaticResource MenuButtonThemes}"
                              Command="{Binding SettingViewCommand}"
-                             IsChecked="True"/>
+                             IsChecked="False"/>
             </StackPanel>
             <ContentControl Grid.Column="1" Grid.Row="1"
                             Content="{Binding CurrentView}"/>

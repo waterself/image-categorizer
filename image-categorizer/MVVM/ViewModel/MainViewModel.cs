@@ -46,11 +46,9 @@ namespace image_categorizer.MVVM.ViewModel
         public object CurrentView
         {
             get { return _currentView; }
-            set { _currentView= value;
+            set { _currentView = value;
                 OnPropertyChanged();
             }
         }
-
-
     }
 }
