@@ -13,8 +13,8 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    
-    <Border Background="#4f5b62" CornerRadius="25">
+
+    <Border Background="#263238">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>
@@ -25,14 +25,16 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Logo?"
+            <TextBlock Text="LogoArea"
                        Foreground="#ffffff"
                        Grid.Column="0"
+                       MouseLeftButtonDown="TitleBarDragMove"
                        Grid.Row="0"
                        FontSize="35"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
             <StackPanel Grid.Row="0" Grid.Column="1"
+                        MouseLeftButtonDown="TitleBarDragMove"
                         >
                 <Button HorizontalAlignment="Right"
                         

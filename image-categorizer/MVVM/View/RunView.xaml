@@ -27,18 +27,20 @@
                                 Margin="10, 10, 10, 10">
                             <TextBlock
                                 Background="#4f5b62"
+                                Foreground="#ffffff"
                                 >InputPath</TextBlock>
                             <DockPanel LastChildFill="True" 
                                         HorizontalAlignment="Stretch"
                                         >
                                 <Button DockPanel.Dock="Right"
                                         Width="100"
-                                        Command="{Binding InputPathSelectCommand}"
+                                        Command="{Binding SelectInputPathCommand}"
                                         Content="SelectPath"
                                         Style="{StaticResource PathSelectButtonThemes}"></Button>
                                 <TextBlock 
                                     Background="#4f5b62"
-                                    Text="SelectedPath"></TextBlock>
+                                    Foreground="#ffffff"
+                                    Text="{Binding RunModel.InputDirectorytPath}"></TextBlock>
                                 
                             </DockPanel>
                         </StackPanel>
@@ -48,18 +50,20 @@
                                 Margin="10, 10, 10, 10">
                             <TextBlock
                                 Background="#4f5b62"
+                                Foreground="#ffffff"
                                 >OutputPath</TextBlock>
                             <DockPanel LastChildFill="True" 
                                         HorizontalAlignment="Stretch"
                                         >
                                 <Button DockPanel.Dock="Right"
                                         Width="100"
-                                        Command="{Binding InputPathSelectCommand}"
+                                        Command="{Binding SelectOutputPathCommand}"
                                         Content="SelectPath"
                                         Style="{StaticResource PathSelectButtonThemes}"></Button>
                                 <TextBlock 
                                     Background="#4f5b62"
-                                    Text="SelectedPath"></TextBlock>
+                                    Foreground="#ffffff"
+                                    Text="{Binding RunModel.OutputDirectorytPath}"></TextBlock>
 
                             </DockPanel>
                         </StackPanel>

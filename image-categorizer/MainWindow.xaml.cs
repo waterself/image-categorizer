@@ -24,5 +24,22 @@ namespace image_categorizer
         {
             InitializeComponent();
         }
+
+        private void TitleBarDragMove(object sender, MouseEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void CloseButtonCommand(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Close();
+        }
+
+        private void MinimizeButtonCommand(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Maximized;
+        }
+
+
     }
 }
