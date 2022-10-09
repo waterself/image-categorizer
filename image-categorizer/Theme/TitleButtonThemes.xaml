@@ -7,18 +7,18 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="10"
+                        <Border CornerRadius="25"
                             VerticalAlignment="Stretch"
                               HorizontalAlignment="Stretch"
-                              Height="25"
-                              Width="25"
-                              Margin="10, 10, 10, 10"
+                              Height="12"
+                              Width="12"
+                              Margin="5, 5, 5, 5"
                               Background="{TemplateBinding Background}">
                             <TextBlock HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        FontSize="18"
                                        Foreground="#f2f2f2"
-                                       Text="X"/>
+                                       />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>

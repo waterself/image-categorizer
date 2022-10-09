@@ -13,49 +13,76 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+    <DockPanel 
+                Height="600"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                Background="#102027"
+                MouseLeftButtonDown="TitleBarDragMove">
 
-    <Border Background="#263238">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <DockPanel DockPanel.Dock="top"
+            Grid.Row="0"
+                       
+                        Grid.Column="1"
+                   
+                        HorizontalAlignment="Stretch"
+                        >
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button 
+                    DockPanel.Dock="Left"
+                        Background="Yellow"
+                    MouseLeftButtonDown="CloseButtonCommand"
+                        Style="{StaticResource TitleButtonThemes}"></Button>
+                <Button 
+                    DockPanel.Dock="Left"
+                        Background="Red"
+                    MouseLeftButtonDown="CloseButtonCommand"
+                        Style="{StaticResource TitleButtonThemes}"></Button>
+            </StackPanel>
+        </DockPanel>
+        <Border Background="#263238">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Text="LogoArea"
+                <TextBlock Text="LogoArea"
                        Foreground="#ffffff"
                        Grid.Column="0"
                        MouseLeftButtonDown="TitleBarDragMove"
-                       Grid.Row="0"
+                       Grid.Row="1"
                        FontSize="35"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
-            <StackPanel Grid.Row="0" Grid.Column="1"
+                <StackPanel Grid.Row="0" Grid.Column="1"
                         MouseLeftButtonDown="TitleBarDragMove"
                         >
-                <Button HorizontalAlignment="Right"
-                        
-                        Style="{StaticResource TitleButtonThemes}">CloseButton</Button>
-            </StackPanel>
-                <StackPanel Grid.Row="1" Grid.Column="0">
-                <RadioButton Content="Run Categorizer"
+
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="0">
+                    <RadioButton Content="Run Categorizer"
                              Style="{StaticResource MenuButtonThemes}"
                              Command="{Binding RunViewCommand}"
                              IsChecked="True"/>
-                <RadioButton Content="Summery"
+                    <RadioButton Content="Summery"
                              Style="{StaticResource MenuButtonThemes}"
                              Command="{Binding SummeryViewCommand}"
                              IsChecked="False"/>
-                <RadioButton Content="Setting"
+                    <RadioButton Content="Setting"
                              Style="{StaticResource MenuButtonThemes}"
                              Command="{Binding SettingViewCommand}"
                              IsChecked="False"/>
-            </StackPanel>
-            <ContentControl Grid.Column="1" Grid.Row="1"
+                </StackPanel>
+                <ContentControl Grid.Column="1" Grid.Row="2"
                             Content="{Binding CurrentView}"/>
-        </Grid>
-    </Border>
+            </Grid>
+        </Border>
+    </DockPanel>
 </Window>
