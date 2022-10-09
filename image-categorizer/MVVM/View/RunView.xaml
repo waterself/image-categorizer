@@ -11,16 +11,16 @@
         <viewModel:RunViewModel/>
     </UserControl.DataContext>
     <Border Background="#4f5b62" BorderBrush="#263238" BorderThickness="5">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid
+        <StackPanel
+            VerticalAlignment="Top">
+            <StackPanel
+                x:Name="PathSelector"
                 Background="white"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
-                <StackPanel Orientation="Vertical"
+                <StackPanel 
+                    x:Name="InputPathSelector"
+                    Orientation="Vertical"
                            Margin="5,5,5,5" >
                     <Border Background="#263238">
                         <StackPanel Orientation="Vertical"
@@ -41,11 +41,12 @@
                                     Background="#4f5b62"
                                     Foreground="#ffffff"
                                     Text="{Binding RunModel.InputDirectorytPath}"></TextBlock>
-                                
+
                             </DockPanel>
                         </StackPanel>
                     </Border>
-                    <Border Background="#263238">
+                    <Border x:Name="OutputPathSelector"
+                        Background="#263238">
                         <StackPanel Orientation="Vertical"
                                 Margin="10, 10, 10, 10">
                             <TextBlock
@@ -68,8 +69,33 @@
                             </DockPanel>
                         </StackPanel>
                     </Border>
+                    <Border x:Name="TotalFileNumber" 
+                        Background="#263238">
+                        <DockPanel
+                        Margin="10, 10 ,10 ,10">
+                            <TextBlock 
+                                    Background="#4f5b62"
+                                    Foreground="#ffffff"
+                                    Text="TotalFiles"/>
+                            <TextBlock 
+                                    Background="#4f5b62"
+                                    Foreground="#ffffff"
+                                    Text="Numbers"/>
+
+                        </DockPanel>
+                    </Border>
+                    
                 </StackPanel>
-            </Grid>
-        </Grid>
+                
+            </StackPanel>
+            <DockPanel>
+                <TextBlock
+                            DockPanel.Dock="Left">
+                            Preset Area
+                </TextBlock>
+                <TextBlock
+                    DockPanel.Dock="Right">Run Button</TextBlock>
+            </DockPanel>
+        </StackPanel>
     </Border>
 </UserControl>

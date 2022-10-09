@@ -18,11 +18,12 @@
                 VerticalAlignment="Stretch"
                 HorizontalAlignment="Stretch"
                 Background="#102027"
-                MouseLeftButtonDown="TitleBarDragMove">
+                MouseLeftButtonDown="TitleBar_DragMove">
 
         <DockPanel DockPanel.Dock="top"
+                   x:Name="TitleBar"
             Grid.Row="0"
-                       
+                       MouseLeftButtonDown="TitleBar_DragMove"
                         Grid.Column="1"
                    
                         HorizontalAlignment="Stretch"
@@ -32,12 +33,11 @@
                 <Button 
                     DockPanel.Dock="Left"
                         Background="Yellow"
-                    MouseLeftButtonDown="CloseButtonCommand"
                         Style="{StaticResource TitleButtonThemes}"></Button>
                 <Button 
                     DockPanel.Dock="Left"
                         Background="Red"
-                    MouseLeftButtonDown="CloseButtonCommand"
+                        Click="CloseButton_Click"
                         Style="{StaticResource TitleButtonThemes}"></Button>
             </StackPanel>
         </DockPanel>
@@ -48,7 +48,6 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25"/>
                     <RowDefinition Height="80"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -56,17 +55,12 @@
                 <TextBlock Text="LogoArea"
                        Foreground="#ffffff"
                        Grid.Column="0"
-                       MouseLeftButtonDown="TitleBarDragMove"
-                       Grid.Row="1"
+                       Grid.Row="0"
                        FontSize="35"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
-                <StackPanel Grid.Row="0" Grid.Column="1"
-                        MouseLeftButtonDown="TitleBarDragMove"
-                        >
 
-                </StackPanel>
-                <StackPanel Grid.Row="2" Grid.Column="0">
+                <StackPanel Grid.Row="1" Grid.Column="0">
                     <RadioButton Content="Run Categorizer"
                              Style="{StaticResource MenuButtonThemes}"
                              Command="{Binding RunViewCommand}"
@@ -80,7 +74,7 @@
                              Command="{Binding SettingViewCommand}"
                              IsChecked="False"/>
                 </StackPanel>
-                <ContentControl Grid.Column="1" Grid.Row="2"
+                <ContentControl Grid.Column="1" Grid.Row="1"
                             Content="{Binding CurrentView}"/>
             </Grid>
         </Border>
