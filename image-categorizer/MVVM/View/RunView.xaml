@@ -6,23 +6,27 @@
              xmlns:local="clr-namespace:image_categorizer.MVVM.View"
              xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="498" d:DesignWidth="740">
     <UserControl.DataContext>
         <viewModel:RunViewModel/>
     </UserControl.DataContext>
     <Border Background="#4f5b62" BorderBrush="#263238" BorderThickness="5">
         <StackPanel
             VerticalAlignment="Top">
-            <StackPanel
+            <Border
                 x:Name="PathSelector"
                 Background="white"
+                CornerRadius="10"
+                Margin="5"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
                 <StackPanel 
                     x:Name="InputPathSelector"
                     Orientation="Vertical"
                            Margin="5,5,5,5" >
-                    <Border Background="#263238">
+                    <Border Background="#263238"
+                            CornerRadius="5"
+                            >
                         <StackPanel Orientation="Vertical"
                                 Margin="10, 10, 10, 10">
                             <TextBlock
@@ -46,7 +50,8 @@
                         </StackPanel>
                     </Border>
                     <Border x:Name="OutputPathSelector"
-                        Background="#263238">
+                        Background="#263238"
+                            CornerRadius="5">
                         <StackPanel Orientation="Vertical"
                                 Margin="10, 10, 10, 10">
                             <TextBlock
@@ -65,11 +70,11 @@
                                     Background="#4f5b62"
                                     Foreground="#ffffff"
                                     Text="{Binding RunModel.OutputDirectorytPath}"></TextBlock>
-
                             </DockPanel>
                         </StackPanel>
                     </Border>
                     <Border x:Name="TotalFileNumber" 
+                            CornerRadius="5"
                         Background="#263238">
                         <DockPanel
                         Margin="10, 10 ,10 ,10">
@@ -84,17 +89,37 @@
 
                         </DockPanel>
                     </Border>
-                    
+
                 </StackPanel>
-                
-            </StackPanel>
-            <DockPanel>
-                <TextBlock
-                            DockPanel.Dock="Left">
-                            Preset Area
-                </TextBlock>
-                <TextBlock
-                    DockPanel.Dock="Right">Run Button</TextBlock>
+
+            </Border>
+            <Canvas MinHeight="140"/>
+            <DockPanel
+                LastChildFill="False">
+                <Border
+                    CornerRadius="10"
+                    Margin="10, 10, 10, 10"
+                    Background="#263238"
+                    MinHeight="150"
+                    MinWidth="200">
+                    <Border
+                        CornerRadius="5"
+                        Background="#4f5b62"
+                        Margin="5">
+                        
+                    </Border>
+                </Border>
+                <Button
+                    Style="{StaticResource MainAcceptButtonThemes}"
+                    Content="Run" 
+                    FontSize="20"
+                    Background="#263238"
+                    Foreground="#ffffff"
+                    DockPanel.Dock="Right"
+                    Height="50" 
+                    Width="150">
+                    
+                </Button>
             </DockPanel>
         </StackPanel>
     </Border>

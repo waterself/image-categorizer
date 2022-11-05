@@ -2,24 +2,28 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style BasedOn="{StaticResource {x:Type Button}}"
            TargetType="{x:Type Button}"
-           x:Key="PathSelectButtonThemes">
+           x:Key="MainAcceptButtonThemes">
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid VerticalAlignment="Stretch"
-                              HorizontalAlignment="Stretch"
-                              Background="#263238">
+                        <Border
+                            CornerRadius="5"
+                            Background="{TemplateBinding Property=Background}"
+                            Height="{TemplateBinding Property=Height}"
+                            Width="{TemplateBinding Property=Width}">
                             <TextBlock VerticalAlignment="Center"
-                                       Foreground="#ffffff"
-                                       Margin="2, 2, 2, 2"
-                                       Text="{TemplateBinding Property=Content}"/>
-                        </Grid>
+                                       HorizontalAlignment="Center"
+                                       Foreground="{TemplateBinding Property=Foreground}"
+                                       FontSize="{TemplateBinding Property=FontSize}"
+                                       FontWeight="Bold"
+                                       Text="{TemplateBinding Property=Content}"
+                                       />
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style.Setters>
-        <!--경로가 지정되었을 때 체크표시? 등을 띄워주기-->
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#001b33"/>

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using image_categorizer.Core;
-using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using image_categorizer.Core;
 using image_categorizer.MVVM.Model;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -20,11 +17,14 @@ namespace image_categorizer.MVVM.ViewModel
         public RunModel RunModel
         {
             get { return _runModel; }
-            set { _runModel = value;
+            set
+            {
+                _runModel = value;
                 OnPropertyChanged();
             }
         }
-        private RelayCommand PathSelectCommand(string mode) {
+        private RelayCommand PathSelectCommand(string mode)
+        {
             RelayCommand ret = new RelayCommand(o =>
             {
                 CommonOpenFileDialog openFileDialog = new();

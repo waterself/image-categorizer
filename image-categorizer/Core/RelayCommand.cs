@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace image_categorizer.Core
@@ -23,7 +19,7 @@ namespace image_categorizer.Core
 
 
         public event EventHandler CanExcuteChanged
-        { 
+        {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }

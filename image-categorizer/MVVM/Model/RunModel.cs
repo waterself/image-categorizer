@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using image_categorizer.Core;
+﻿using image_categorizer.Core;
 
 namespace image_categorizer.MVVM.Model
 {
@@ -23,7 +18,9 @@ namespace image_categorizer.MVVM.Model
         public string InputDirectorytPath
         {
             get { return _inputDirectoryPath; }
-            set { _inputDirectoryPath = value;
+            set
+            {
+                _inputDirectoryPath = value;
                 OnPropertyChanged();
             }
         }
@@ -33,7 +30,9 @@ namespace image_categorizer.MVVM.Model
         public string OutputDirectorytPath
         {
             get { return _outputDirectoryPath; }
-            set { _outputDirectoryPath = value;
+            set
+            {
+                _outputDirectoryPath = value;
                 OnPropertyChanged();
             }
         }
