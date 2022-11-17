@@ -1,7 +1,7 @@
 ﻿using image_categorizer.Core;
 using System.Collections.Generic;
 
-u
+
 
 namespace image_categorizer.MVVM.Model
 {
@@ -12,12 +12,12 @@ namespace image_categorizer.MVVM.Model
         public int FileCount
         {
             get { return _fileCount; }
-            set { _fileCount = value; }
+            set { _fileCount = value; OnPropertyChanged(); }
         }
 
-        private Dictionary<string, ImageDetails> _fileWithdetails;
+        private Dictionary<string, ImageDetails>? _fileWithdetails;
 
-        public Dictionary<string, ImageDetails> MyProperty
+        public Dictionary<string, ImageDetails>? FileWithDetails
         {
             get { return _fileWithdetails; }
             set { _fileWithdetails = value; }
@@ -27,7 +27,7 @@ namespace image_categorizer.MVVM.Model
 
         private string? _inputDirectoryPath = "Please Select Input Directory";
 
-        public string InputDirectorytPath
+        public string? InputDirectorytPath
         {
             get { return _inputDirectoryPath; }
             set
@@ -39,7 +39,7 @@ namespace image_categorizer.MVVM.Model
 
         private string? _outputDirectoryPath = "Please Select Output Directory";
 
-        public string OutputDirectorytPath
+        public string? OutputDirectorytPath
         {
             get { return _outputDirectoryPath; }
             set
