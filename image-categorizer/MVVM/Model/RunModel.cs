@@ -1,4 +1,7 @@
 ﻿using image_categorizer.Core;
+using System.Collections.Generic;
+
+u
 
 namespace image_categorizer.MVVM.Model
 {
@@ -11,6 +14,15 @@ namespace image_categorizer.MVVM.Model
             get { return _fileCount; }
             set { _fileCount = value; }
         }
+
+        private Dictionary<string, ImageDetails> _fileWithdetails;
+
+        public Dictionary<string, ImageDetails> MyProperty
+        {
+            get { return _fileWithdetails; }
+            set { _fileWithdetails = value; }
+        }
+
 
 
         private string? _inputDirectoryPath = "Please Select Input Directory";

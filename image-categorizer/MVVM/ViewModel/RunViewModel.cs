@@ -1,6 +1,8 @@
 ﻿using image_categorizer.Core;
 using image_categorizer.MVVM.Model;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.IO;
+using System.Windows;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -35,6 +37,17 @@ namespace image_categorizer.MVVM.ViewModel
                     if (mode == "input")
                     {
                         RunModel.InputDirectorytPath = openFileDialog.FileName as string;
+                        try
+                        { 
+                            string[] Files = Directory.GetFiles(openFileDialog.FileName, "*", SearchOption.AllDirectories);
+                            System.IO.DirectoryInfo directoryInfo = new System.IO.DirectoryInfo(RunModel.InputDirectorytPath);
+                            RunModel.FileCount = directoryInfo.GetFiles("*.*", System.IO.SearchOption.AllDirectories).Length;
+                            OnPropertyChanged();
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
                     else if (mode == "output")
                     {

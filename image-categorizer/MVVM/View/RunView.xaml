@@ -7,9 +7,20 @@
              xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="498" d:DesignWidth="740">
+    
+    <UserControl.Resources>
+        <Style x:Key="ButtonOne" TargetType="{x:Type Button}" >
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Azure" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <UserControl.DataContext>
         <viewModel:RunViewModel/>
     </UserControl.DataContext>
+    
     <Border Background="#4f5b62" BorderBrush="#263238" BorderThickness="5">
         <StackPanel
             VerticalAlignment="Top">
@@ -36,7 +47,8 @@
                             <DockPanel LastChildFill="True" 
                                         HorizontalAlignment="Stretch"
                                         >
-                                <Button DockPanel.Dock="Right"
+                                <Button x:Name="InputPathSelectButton" 
+                                    DockPanel.Dock="Right"
                                         Width="100"
                                         Command="{Binding SelectInputPathCommand}"
                                         Content="SelectPath"
@@ -61,7 +73,8 @@
                             <DockPanel LastChildFill="True" 
                                         HorizontalAlignment="Stretch"
                                         >
-                                <Button DockPanel.Dock="Right"
+                                <Button x:Name="OutputPathSelectButton"
+                                    DockPanel.Dock="Right"
                                         Width="100"
                                         Command="{Binding SelectOutputPathCommand}"
                                         Content="SelectPath"
@@ -77,15 +90,16 @@
                             CornerRadius="5"
                         Background="#263238">
                         <DockPanel
+                            LastChildFill="False"
                         Margin="10, 10 ,10 ,10">
-                            <TextBlock 
+                            <TextBlock DockPanel.Dock="Left"
                                     Background="#4f5b62"
                                     Foreground="#ffffff"
                                     Text="TotalFiles"/>
-                            <TextBlock 
+                            <TextBlock DockPanel.Dock="Right"
                                     Background="#4f5b62"
                                     Foreground="#ffffff"
-                                    Text="Numbers"/>
+                                    Text="{Binding RunModel.FileCount}"/>
 
                         </DockPanel>
                     </Border>
@@ -110,11 +124,10 @@
                     </Border>
                 </Border>
                 <Button
+                    x:Name="RunButton"
                     Style="{StaticResource MainAcceptButtonThemes}"
                     Content="Run" 
                     FontSize="20"
-                    Background="#263238"
-                    Foreground="#ffffff"
                     DockPanel.Dock="Right"
                     Height="50" 
                     Width="150">

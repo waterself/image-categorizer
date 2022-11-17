@@ -21,7 +21,7 @@
         </Style.Setters>
         <!--경로가 지정되었을 때 체크표시? 등을 띄워주기-->
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
+            <Trigger Property="IsMouseCaptured" Value="True">
                 <Setter Property="Background" Value="#001b33"/>
             </Trigger>
         </Style.Triggers>
