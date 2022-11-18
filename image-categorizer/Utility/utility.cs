@@ -12,16 +12,28 @@ namespace image_categorizer.Utility
     static class Utility
     {
         public static List<string> GetImageFiles(string filePath)
-        { 
+        {
             List<string> imageFiles = new List<string>();
-            foreach (string file in Directory.GetFiles(filePath))
+            foreach (string file in Directory.GetFiles(filePath, "*.*", SearchOption.AllDirectories))
             {
                 if (Regex.IsMatch(file, @".jpg|.png|.bmp|.JPG|.PNG|.BMP|.JPEG|.jpeg$"))
-                { 
+                {
                     imageFiles.Add(file);
                 }
             }
             return imageFiles;
         }
+        public static bool FileExistsCheck(string file)
+        {
+            if (File.Exists(file))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //public static string rename
     }
 }

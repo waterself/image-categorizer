@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 
-
 namespace image_categorizer.MVVM.Model
 {
     internal class RunModel : ObservableObject
@@ -12,7 +11,11 @@ namespace image_categorizer.MVVM.Model
         public int FileCount
         {
             get { return _fileCount; }
-            set { _fileCount = value; OnPropertyChanged(); }
+            set
+            {
+                _fileCount = value;
+                OnPropertyChanged();
+            }
         }
 
         private Dictionary<string, ImageDetails>? _fileWithdetails;

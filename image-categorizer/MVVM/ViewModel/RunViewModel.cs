@@ -16,6 +16,8 @@ namespace image_categorizer.MVVM.ViewModel
         {
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
+            RunButtonCommand = Run();
+            
             _runModel = new RunModel();
         }
         private RunModel _runModel = new();
@@ -38,37 +40,38 @@ namespace image_categorizer.MVVM.ViewModel
                 openFileDialog.IsFolderPicker = true;
                 if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    if (mode == "input")
+                    string? fileName = openFileDialog.FileName as string;
+                    if (fileName != null)
                     {
-                        string? fileName = openFileDialog.FileName as string;
-                        if (fileName != null)
+                        if (mode == "input")
                         {
                             RunModel.InputDirectorytPath = fileName;
+                            List<string> imageFiles = Utility.Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                            RunModel.FileCount = imageFiles.Count;
+                            OnPropertyChanged();
                         }
-                        else
+                        else if (mode == "output")
                         {
-                            MessageBox.Show("incorrect file path");
+                            RunModel.OutputDirectorytPath = fileName;
                         }
                     }
-                    else if (mode == "output")
+                    else
                     {
-                        RunModel.OutputDirectorytPath = openFileDialog.FileName as string;
+                        MessageBox.Show("incorrect directory");
                     }
                 }
             });
             return ret;
         }
 
-        private RelayCommand RunButtonCommand()
+        private RelayCommand Run()
         {
             RelayCommand ret = new RelayCommand(o =>
             {
                 if (RunModel.InputDirectorytPath != null)
                 {
                     List<string> imageFiles = Utility.Utility.GetImageFiles(RunModel.InputDirectorytPath);
-                    DirectoryInfo directoryInfo = new(RunModel.InputDirectorytPath);
-                    RunModel.FileCount = directoryInfo.GetFiles("*.jpg|*.jpeg", System.IO.SearchOption.AllDirectories).Length;
-                    foreach (string file in imageFiles)
+                    foreach (string file in imageFiles) //get metaData for Images
                     {
                         FileInfo fileInfo = new(file);
                         using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -82,6 +85,7 @@ namespace image_categorizer.MVVM.ViewModel
                         imageDetails.Format = metaData.Format;
                         RunModel.FileWithDetails.Add(file, imageDetails);
                      }
+                    // make foreach for check distinct date
                 }
             });
             return ret;
@@ -89,6 +93,9 @@ namespace image_categorizer.MVVM.ViewModel
 
         public RelayCommand SelectInputPathCommand { get; set; }
         public RelayCommand SelectOutputPathCommand { get; set; }
+        public RelayCommand RunButtonCommand { get; set; }
+        
+
 
 
     }

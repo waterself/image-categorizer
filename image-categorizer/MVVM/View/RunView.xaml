@@ -125,6 +125,7 @@
                 </Border>
                 <Button
                     x:Name="RunButton"
+                    Command="{Binding RunButtonCommand}"
                     Style="{StaticResource MainAcceptButtonThemes}"
                     Content="Run" 
                     FontSize="20"
