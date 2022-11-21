@@ -2,6 +2,7 @@
 using image_categorizer.MVVM.Model;
 using image_categorizer.Utility;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
@@ -84,10 +85,12 @@ namespace image_categorizer.MVVM.ViewModel
                         imageDetails.DateTaken = Utility.Utility.FormatDate(metaData.DateTaken);
                         dates.Add(metaData.DateTaken);
                         imageDetails.CameraModel = Utility.Utility.GetCameraModelWithCameraManufacturer(
-                            metaData.CameraManufacturer, metaData.CameraManufacturer);
+                            metaData.CameraManufacturer, metaData.CameraModel);
                         imageDetails.Format = metaData.Format;
                         RunModel.FileWithDetails.Add(file, imageDetails); //An item with the same key has already been added.'
+                        //System.Diagnostics.Debug.WriteLine(imageDetails.CameraModel);
                     }
+                    
                     dates.Sort();
                     List<string>? distinctedDate = Utility.Utility.ListDistinct(dates);
                     //to make directory with distinctedDate and rename and move by EXIF data
