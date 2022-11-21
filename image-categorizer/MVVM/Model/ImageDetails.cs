@@ -8,6 +8,7 @@ namespace image_categorizer.MVVM.Model
 {
     internal class ImageDetails
     {
+        public string? FileName { get; set; }
         public string? DateTaken { get; set; }
         public string? Location { get; set; }
         public string? CameraModel { get; set; }

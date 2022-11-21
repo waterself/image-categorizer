@@ -4,10 +4,12 @@ namespace image_categorizer.MVVM.ViewModel
 {
     internal class MainViewModel : ObservableObject
     {
+        // Command Properties
         public RelayCommand RunViewCommand { get; set; }
         public RelayCommand SettingViewCommand { get; set; }
         public RelayCommand SummeryViewCommand { get; set; }
 
+        // ViewModel Properies
         public RunViewModel RunVM { get; set; }
         public SummeryViewModel SummerVM { get; set; }
         public SettingViewModel SettingVM { get; set; }

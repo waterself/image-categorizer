@@ -18,7 +18,7 @@ namespace image_categorizer.MVVM.Model
             }
         }
 
-        private Dictionary<string, ImageDetails>? _fileWithdetails;
+        private Dictionary<string, ImageDetails>? _fileWithdetails = new();
 
         public Dictionary<string, ImageDetails>? FileWithDetails
         {
@@ -28,7 +28,7 @@ namespace image_categorizer.MVVM.Model
 
 
 
-        private string? _inputDirectoryPath = "Please Select Input Directory";
+        private string? _inputDirectoryPath = null; //"Please Select Input Directory";
 
         public string? InputDirectorytPath
         {
@@ -40,7 +40,7 @@ namespace image_categorizer.MVVM.Model
             }
         }
 
-        private string? _outputDirectoryPath = "Please Select Output Directory";
+        private string? _outputDirectoryPath = null; //"Please Select Output Directory";
 
         public string? OutputDirectorytPath
         {
@@ -51,6 +51,8 @@ namespace image_categorizer.MVVM.Model
                 OnPropertyChanged();
             }
         }
+
+       
 
     }
 }

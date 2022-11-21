@@ -56,7 +56,9 @@
                                 <TextBlock 
                                     Background="#4f5b62"
                                     Foreground="#ffffff"
-                                    Text="{Binding RunModel.InputDirectorytPath}"></TextBlock>
+                                    
+                                    Text="{Binding RunModel.InputDirectorytPath, 
+                                    TargetNullValue=Please Select Input Directory}"></TextBlock>
 
                             </DockPanel>
                         </StackPanel>
@@ -82,7 +84,8 @@
                                 <TextBlock 
                                     Background="#4f5b62"
                                     Foreground="#ffffff"
-                                    Text="{Binding RunModel.OutputDirectorytPath}"></TextBlock>
+                                    Text="{Binding RunModel.OutputDirectorytPath, 
+                                    TargetNullValue=Please Select Input Directory}"></TextBlock>
                             </DockPanel>
                         </StackPanel>
                     </Border>

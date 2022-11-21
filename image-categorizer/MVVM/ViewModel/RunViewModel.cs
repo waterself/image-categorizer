@@ -20,9 +20,9 @@ namespace image_categorizer.MVVM.ViewModel
             
             _runModel = new RunModel();
         }
-        private RunModel _runModel = new();
+        private RunModel? _runModel = new();
 
-        public RunModel RunModel
+        public RunModel? RunModel
         {
             get { return _runModel; }
             set
@@ -68,24 +68,33 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RelayCommand ret = new RelayCommand(o =>
             {
+                
                 if (RunModel.InputDirectorytPath != null)
                 {
                     List<string> imageFiles = Utility.Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                    List<string> dates = new();
+
                     foreach (string file in imageFiles) //get metaData for Images
                     {
                         FileInfo fileInfo = new(file);
                         using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
                         BitmapSource image = BitmapFrame.Create(fs);
                         BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
-
                         ImageDetails imageDetails = new ImageDetails();
-                        imageDetails.Location = metaData.Location;
-                        imageDetails.DateTaken = metaData.DateTaken;
-                        imageDetails.CameraModel = metaData.CameraModel;
+                        imageDetails.Location = metaData.Location; 
+                        imageDetails.DateTaken = Utility.Utility.FormatDate(metaData.DateTaken);
+                        dates.Add(metaData.DateTaken);
+                        imageDetails.CameraModel = Utility.Utility.GetCameraModelWithCameraManufacturer(
+                            metaData.CameraManufacturer, metaData.CameraManufacturer);
                         imageDetails.Format = metaData.Format;
-                        RunModel.FileWithDetails.Add(file, imageDetails);
-                     }
-                    // make foreach for check distinct date
+                        RunModel.FileWithDetails.Add(file, imageDetails); //An item with the same key has already been added.'
+                    }
+                    dates.Sort();
+                    List<string>? distinctedDate = Utility.Utility.ListDistinct(dates);
+                    //to make directory with distinctedDate and rename and move by EXIF data
+                    
+
+                    
                 }
             });
             return ret;
@@ -96,7 +105,7 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand RunButtonCommand { get; set; }
         
 
-
+        
 
     }
 }
