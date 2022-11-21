@@ -68,8 +68,7 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RelayCommand ret = new RelayCommand(o =>
             {
-                
-                if (RunModel.InputDirectorytPath != null)
+                if (RunModel.InputDirectorytPath != null) //will add && RunModel.OutputDirectorytPath != null
                 {
                     List<string> imageFiles = Utility.Utility.GetImageFiles(RunModel.InputDirectorytPath);
                     List<string> dates = new();
@@ -81,7 +80,7 @@ namespace image_categorizer.MVVM.ViewModel
                         BitmapSource image = BitmapFrame.Create(fs);
                         BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
                         ImageDetails imageDetails = new ImageDetails();
-                        imageDetails.Location = metaData.Location; 
+                        imageDetails.Location = metaData.Location;
                         imageDetails.DateTaken = Utility.Utility.FormatDate(metaData.DateTaken);
                         dates.Add(metaData.DateTaken);
                         imageDetails.CameraModel = Utility.Utility.GetCameraModelWithCameraManufacturer(
@@ -92,9 +91,10 @@ namespace image_categorizer.MVVM.ViewModel
                     dates.Sort();
                     List<string>? distinctedDate = Utility.Utility.ListDistinct(dates);
                     //to make directory with distinctedDate and rename and move by EXIF data
-                    
 
-                    
+                }
+                else {
+                    MessageBox.Show("Please Select Input/Output Directory");
                 }
             });
             return ret;
