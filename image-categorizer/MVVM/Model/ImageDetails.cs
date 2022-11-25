@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace image_categorizer.MVVM.Model
 {
-    internal class ImageDetails
+    class ImageDetails
     {
         public string? FileName { get; set; }
         public string? DateTaken { get; set; }
+        public string? TimeTaken { get; set; }
         public string? Location { get; set; }
         public string? CameraModel { get; set; }
         public string? Format { get; set; }

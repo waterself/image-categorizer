@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace image_categorizer.MVVM.Model
 {
-    internal class RunModel : ObservableObject
+    class RunModel : ObservableObject
     {
         private int _fileCount;
 

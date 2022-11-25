@@ -1,9 +1,10 @@
-﻿using image_categorizer.Core;
+﻿using image_categorizer;
+using image_categorizer.Core;
 using image_categorizer.MVVM.Model;
-using image_categorizer.Utility;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -47,7 +48,7 @@ namespace image_categorizer.MVVM.ViewModel
                         if (mode == "input")
                         {
                             RunModel.InputDirectorytPath = fileName;
-                            List<string> imageFiles = Utility.Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                            List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
                             RunModel.FileCount = imageFiles.Count;
                             OnPropertyChanged();
                         }
@@ -69,31 +70,39 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RelayCommand ret = new RelayCommand(o =>
             {
+                //will modulize
                 if (RunModel.InputDirectorytPath != null) //will add && RunModel.OutputDirectorytPath != null
                 {
-                    List<string> imageFiles = Utility.Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                    List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
                     List<string> dates = new();
-
+                    
                     foreach (string file in imageFiles) //get metaData for Images
                     {
                         FileInfo fileInfo = new(file);
                         using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
                         BitmapSource image = BitmapFrame.Create(fs);
                         BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
+                        System.Diagnostics.Debug.WriteLine(Convert.ToDateTime(metaData.DateTaken));
                         ImageDetails imageDetails = new ImageDetails();
                         imageDetails.Location = metaData.Location;
-                        imageDetails.DateTaken = Utility.Utility.FormatDate(metaData.DateTaken);
+                        imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);    
+                        imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
                         dates.Add(metaData.DateTaken);
-                        imageDetails.CameraModel = Utility.Utility.GetCameraModelWithCameraManufacturer(
+                        imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
                             metaData.CameraManufacturer, metaData.CameraModel);
                         imageDetails.Format = metaData.Format;
-                        RunModel.FileWithDetails.Add(file, imageDetails); //An item with the same key has already been added.'
+                        if (!RunModel.FileWithDetails.ContainsKey(file))
+                        {
+                            RunModel.FileWithDetails.Add(file, imageDetails);
+                        }//An item with the same key has already been added.'
                         //System.Diagnostics.Debug.WriteLine(imageDetails.CameraModel);
                     }
                     
                     dates.Sort();
-                    List<string>? distinctedDate = Utility.Utility.ListDistinct(dates);
+                    List<string>? distinctedDate = Utility.ListDistinct(dates);
                     //to make directory with distinctedDate and rename and move by EXIF data
+                    //Guid? guid = null;  
+
 
                 }
                 else {

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace image_categorizer.Utility
+namespace image_categorizer
 {
-    static class Utility
+    public class Utility
     {
         public static List<string> GetImageFiles(string filePath)
         {
@@ -34,15 +34,33 @@ namespace image_categorizer.Utility
                 return false;
             }
         }
-        public static string? FormatDate(string date)
+        public static string? FormatDateTaken(string? date)
         {
             if (date != null)
             {
-                string formattedDate = date.Substring(0, 10);
-                return Regex.Replace(formattedDate, @"[^0-9-]", "");
+                DateTime dateTime = new();
+                if (DateTime.TryParse(date, out dateTime))
+                {
+                    return dateTime.ToString("yyyy-MM-dd");
+                }
+                else return null;
             }
             else return null;
         }
+        public static string? FormatTimeTaken(string? date)
+        {
+            if (date != null)
+            {
+                DateTime dateTime = new();
+                if (DateTime.TryParse(date, out dateTime))
+                {
+                    return dateTime.ToString("HH:mm:ss");
+                }
+                else return null;
+            }
+            else return null;
+        }
+
         public static string? GetCameraModelWithCameraManufacturer(string CameraManufacturer,
             string CameraModel)
         {
