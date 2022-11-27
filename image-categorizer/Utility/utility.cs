@@ -18,7 +18,7 @@ namespace image_categorizer
             {
                 if (Regex.IsMatch(file, @".jpg|.png|.bmp|.JPG|.PNG|.BMP|.JPEG|.jpeg$"))
                 {
-                    imageFiles.Add(file);
+                    imageFiles.Add(@file);
                 }
             }
             return imageFiles;
@@ -41,7 +41,7 @@ namespace image_categorizer
                 DateTime dateTime = new();
                 if (DateTime.TryParse(date, out dateTime))
                 {
-                    return dateTime.ToString("yyyy-MM-dd");
+                    return dateTime.ToString("yyyyMMdd");
                 }
                 else return null;
             }
@@ -54,7 +54,7 @@ namespace image_categorizer
                 DateTime dateTime = new();
                 if (DateTime.TryParse(date, out dateTime))
                 {
-                    return dateTime.ToString("HH:mm:ss");
+                    return dateTime.ToString("HHmmss");
                 }
                 else return null;
             }

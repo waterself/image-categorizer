@@ -71,7 +71,7 @@ namespace image_categorizer.MVVM.ViewModel
             RelayCommand ret = new RelayCommand(o =>
             {
                 //will modulize
-                if (RunModel.InputDirectorytPath != null) //will add && RunModel.OutputDirectorytPath != null
+                if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null) 
                 {
                     List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
                     List<string> dates = new();
@@ -87,7 +87,7 @@ namespace image_categorizer.MVVM.ViewModel
                         imageDetails.Location = metaData.Location;
                         imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);    
                         imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
-                        dates.Add(metaData.DateTaken);
+                        dates.Add(imageDetails.DateTaken);
                         imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
                             metaData.CameraManufacturer, metaData.CameraModel);
                         imageDetails.Format = metaData.Format;
@@ -97,11 +97,45 @@ namespace image_categorizer.MVVM.ViewModel
                         }//An item with the same key has already been added.'
                         //System.Diagnostics.Debug.WriteLine(imageDetails.CameraModel);
                     }
-                    
-                    dates.Sort();
+                    imageFiles.Clear();
+                    //make dir
                     List<string>? distinctedDate = Utility.ListDistinct(dates);
                     //to make directory with distinctedDate and rename and move by EXIF data
-                    //Guid? guid = null;  
+                    foreach (string date in distinctedDate)
+                    {
+                        string dir;
+                        if (date == null) { dir = "ETC"; }
+                        else { dir = date; }
+                        string dirpath = String.Format($"{RunModel.OutputDirectorytPath}\\{dir}");
+                        try
+                        {
+                            DirectoryInfo directoryInfo = new DirectoryInfo(dirpath);
+                            if (directoryInfo.Exists == false)
+                            {
+                                directoryInfo.Create();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }  
+                    }
+                    foreach (string key in RunModel.FileWithDetails.Keys)
+                    {
+                        ImageDetails file = RunModel.FileWithDetails[key];
+                        string fileName = String.Format($"{file.DateTaken}_{file.TimeTaken}.{file.Format}");
+                        string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{file.DateTaken}\\{fileName}");
+                        try
+                        {
+                            File.Copy(key, destPath, true);
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message);
+                            continue;
+                        }
+                    }
+                    //messageBox for check delete original files
 
 
                 }
@@ -115,9 +149,8 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand SelectInputPathCommand { get; set; }
         public RelayCommand SelectOutputPathCommand { get; set; }
         public RelayCommand RunButtonCommand { get; set; }
-        
 
-        
+       
 
     }
 }
