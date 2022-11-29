@@ -19,7 +19,7 @@ namespace image_categorizer.MVVM.ViewModel
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
             RunButtonCommand = Run();
-            
+
             _runModel = new RunModel();
         }
         private RunModel? _runModel = new();
@@ -68,80 +68,9 @@ namespace image_categorizer.MVVM.ViewModel
 
         private RelayCommand Run()
         {
-            RelayCommand ret = new RelayCommand(o =>
+            RelayCommand ret = new(o =>
             {
-                //will modulize
-                if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null) 
-                {
-                    List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
-                    List<string> dates = new();
-                    
-                    foreach (string file in imageFiles) //get metaData for Images
-                    {
-                        FileInfo fileInfo = new(file);
-                        using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
-                        BitmapSource image = BitmapFrame.Create(fs);
-                        BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
-                        System.Diagnostics.Debug.WriteLine(Convert.ToDateTime(metaData.DateTaken));
-                        ImageDetails imageDetails = new ImageDetails();
-                        imageDetails.Location = metaData.Location;
-                        imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);    
-                        imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
-                        dates.Add(imageDetails.DateTaken);
-                        imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
-                            metaData.CameraManufacturer, metaData.CameraModel);
-                        imageDetails.Format = metaData.Format;
-                        if (!RunModel.FileWithDetails.ContainsKey(file))
-                        {
-                            RunModel.FileWithDetails.Add(file, imageDetails);
-                        }//An item with the same key has already been added.'
-                        //System.Diagnostics.Debug.WriteLine(imageDetails.CameraModel);
-                    }
-                    imageFiles.Clear();
-                    //make dir
-                    List<string>? distinctedDate = Utility.ListDistinct(dates);
-                    //to make directory with distinctedDate and rename and move by EXIF data
-                    foreach (string date in distinctedDate)
-                    {
-                        string dir;
-                        if (date == null) { dir = "ETC"; }
-                        else { dir = date; }
-                        string dirpath = String.Format($"{RunModel.OutputDirectorytPath}\\{dir}");
-                        try
-                        {
-                            DirectoryInfo directoryInfo = new DirectoryInfo(dirpath);
-                            if (directoryInfo.Exists == false)
-                            {
-                                directoryInfo.Create();
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            continue;
-                        }  
-                    }
-                    foreach (string key in RunModel.FileWithDetails.Keys)
-                    {
-                        ImageDetails file = RunModel.FileWithDetails[key];
-                        string fileName = String.Format($"{file.DateTaken}_{file.TimeTaken}.{file.Format}");
-                        string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{file.DateTaken}\\{fileName}");
-                        try
-                        {
-                            File.Copy(key, destPath, true);
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message);
-                            continue;
-                        }
-                    }
-                    //messageBox for check delete original files
-
-
-                }
-                else {
-                    MessageBox.Show("Please Select Input/Output Directory");
-                }
+                ImageCategorize();
             });
             return ret;
         }
@@ -149,8 +78,80 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand SelectInputPathCommand { get; set; }
         public RelayCommand SelectOutputPathCommand { get; set; }
         public RelayCommand RunButtonCommand { get; set; }
+        public void ImageCategorize()
+        {
 
-       
+            //will modulize
+            if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null)
+            {
+                List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                List<string> dates = new();
 
+                foreach (string file in imageFiles) //get metaData for Images
+                {
+                    FileInfo fileInfo = new(file);
+                    using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    BitmapSource image = BitmapFrame.Create(fs);
+                    BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
+                    System.Diagnostics.Debug.WriteLine(Convert.ToDateTime(metaData.DateTaken));
+                    ImageDetails imageDetails = new ImageDetails();
+                    imageDetails.Location = metaData.Location;
+                    imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
+                    imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
+                    dates.Add(imageDetails.DateTaken);
+                    imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
+                        metaData.CameraManufacturer, metaData.CameraModel);
+                    imageDetails.Format = metaData.Format;
+                    if (!RunModel.FileWithDetails.ContainsKey(file))
+                    {
+                        RunModel.FileWithDetails.Add(file, imageDetails);
+                    }//An item with the same key has already been added.'
+                     //System.Diagnostics.Debug.WriteLine(imageDetails.CameraModel);
+                }
+                imageFiles.Clear();
+                //make dir
+                List<string>? distinctedDate = Utility.ListDistinct(dates);
+                //to make directory with distinctedDate and rename and move by EXIF data
+                foreach (string date in distinctedDate)
+                {
+                    string dir;
+                    if (date == null) { dir = "ETC"; }
+                    else { dir = date; }
+                    string dirpath = String.Format($"{RunModel.OutputDirectorytPath}\\{dir}");
+                    try
+                    {
+                        DirectoryInfo directoryInfo = new DirectoryInfo(dirpath);
+                        if (directoryInfo.Exists == false)
+                        {
+                            directoryInfo.Create();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+                }
+                foreach (string key in RunModel.FileWithDetails.Keys)
+                {
+                    ImageDetails file = RunModel.FileWithDetails[key];
+                    string fileName = String.Format($"{file.DateTaken}_{file.TimeTaken}.{file.Format}");
+                    string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{file.DateTaken}\\{fileName}");
+                    try
+                    {
+                        File.Copy(key, destPath, true);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+                        continue;
+                    }
+                }
+                //messageBox for check delete original files
+            }
+            else
+            {
+                MessageBox.Show("Please Select Input/Output Directory");
+            }
+        }
     }
 }
