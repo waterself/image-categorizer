@@ -1,28 +1,30 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style BasedOn="{StaticResource {x:Type Button}}"
-           TargetType="{x:Type Button}"
-           x:Key="PathSelectButtonThemes">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style
+        x:Key="PathSelectButtonThemes"
+        BasedOn="{StaticResource {x:Type Button}}"
+        TargetType="{x:Type Button}">
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid VerticalAlignment="Stretch"
-                              HorizontalAlignment="Stretch"
-                              Background="#263238">
-                            <TextBlock VerticalAlignment="Center"
-                                       Foreground="#ffffff"
-                                       Margin="2, 2, 2, 2"
-                                       Text="{TemplateBinding Property=Content}"/>
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="#263238">
+                            <TextBlock
+                                Margin="2,2,2,2"
+                                VerticalAlignment="Center"
+                                Foreground="#ffffff"
+                                Text="{TemplateBinding Property=Content}" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style.Setters>
-        <!--경로가 지정되었을 때 체크표시? 등을 띄워주기-->
+        <!--  if directory is selected, show check point  -->
         <Style.Triggers>
             <Trigger Property="IsMouseCaptured" Value="True">
-                <Setter Property="Background" Value="#001b33"/>
+                <Setter Property="Background" Value="#001b33" />
             </Trigger>
         </Style.Triggers>
     </Style>

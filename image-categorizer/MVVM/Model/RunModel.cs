@@ -29,7 +29,7 @@ namespace image_categorizer.MVVM.Model
 
         //private string? _inputDirectoryPath = null;
 
-        private string? _inputDirectoryPath = "C:\\Test"; 
+        private string? _inputDirectoryPath = "C:\\Test";
 
         public string? InputDirectorytPath
         {
@@ -43,7 +43,7 @@ namespace image_categorizer.MVVM.Model
 
         //"Please Select Output Directory";
         //private string? _outputDirectoryPath = null;
-        private string? _outputDirectoryPath = "C:\\output"; 
+        private string? _outputDirectoryPath = "C:\\output";
 
         public string? OutputDirectorytPath
         {
@@ -55,7 +55,7 @@ namespace image_categorizer.MVVM.Model
             }
         }
 
-       
+
 
     }
 }

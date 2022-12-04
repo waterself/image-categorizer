@@ -1,10 +1,8 @@
-﻿using image_categorizer;
-using image_categorizer.Core;
+﻿using image_categorizer.Core;
 using image_categorizer.MVVM.Model;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -80,8 +78,6 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand RunButtonCommand { get; set; }
         public void ImageCategorize()
         {
-
-            //will modulize
             if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
@@ -93,15 +89,19 @@ namespace image_categorizer.MVVM.ViewModel
                     using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
                     BitmapSource image = BitmapFrame.Create(fs);
                     BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
-                    System.Diagnostics.Debug.WriteLine(Convert.ToDateTime(metaData.DateTaken));
+
                     ImageDetails imageDetails = new ImageDetails();
+                    double[]? coordinate = Utility.GetCoordinate(metaData);
+                    imageDetails.Latitude = coordinate[0];
+                    imageDetails.Longtitude = coordinate[1];
                     imageDetails.Location = metaData.Location;
                     imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
                     imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
-                    dates.Add(imageDetails.DateTaken);
                     imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
                         metaData.CameraManufacturer, metaData.CameraModel);
                     imageDetails.Format = metaData.Format;
+                    dates.Add(imageDetails.DateTaken);
+
                     if (!RunModel.FileWithDetails.ContainsKey(file))
                     {
                         RunModel.FileWithDetails.Add(file, imageDetails);

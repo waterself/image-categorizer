@@ -2,7 +2,7 @@
 
 namespace image_categorizer.MVVM.ViewModel
 {
-    internal class MainViewModel : ObservableObject
+    internal class ShellViewModel : ObservableObject
     {
         // Command Properties
         public RelayCommand RunViewCommand { get; set; }
@@ -16,7 +16,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         private object _currentView;
 
-        public MainViewModel()
+        public ShellViewModel()
         {
             RunVM = new();
             SummerVM = new();

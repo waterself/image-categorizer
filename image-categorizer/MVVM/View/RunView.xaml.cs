@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
-using image_categorizer.Core;
+﻿using System.Windows.Controls;
 
 namespace image_categorizer.MVVM.View
 {
