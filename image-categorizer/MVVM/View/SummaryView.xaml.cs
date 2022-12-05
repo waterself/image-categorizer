@@ -5,9 +5,9 @@ namespace image_categorizer.MVVM.View
     /// <summary>
     /// SummeryView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class SummeryView : UserControl
+    public partial class SummaryView : UserControl
     {
-        public SummeryView()
+        public SummaryView()
         {
             InitializeComponent();
         }

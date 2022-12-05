@@ -118,7 +118,7 @@
                     <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">
                         <StackPanel Margin="10">
                             <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="#ffffff">
-                                FileName Rule
+                                FileName Rules
                             </TextBlock>
                             <Grid HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSolidColorBrush}">
                                 <Grid.ColumnDefinitions>

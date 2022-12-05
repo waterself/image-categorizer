@@ -5,7 +5,7 @@
     xmlns:local="clr-namespace:image_categorizer"
     xmlns:view="clr-namespace:image_categorizer.MVVM.View"
     xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
-    StartupUri="MainWindow.xaml">
+    StartupUri="ShellView.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -18,8 +18,8 @@
             <DataTemplate DataType="{x:Type viewModel:RunViewModel}">
                 <view:RunView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModel:SummeryViewModel}">
-                <view:SummeryView />
+            <DataTemplate DataType="{x:Type viewModel:SummaryViewModel}">
+                <view:SummaryView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:SettingViewModel}">
                 <view:SettingView />

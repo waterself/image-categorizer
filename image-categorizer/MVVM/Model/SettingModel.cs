@@ -1,37 +1,35 @@
-﻿namespace image_categorizer.MVVM.Model
+﻿using image_categorizer.Core;
+using System.Collections.Generic;
+
+namespace image_categorizer.MVVM.Model
 {
-    internal class SettingModel
+    class SettingModel : ObservableObject
     {
-        private bool _cameraModelEnable;
-        public bool CameraModelEnable
+        private List<string>? _directoryRules;
+
+        public List<string>? DirectoryRules
         {
-            get { return _cameraModelEnable; }
-            set { _cameraModelEnable = value; }
+            get { return _directoryRules; }
+            set { _directoryRules = value; }
         }
 
-        private bool _LocationEnable;
-        public bool LocationEnable
+        private List<string>? _fileNameRules;
+
+        public List<string>? FileNameRules
         {
-            get { return _LocationEnable; }
-            set { _LocationEnable = value; }
+            get { return _fileNameRules; }
+            set { _fileNameRules = value; }
         }
 
-        private bool _dateTakenEnable;
 
-        public bool DateTakenEnable
+        public static List<string> RulesForComboBox = new()
         {
-            get { return _dateTakenEnable; }
-            set { _dateTakenEnable = value; }
-        }
-
-        private bool _formatEnable;
-
-        public bool FormatEnable
-        {
-            get { return _formatEnable; }
-            set { _formatEnable = value; }
-        }
-
+            "None",
+            "Date",
+            "CameraModel",
+            "Format",
+            "Location"
+        };
 
     }
 }

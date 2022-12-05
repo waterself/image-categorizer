@@ -74,7 +74,7 @@
                         IsChecked="False"
                         Style="{StaticResource MenuButtonThemes}" />
                     <RadioButton
-                        Command="{Binding SummeryViewCommand}"
+                        Command="{Binding SummaryViewCommand}"
                         Content="Summery"
                         IsChecked="False"
                         Style="{StaticResource MenuButtonThemes}" />

@@ -2,44 +2,20 @@
 
 namespace image_categorizer.MVVM.ViewModel
 {
-    internal class ShellViewModel : ObservableObject
+    class ShellViewModel : ObservableObject
     {
         // Command Properties
         public RelayCommand RunViewCommand { get; set; }
         public RelayCommand SettingViewCommand { get; set; }
-        public RelayCommand SummeryViewCommand { get; set; }
+        public RelayCommand SummaryViewCommand { get; set; }
 
-        // ViewModel Properies
+        // ViewModel Properties
         public RunViewModel RunVM { get; set; }
-        public SummeryViewModel SummerVM { get; set; }
+        public SummaryViewModel SummaryVM { get; set; }
         public SettingViewModel SettingVM { get; set; }
 
+
         private object _currentView;
-
-        public ShellViewModel()
-        {
-            RunVM = new();
-            SummerVM = new();
-            SettingVM = new();
-
-            CurrentView = RunVM;
-
-            RunViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = RunVM;
-            });
-
-            SummeryViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = SummerVM;
-            });
-            SettingViewCommand = new RelayCommand(o =>
-            {
-                CurrentView = SettingVM;
-            });
-
-        }
-
         public object CurrentView
         {
             get { return _currentView; }
@@ -49,5 +25,29 @@ namespace image_categorizer.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public ShellViewModel()
+        {
+            RunVM = new();
+            SummaryVM = new();
+            SettingVM = new();
+
+            CurrentView = RunVM;
+
+            RunViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = RunVM;
+            });
+            SummaryViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = SummaryVM;
+            });
+            SettingViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = SettingVM;
+            });
+
+        }
+
     }
 }
