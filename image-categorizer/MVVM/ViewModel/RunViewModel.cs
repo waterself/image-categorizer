@@ -92,8 +92,11 @@ namespace image_categorizer.MVVM.ViewModel
 
                     ImageDetails imageDetails = new ImageDetails();
                     double[]? coordinate = Utility.GetCoordinate(metaData);
-                    imageDetails.Latitude = coordinate[0];
-                    imageDetails.Longtitude = coordinate[1];
+                    if (coordinate != null)
+                    {
+                        imageDetails.Latitude = coordinate[0];
+                        imageDetails.Longtitude = coordinate[1];
+                    }
                     imageDetails.Location = metaData.Location;
                     imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
                     imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
