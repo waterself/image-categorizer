@@ -5,7 +5,7 @@ namespace image_categorizer.MVVM.Model
 {
     class SettingModel : ObservableObject
     {
-        private List<string>? _directoryRules;
+        private List<string>? _directoryRules = new(4);
 
         public List<string>? DirectoryRules
         {
@@ -13,7 +13,7 @@ namespace image_categorizer.MVVM.Model
             set { _directoryRules = value; }
         }
 
-        private List<string>? _fileNameRules;
+        private List<string>? _fileNameRules = new(4);
 
         public List<string>? FileNameRules
         {
@@ -22,7 +22,7 @@ namespace image_categorizer.MVVM.Model
         }
 
 
-        public static List<string> RulesForComboBox = new()
+        public List<string>? RulesForComboBox = new()
         {
             "None",
             "Date",

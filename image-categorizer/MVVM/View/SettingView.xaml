@@ -5,9 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
     d:DesignHeight="498"
     d:DesignWidth="740"
     mc:Ignorable="d">
+    <UserControl.DataContext>
+        <viewModel:SettingViewModel />
+    </UserControl.DataContext>
     <Grid Background="{StaticResource BackgroundSolidColorBrush}">
         <DockPanel>
             <Border
@@ -90,7 +94,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Border Grid.Column="0" Margin="5">
-                                    <ComboBox />
+                                    <ComboBox ItemsSource="{Binding SettingModel.RulesForComboBox}" />
+
                                 </Border>
                                 <Border Grid.Column="1" Margin="5">
                                     <ComboBox />
