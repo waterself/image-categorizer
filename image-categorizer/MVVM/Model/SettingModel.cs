@@ -1,13 +1,14 @@
 ﻿using image_categorizer.Core;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace image_categorizer.MVVM.Model
 {
     class SettingModel : ObservableObject
     {
-        private List<string>? _directoryRules = new(4);
+        private string[] _directoryRules = new string[4];
 
-        public List<string>? DirectoryRules
+        public string[] DirectoryRules
         {
             get { return _directoryRules; }
             set { _directoryRules = value; }
@@ -20,16 +21,6 @@ namespace image_categorizer.MVVM.Model
             get { return _fileNameRules; }
             set { _fileNameRules = value; }
         }
-
-
-        public List<string>? RulesForComboBox = new()
-        {
-            "None",
-            "Date",
-            "CameraModel",
-            "Format",
-            "Location"
-        };
 
     }
 }

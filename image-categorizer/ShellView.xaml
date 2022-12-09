@@ -52,7 +52,6 @@
                     <RowDefinition Height="80" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
@@ -61,7 +60,6 @@
                     FontSize="35"
                     Foreground="#ffffff"
                     Text="" />
-
                 <StackPanel Grid.Row="1" Grid.Column="0">
                     <RadioButton
                         Command="{Binding RunViewCommand}"
@@ -82,7 +80,7 @@
                 <ContentControl
                     Grid.Row="1"
                     Grid.Column="1"
-                    Content="{Binding CurrentView}" />
+                    Content="{Binding CurrentView, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" />
             </Grid>
         </Border>
     </DockPanel>
