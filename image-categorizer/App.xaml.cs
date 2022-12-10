@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Data.SQLite;
 
 namespace image_categorizer
 {

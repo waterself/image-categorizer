@@ -6,6 +6,7 @@ namespace image_categorizer.MVVM.Model
 {
     class RunModel : ObservableObject
     {
+        #region Binding Data
         private int _fileCount;
 
         public int FileCount
@@ -17,15 +18,6 @@ namespace image_categorizer.MVVM.Model
                 OnPropertyChanged();
             }
         }
-
-        private Dictionary<string, ImageDetails>? _fileWithdetails = new();
-
-        public Dictionary<string, ImageDetails>? FileWithDetails
-        {
-            get { return _fileWithdetails; }
-            set { _fileWithdetails = value; }
-        }
-
 
         //private string? _inputDirectoryPath = null;
 
@@ -54,8 +46,16 @@ namespace image_categorizer.MVVM.Model
                 OnPropertyChanged();
             }
         }
+        #endregion Binding Data
 
+        #region Logical Data
+        private Dictionary<string, ImageDetails>? _fileWithdetails = new();
 
-
+        public Dictionary<string, ImageDetails>? FileWithDetails
+        {
+            get { return _fileWithdetails; }
+            set { _fileWithdetails = value; }
+        }
+        #endregion Logical Data
     }
 }

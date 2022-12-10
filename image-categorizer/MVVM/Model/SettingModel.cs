@@ -7,10 +7,33 @@ namespace image_categorizer.MVVM.Model
 {
     class SettingModel : BaseViewModel
     {
-        public SettingModel()
-        {
+        #region Binding Data
+        private string? _inputDirectoryPath = "C:\\Test";
 
+        public string? InputDirectorytPath
+        {
+            get { return _inputDirectoryPath; }
+            set
+            {
+                _inputDirectoryPath = value;
+                OnPropertyChanged();
+            }
         }
+
+        //"Please Select Output Directory";
+        //private string? _outputDirectoryPath = null;
+        private string? _outputDirectoryPath = "C:\\output";
+
+        public string? OutputDirectorytPath
+        {
+            get { return _outputDirectoryPath; }
+            set
+            {
+                _outputDirectoryPath = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string[]? _directoryRules = new string[4];
 
         public string[]? DirectoryRules
@@ -26,6 +49,7 @@ namespace image_categorizer.MVVM.Model
             get { return _fileNameRules; }
             set { _fileNameRules = value; }
         }
+        #endregion Binding Data
 
     }
 }

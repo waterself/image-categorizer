@@ -1,7 +1,9 @@
 ﻿using image_categorizer.Core;
+using System.Data.SQLite;
 using image_categorizer.MVVM.View;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -63,7 +65,6 @@ namespace image_categorizer.MVVM.ViewModel
 
         public ShellViewModel()
         {
-
             CurrentView = RunVM;
 
             RunViewCommand = new RelayCommand(o =>
@@ -80,6 +81,17 @@ namespace image_categorizer.MVVM.ViewModel
                 CurrentView = SettingVM.Clone();
             });
 
+        }
+        public void SQLite()
+        {
+            string dbName = "D:\\DB\\ic.sqlite";
+            string dbversion = "3";
+            SQLiteConnection connection = new SQLiteConnection(String.Format($"Data Source={dbName};Version={dbversion}"));
+            if (!System.IO.File.Exists(dbName))
+            {
+                SQLiteConnection.CreateFile(dbName);
+            }
+            connection.Open();
         }
 
     }

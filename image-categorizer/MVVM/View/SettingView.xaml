@@ -40,7 +40,7 @@
                                 <TextBlock
                                     Background="{StaticResource BackgroundSolidColorBrush}"
                                     Foreground="#ffffff"
-                                    Text="{Binding RunModel.InputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
+                                    Text="{Binding SettingModel.InputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
 
                             </DockPanel>
                         </StackPanel>
@@ -62,7 +62,7 @@
                                 <TextBlock
                                     Background="{StaticResource BackgroundSolidColorBrush}"
                                     Foreground="#ffffff"
-                                    Text="{Binding RunModel.OutputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
+                                    Text="{Binding SettingModel.OutputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
                             </DockPanel>
                         </StackPanel>
                     </Border>

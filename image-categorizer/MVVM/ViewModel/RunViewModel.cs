@@ -12,7 +12,7 @@ namespace image_categorizer.MVVM.ViewModel
 {
     class RunViewModel : BaseViewModel
     {
-
+        #region Constructor
         public RunViewModel()
         {
 
@@ -21,6 +21,9 @@ namespace image_categorizer.MVVM.ViewModel
             RunButtonCommand = Run();
 
         }
+        #endregion Constructor
+
+        #region Model Property
         private static RunModel? _runModel;
 
         public RunModel? RunModel
@@ -32,6 +35,9 @@ namespace image_categorizer.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion Model Property
+
+        #region RelayCommand
         private RelayCommand PathSelectCommand(string mode)
         {
             RelayCommand ret = new RelayCommand(o =>
@@ -77,6 +83,9 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand SelectInputPathCommand { get; set; }
         public RelayCommand SelectOutputPathCommand { get; set; }
         public RelayCommand RunButtonCommand { get; set; }
+        #endregion RelayCommand
+
+        #region Logical Function
         public void ImageCategorize()
         {
             if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null)
@@ -157,5 +166,6 @@ namespace image_categorizer.MVVM.ViewModel
                 MessageBox.Show("Please Select Input/Output Directory");
             }
         }
+        #endregion Logical Function
     }
 }
