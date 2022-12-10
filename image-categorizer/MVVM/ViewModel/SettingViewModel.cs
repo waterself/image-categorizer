@@ -1,10 +1,11 @@
 ﻿using image_categorizer.MVVM.Model;
 using image_categorizer.Core;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace image_categorizer.MVVM.ViewModel
 {
-    class SettingViewModel : ObservableObject
+    class SettingViewModel : BaseViewModel
     {
         private static SettingModel _settingModel;
 
@@ -36,6 +37,14 @@ namespace image_categorizer.MVVM.ViewModel
                 System.Diagnostics.Debug.WriteLine(SettingModel.DirectoryRules[i]);
             }
         }
+        public string[] getDirectoryRules()
+        {
+            return SettingModel.DirectoryRules;
+        }
+        public string[] getFileNameRules()
+        {
+            return SettingModel.FileNameRules;
+        }
 
         private readonly ObservableCollection<string> _rulesForComboBox = new() {
             "None",
@@ -52,8 +61,8 @@ namespace image_categorizer.MVVM.ViewModel
 
         public SettingViewModel()
         {
+            System.Diagnostics.Debug.WriteLine("ViewModel");
             SaveButtonCommand = SaveSetting();
-            _settingModel = new();
         }
     }
 }

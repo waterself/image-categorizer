@@ -5,7 +5,7 @@ using System.Windows.Controls;
 
 namespace image_categorizer.MVVM.ViewModel
 {
-    class ShellViewModel : ObservableObject
+    class ShellViewModel : BaseViewModel
     {
         // Command Properties
         public RelayCommand RunViewCommand { get; set; }
@@ -21,29 +21,32 @@ namespace image_categorizer.MVVM.ViewModel
 
         public static RunViewModel? RunVM
         {
-            get => _runVM ?? (_runVM = new RunViewModel());
+            get { 
+                if(_runVM == null)
+                    _runVM = new RunViewModel();
+                return _runVM;
+            }
             set { _runVM = value; }
         }
 
         private static SummaryViewModel? _summaryVM;
 
-        public SummaryViewModel? SummaryVM
+        public static SummaryViewModel? SummaryVM
         {
             get => _summaryVM ?? (_summaryVM = new SummaryViewModel());
             set { _summaryVM = value; }
         }
         private static SettingViewModel? _settingVM;
 
-        public SettingViewModel? SettingVM
+        public static SettingViewModel? SettingVM
         {
-            get => _settingVM ?? (_settingVM = new SettingViewModel());
+            get
+            {
+                if (_settingVM == null) 
+                    _settingVM = new SettingViewModel();
+                return _settingVM;
+            }
             set { _settingVM = value; }
-        }
-
-
-        public ObservableCollection<string> RulesForComboBox
-        {
-            get { return _rulesForComboBox; }
         }
 
 
@@ -65,15 +68,16 @@ namespace image_categorizer.MVVM.ViewModel
 
             RunViewCommand = new RelayCommand(o =>
             {
-                CurrentView = RunVM;
+                //call RunVM Constructor
+                CurrentView = RunVM.Clone();
             });
             SummaryViewCommand = new RelayCommand(o =>
             {
-                CurrentView = SummaryVM;
+                CurrentView = SummaryVM.Clone();
             });
             SettingViewCommand = new RelayCommand(o =>
             {
-                CurrentView = SettingVM;
+                CurrentView = SettingVM.Clone();
             });
 
         }

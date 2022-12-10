@@ -1,22 +1,27 @@
 ﻿using image_categorizer.Core;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace image_categorizer.MVVM.Model
 {
-    class SettingModel : ObservableObject
+    class SettingModel : BaseViewModel
     {
-        private string[] _directoryRules = new string[4];
+        public SettingModel()
+        {
 
-        public string[] DirectoryRules
+        }
+        private string[]? _directoryRules = new string[4];
+
+        public string[]? DirectoryRules
         {
             get { return _directoryRules; }
             set { _directoryRules = value; }
         }
 
-        private List<string>? _fileNameRules = new(4);
+        private string[]? _fileNameRules = new string[4];
 
-        public List<string>? FileNameRules
+        public string[]? FileNameRules
         {
             get { return _fileNameRules; }
             set { _fileNameRules = value; }

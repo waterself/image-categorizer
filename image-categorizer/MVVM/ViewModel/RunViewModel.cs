@@ -10,16 +10,16 @@ using System.Windows.Media.Imaging;
 
 namespace image_categorizer.MVVM.ViewModel
 {
-    class RunViewModel : ObservableObject
+    class RunViewModel : BaseViewModel
     {
 
         public RunViewModel()
         {
+
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
             RunButtonCommand = Run();
 
-            _runModel = new RunModel();
         }
         private static RunModel? _runModel;
 
