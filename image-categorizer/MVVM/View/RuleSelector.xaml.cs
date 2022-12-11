@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,18 +25,43 @@ namespace image_categorizer.MVVM.View
         {
             InitializeComponent();
         }
-        public string LabelName { get; set; }
 
-        private string[] _selectedRule = new string[4];
-
-        public string[] SelectedRule
-        {
-            get { return _selectedRule; }
-            set { _selectedRule = value; }
+        public string? LabelName {
+            get { return GetValue(LabelNameProperty) as string; }
+            set { SetValue(LabelNameProperty, value); }
         }
 
-        public static readonly DependencyProperty SelectedRuleProperty = DependencyProperty.Register(
-               "SelectedRule", typeof(string[]), typeof(RuleSelector), new PropertyMetadata(null));
+        /*        public ObservableCollection<string>? RulesForComboBox
+                {
+                    get { return GetValue(RulesForComboBoxProperty) as ObservableCollection<string>; }
+                    set { SetValue(RulesForComboBoxProperty, value); }
+                }*/
+        private ObservableCollection<string> _rulesForComboBox = new() {
+            "None",
+            "Date",
+            "CameraModel",
+            "Format",
+            //"Location"
+        };
+        public ObservableCollection<string> RulesForComboBox
+        {
+            get { return _rulesForComboBox; }
+            set { _rulesForComboBox = value; }
+        }
+
+        public string[]? RulesArray
+        {
+            get { return GetValue(RulesArrayProperty) as string[]; }
+            set { SetValue(RulesArrayProperty, value); }
+        }
+        public static readonly DependencyProperty LabelNameProperty = DependencyProperty.Register(
+            "LabelName", typeof(string), typeof(RuleSelector), new PropertyMetadata(string.Empty));
+
+/*        public static readonly DependencyProperty RulesForComboBoxProperty = DependencyProperty.Register(
+            "RulesForComboBox", typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));*/
+
+        public static readonly DependencyProperty RulesArrayProperty = DependencyProperty.Register(
+               "RulesArray", typeof(string[]), typeof(RuleSelector), new PropertyMetadata(null));
             
     }
 }

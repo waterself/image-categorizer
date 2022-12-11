@@ -5,8 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="RuleSelectorControl"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    DataContext="{Binding}"
     mc:Ignorable="d">
     <Border
         Margin="10"
@@ -18,32 +20,45 @@
         <StackPanel Margin="5" Orientation="Vertical">
             <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">
                 <StackPanel Margin="10">
-                    <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="#ffffff">
-                        Directory Rules
-                    </TextBlock>
+                    <TextBlock
+                        Background="{StaticResource BackgroundSolidColorBrush}"
+                        Foreground="#ffffff"
+                        Text="{Binding Path=LabelName, ElementName=RuleSelectorControl}" />
                     <Grid HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSolidColorBrush}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="188*" />
+                            <ColumnDefinition Width="188*" />
+                            <ColumnDefinition Width="188*" />
+                            <ColumnDefinition Width="188*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Border Grid.Column="0" Margin="5">
-                            <ComboBox ItemsSource="{Binding }" />
+                        <Border Grid.Column="0" Margin="5,5,5,5">
+                            <ComboBox
+                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                                SelectedIndex="0"
+                                SelectedItem="{Binding Path=RulesArray[0], ElementName=RuleSelectorControl}" />
 
                         </Border>
-                        <Border Grid.Column="1" Margin="5">
-                            <ComboBox />
+                        <Border Grid.Column="1" Margin="5,5,5,5">
+                            <ComboBox
+                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                                SelectedIndex="0"
+                                SelectedItem="{Binding Path=RulesArray[1], ElementName=RuleSelectorControl}" />
                         </Border>
-                        <Border Grid.Column="2" Margin="5">
-                            <ComboBox />
+                        <Border Grid.Column="2" Margin="5,5,5,5">
+                            <ComboBox
+                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                                SelectedIndex="0"
+                                SelectedItem="{Binding Path=RulesArray[2], ElementName=RuleSelectorControl}" />
                         </Border>
-                        <Border Grid.Column="3" Margin="5">
-                            <ComboBox />
+                        <Border Grid.Column="3" Margin="5,5,5,5">
+                            <ComboBox
+                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                                SelectedIndex="0"
+                                SelectedItem="{Binding Path=RulesArray[3], ElementName=RuleSelectorControl}" />
                         </Border>
                     </Grid>
                 </StackPanel>

@@ -68,90 +68,16 @@
                     </Border>
                 </StackPanel>
             </Border>
-            <Border
-                x:Name="DirectoryRuleSelecter"
-                Margin="10"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Background="{StaticResource WhiteSolidColorBrush}"
-                CornerRadius="10"
-                DockPanel.Dock="Top">
-                <StackPanel Margin="5" Orientation="Vertical">
-                    <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">
-                        <StackPanel Margin="10">
-                            <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="#ffffff">
-                                Directory Rules
-                            </TextBlock>
-                            <Grid HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSolidColorBrush}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Border Grid.Column="0" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.DirectoryRules[0]}" />
-                                </Border>
-                                <Border Grid.Column="1" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.DirectoryRules[1]}" />
-                                </Border>
-                                <Border Grid.Column="2" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.DirectoryRules[2]}" />
-                                </Border>
-                                <Border Grid.Column="3" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.DirectoryRules[3]}" />
-                                </Border>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </Border>
-            <Border
-                x:Name="FileRuleSelecter"
-                Margin="10"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Background="{StaticResource WhiteSolidColorBrush}"
-                CornerRadius="10"
-                DockPanel.Dock="Top">
-                <StackPanel Margin="5" Orientation="Vertical">
-                    <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">
-                        <StackPanel Margin="10">
-                            <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="#ffffff">
-                                FileName Rules
-                            </TextBlock>
-                            <Grid HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSolidColorBrush}">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Border Grid.Column="0" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.FileNameRules[0]}" />
-                                </Border>
-                                <Border Grid.Column="1" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.FileNameRules[0]}" />
-                                </Border>
-                                <Border Grid.Column="2" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.FileNameRules[0]}" />
-                                </Border>
-                                <Border Grid.Column="3" Margin="5">
-                                    <ComboBox ItemsSource="{Binding RulesForComboBox}" SelectedItem="{Binding SettingModel.FileNameRules[0]}" />
-                                </Border>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </Border>
+            <local:RuleSelector
+                x:Name="DirectoryRuleSelector"
+                DockPanel.Dock="Top"
+                LabelName="Select Directory Rules"
+                RulesArray="{Binding SettingModel.DirectoryRules, Mode=TwoWay}" />
+            <local:RuleSelector
+                x:Name="FileNameRuleSelector"
+                DockPanel.Dock="Top"
+                LabelName="Select FileName Rules"
+                RulesArray="{Binding SettingModel.FileNameRules, Mode=TwoWay}" />
             <DockPanel LastChildFill="False">
                 <Button
                     Width="150"

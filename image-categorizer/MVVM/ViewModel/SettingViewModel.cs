@@ -5,6 +5,7 @@ using System.Data.SQLite;
 using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Collections.Generic;
+using System;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -13,7 +14,9 @@ namespace image_categorizer.MVVM.ViewModel
         #region Constructor
         public SettingViewModel()
         {
-            SaveButtonCommand = SaveSetting();
+            SelectInputPathCommand = PathSelectCommand("input");
+            SelectOutputPathCommand = PathSelectCommand("output");
+            SaveButtonCommand = SaveSettingCommand();
         }
         #endregion Constructor
 
@@ -21,7 +24,15 @@ namespace image_categorizer.MVVM.ViewModel
         private static SettingModel _settingModel;
         public SettingModel SettingModel
         {
-            get => _settingModel ?? (_settingModel = new SettingModel());
+            get
+            {
+                if (_settingModel == null)
+                {
+                    _settingModel = new SettingModel();
+                    ReadSetting();
+                }
+                return _settingModel;
+            }
             set
             {
                 _settingModel = value;
@@ -31,11 +42,11 @@ namespace image_categorizer.MVVM.ViewModel
         #endregion Model Property
 
         #region RelayCommand
-        private RelayCommand SaveSetting()
+        private RelayCommand SaveSettingCommand()
         {
             RelayCommand ret = new(o =>
             {
-                RuleTest();
+                SaveSetting(this.SettingModel);
             });
             return ret;
         }
@@ -75,19 +86,6 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand SelectOutputPathCommand { get; set; }
         #endregion RelayCommand
 
-        #region Static Data
-        private readonly ObservableCollection<string> _rulesForComboBox = new() {
-            "None",
-            "Date",
-            "CameraModel",
-            "Format",
-            "Location"
-        };
-        public ObservableCollection<string> RulesForComboBox
-        {
-            get { return _rulesForComboBox; }
-        }
-        #endregion Static Data
 
         #region Logical Function
         public string[] getDirectoryRules()
@@ -106,11 +104,36 @@ namespace image_categorizer.MVVM.ViewModel
             }
         }
         #endregion Logical Function
-
-        /*        public void SaveSatting(SettingModel model)
+        #region Static Data
+        private readonly ObservableCollection<string> _rulesForComboBox = new() {
+            "None",
+            "Date",
+            "CameraModel",
+            "Format",
+            //"Location"
+        };
+        public ObservableCollection<string> RulesForComboBox
         {
-            IsolateStorage.WriteStorageValue("inputDir", model.InputDirectorytPath);
-        }*/
+            get { return _rulesForComboBox; }
+        }
+        #endregion Static Data
+        public void SaveSetting(SettingModel model)
+        {
+            Properties.Settings.Default.InputDirectory = model.InputDirectorytPath;
+            Properties.Settings.Default.OutputDirctory = model.OutputDirectorytPath;
+            Properties.Settings.Default.DirectoryNameRule = String.Join(",", model.DirectoryRules);
+            Properties.Settings.Default.FileNameRule = String.Join(",", model.FileNameRules);
+
+        }
+        public void ReadSetting()
+        {
+            SettingModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
+            SettingModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
+            string? directoryNameRule = Properties.Settings.Default.DirectoryNameRule;
+            SettingModel.DirectoryRules = directoryNameRule.Split(",");
+            string? fileNameRule = Properties.Settings.Default.FileNameRule;
+            SettingModel.FileNameRules = directoryNameRule.Split(",");  
+        }
 
     }
 }

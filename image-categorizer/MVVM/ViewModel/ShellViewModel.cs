@@ -14,10 +14,6 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand SettingViewCommand { get; set; }
         public RelayCommand SummaryViewCommand { get; set; }
 
-        // ViewModel Properties
-        /*        public RunViewModel RunVM { get; set; }
-                public SummaryViewModel SummaryVM { get; set; }
-                public SettingViewModel SettingVM { get; set; }*/
 
         private static RunViewModel? _runVM;
 
