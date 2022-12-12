@@ -127,12 +127,15 @@ namespace image_categorizer.MVVM.ViewModel
         }
         public void ReadSetting()
         {
-            SettingModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
-            SettingModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
-            string? directoryNameRule = Properties.Settings.Default.DirectoryNameRule;
-            SettingModel.DirectoryRules = directoryNameRule.Split(",");
-            string? fileNameRule = Properties.Settings.Default.FileNameRule;
-            SettingModel.FileNameRules = directoryNameRule.Split(",");  
+            if (SettingModel != null)
+            {
+                SettingModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
+                SettingModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
+                string? directoryNameRule = Properties.Settings.Default.DirectoryNameRule;
+                SettingModel.DirectoryRules = directoryNameRule.Split(",");
+                string? fileNameRule = Properties.Settings.Default.FileNameRule;
+                SettingModel.FileNameRules = directoryNameRule.Split(",");
+            }
         }
 
     }

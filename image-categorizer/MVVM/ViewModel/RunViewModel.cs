@@ -1,9 +1,11 @@
 ﻿using image_categorizer.Core;
 using image_categorizer.MVVM.Model;
+using image_categorizer.MVVM.ViewModel;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -28,7 +30,15 @@ namespace image_categorizer.MVVM.ViewModel
 
         public RunModel? RunModel
         {
-            get => _runModel ?? (_runModel = new RunModel());
+            get
+            {
+                if (_runModel == null)
+                {
+                    _runModel = new RunModel();
+                    //ReadSetting();
+                }
+                return _runModel;
+            }
             set
             {
                 _runModel = value;
@@ -88,10 +98,17 @@ namespace image_categorizer.MVVM.ViewModel
         #region Logical Function
         public void ImageCategorize()
         {
+            Random rand = new Random();
+            string[]? directoryRules = new[] { "Format", "CameraModel", "Date", "None" };
+            string[]? fileNameRules = new[] { "Date", "None", "None", "None" };
             if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
-                List<string> dates = new();
+                Dictionary<string, List<string>>? TagList = new();
+                for (int i = 0; i < directoryRules.Length; i++)
+                {
+                    TagList.Add(directoryRules[i], new List<string>());
+                }
 
                 foreach (string file in imageFiles) //get metaData for Images
                 {
@@ -113,45 +130,93 @@ namespace image_categorizer.MVVM.ViewModel
                     imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
                         metaData.CameraManufacturer, metaData.CameraModel);
                     imageDetails.Format = metaData.Format;
-                    dates.Add(imageDetails.DateTaken);
 
+                    List<string?> pathBuf = new();
+                    for (int i = 0; i < directoryRules.Length; i++)
+                    {
+                        switch (directoryRules[i])
+                        {
+                            case "Date":
+                                if (imageDetails.DateTaken != null)
+                                    pathBuf.Add(imageDetails.DateTaken);
+                                else pathBuf.Add("ETC");
+                                break;
+                            case "CameraModel":
+                                if (imageDetails.CameraModel != null)
+                                    pathBuf.Add(imageDetails.CameraModel);
+                                else pathBuf.Add("ETC");
+                                break;
+                            case "Format":
+                                if (imageDetails.Format != null)
+                                    pathBuf.Add(imageDetails.Format);
+                                else pathBuf.Add("ETC");
+                                break;
+                            case "Location":
+                                if (imageDetails.Location != null && imageDetails.Location != "/")
+                                    pathBuf.Add(imageDetails.Location);
+                                else pathBuf.Add("ETC");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    imageDetails.FilePath = String.Join("\\", pathBuf);
+
+                    List<string?> fileBuf = new();
+                    for (int i = 0; i < fileNameRules.Length; i++)
+                    {
+                        switch (fileNameRules[i])
+                        {
+                            case "Date":
+                                if (imageDetails.DateTaken != null)
+                                    fileBuf.Add(String.Format($"{imageDetails.DateTaken}_{imageDetails.TimeTaken}"));
+                                else fileBuf.Add(rand.Next(2147483647).ToString());
+                                break;
+                            case "CameraModel":
+                                if (imageDetails.CameraModel != null)
+                                    fileBuf.Add(imageDetails.CameraModel);
+                                else
+                                    fileBuf.Add("ETC");
+                                break;
+                            case "Location":
+                                if (imageDetails.Location != null && imageDetails.Location != "/")
+                                    fileBuf.Add(imageDetails.Location);
+                                else
+                                    fileBuf.Add("ETC");
+                                break;
+                            default:
+                                break;
+                        }
+                        imageDetails.FileName = String.Join("_", fileBuf); // make setting seperator
+                    }
                     if (!RunModel.FileWithDetails.ContainsKey(file))
                     {
                         RunModel.FileWithDetails.Add(file, imageDetails);
                     }//An item with the same key has already been added.'
-                     //System.Diagnostics.Debug.WriteLine(imageDetails.CameraModel);
                 }
                 imageFiles.Clear();
-                //make dir
-                List<string>? distinctedDate = Utility.ListDistinct(dates);
-                //to make directory with distinctedDate and rename and move by EXIF data
-                foreach (string date in distinctedDate)
+
+                foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
-                    string dir;
-                    if (date == null) { dir = "ETC"; }
-                    else { dir = date; }
-                    string dirpath = String.Format($"{RunModel.OutputDirectorytPath}\\{dir}");
+
+                    string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
+                    string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
                     try
                     {
-                        DirectoryInfo directoryInfo = new DirectoryInfo(dirpath);
+                        DirectoryInfo directoryInfo = new DirectoryInfo(destPath);
                         if (directoryInfo.Exists == false)
                         {
-                            directoryInfo.Create();
+                             directoryInfo.Create();
                         }
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        continue;
+                        MessageBox.Show(e.Message);
                     }
-                }
-                foreach (string key in RunModel.FileWithDetails.Keys)
-                {
-                    ImageDetails file = RunModel.FileWithDetails[key];
-                    string fileName = String.Format($"{file.DateTaken}_{file.TimeTaken}.{file.Format}");
-                    string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{file.DateTaken}\\{fileName}");
+
                     try
                     {
-                        File.Copy(key, destPath, true);
+                       File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
                     }
                     catch (Exception e)
                     {
@@ -159,11 +224,23 @@ namespace image_categorizer.MVVM.ViewModel
                         continue;
                     }
                 }
+
                 //messageBox for check delete original files
             }
             else
             {
                 MessageBox.Show("Please Select Input/Output Directory");
+            }
+            MessageBox.Show("Categorize Done!");
+        }
+
+
+        public void ReadSetting()
+        {
+            if (RunModel != null)
+            {
+                RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
+                RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
             }
         }
         #endregion Logical Function

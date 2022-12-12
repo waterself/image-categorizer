@@ -8,6 +8,10 @@ namespace image_categorizer
 {
     public class Utility
     {
+        public static string deleteRegex(string input, string regex) 
+        {
+            return Regex.Replace(input, regex, "");
+        }
         public static List<string> GetImageFiles(string filePath)
         {
             List<string> imageFiles = new();
@@ -63,7 +67,11 @@ namespace image_categorizer
         {
             if (CameraManufacturer != null && CameraModel != null)
             {
-                return String.Format($"{CameraManufacturer} {CameraModel}");
+                string formatedCameraModel = Regex.Replace(CameraModel, CameraManufacturer, "");
+                string formated = deleteRegex( String.Format($"{CameraManufacturer} {formatedCameraModel}"), "[\\/:*?\"<>|]");
+                string[] splited = formated.Split(new char[] { ' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+                return String.Join(" ", splited);
+
             }
             else if (CameraManufacturer == null && CameraModel != null)
             {
@@ -79,12 +87,12 @@ namespace image_categorizer
             }
 
         }
-        public static List<string>? ListDistinct(List<string>? list)
+        public static List<T>? ListDistinct<T>(List<T>? list)
         {
-            List<string>? targetList = new();
+            List<T>? targetList = new();
             if (list != null)
             {
-                foreach (string item in list)
+                foreach (T item in list)
                 {
                     if (!targetList.Contains(item))
                     {
