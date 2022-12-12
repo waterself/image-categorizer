@@ -72,12 +72,14 @@
                 x:Name="DirectoryRuleSelector"
                 DockPanel.Dock="Top"
                 LabelName="Select Directory Rules"
-                RulesArray="{Binding SettingModel.DirectoryRules, Mode=TwoWay}" />
+                RulesArray="{Binding SettingModel.DirectoryRules, Mode=TwoWay}"
+                RulesForComboBox="{Binding RulesForComboBox}" />
             <local:RuleSelector
                 x:Name="FileNameRuleSelector"
                 DockPanel.Dock="Top"
                 LabelName="Select FileName Rules"
-                RulesArray="{Binding SettingModel.FileNameRules, Mode=TwoWay}" />
+                RulesArray="{Binding SettingModel.FileNameRules, Mode=TwoWay}"
+                RulesForComboBox="{Binding RulesForComboBox}" />
             <DockPanel LastChildFill="False">
                 <Button
                     Width="150"

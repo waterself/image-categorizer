@@ -31,22 +31,10 @@ namespace image_categorizer.MVVM.View
             set { SetValue(LabelNameProperty, value); }
         }
 
-        /*        public ObservableCollection<string>? RulesForComboBox
-                {
-                    get { return GetValue(RulesForComboBoxProperty) as ObservableCollection<string>; }
-                    set { SetValue(RulesForComboBoxProperty, value); }
-                }*/
-        private ObservableCollection<string> _rulesForComboBox = new() {
-            "None",
-            "Date",
-            "CameraModel",
-            "Format",
-            //"Location"
-        };
-        public ObservableCollection<string> RulesForComboBox
+        public ObservableCollection<string>? RulesForComboBox
         {
-            get { return _rulesForComboBox; }
-            set { _rulesForComboBox = value; }
+            get { return GetValue(RulesForComboBoxProperty) as ObservableCollection<string>; }
+            set { SetValue(RulesForComboBoxProperty, value); }
         }
 
         public string[]? RulesArray
@@ -57,8 +45,8 @@ namespace image_categorizer.MVVM.View
         public static readonly DependencyProperty LabelNameProperty = DependencyProperty.Register(
             "LabelName", typeof(string), typeof(RuleSelector), new PropertyMetadata(string.Empty));
 
-/*        public static readonly DependencyProperty RulesForComboBoxProperty = DependencyProperty.Register(
-            "RulesForComboBox", typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));*/
+        public static readonly DependencyProperty RulesForComboBoxProperty = DependencyProperty.Register(
+            "RulesForComboBox", typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));
 
         public static readonly DependencyProperty RulesArrayProperty = DependencyProperty.Register(
                "RulesArray", typeof(string[]), typeof(RuleSelector), new PropertyMetadata(null));
