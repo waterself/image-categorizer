@@ -9,16 +9,6 @@
     d:DesignHeight="498"
     d:DesignWidth="740"
     mc:Ignorable="d">
-
-    <UserControl.Resources>
-        <Style x:Key="ButtonOne" TargetType="{x:Type Button}">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="Azure" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
     <UserControl.DataContext>
         <viewModel:RunViewModel />
     </UserControl.DataContext>
@@ -36,46 +26,15 @@
                     x:Name="InputPathSelector"
                     Margin="5,5,5,5"
                     Orientation="Vertical">
-                    <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">
-                        <StackPanel Margin="10,10,10,10" Orientation="Vertical">
-                            <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="{StaticResource WhiteSolidColorBrush}">InputPath</TextBlock>
-                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
-                                <Button
-                                    x:Name="InputPathSelectButton"
-                                    Width="100"
-                                    Command="{Binding SelectInputPathCommand}"
-                                    Content="SelectPath"
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource PathSelectButtonThemes}" />
-                                <TextBlock
-                                    Background="{StaticResource BackgroundSolidColorBrush}"
-                                    Foreground="{StaticResource WhiteSolidColorBrush}"
-                                    Text="{Binding RunModel.InputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
+                    <local:PathSelector
+                        DirectoryPath="{Binding RunModel.InputDirectorytPath}"
+                        NameLabel="Input Directory"
+                        SelectButtonCommand="{Binding SelectInputPathCommand}" />
+                    <local:PathSelector
+                        DirectoryPath="{Binding RunModel.OutputDirectorytPath}"
+                        NameLabel="Outpu tDirectory"
+                        SelectButtonCommand="{Binding SelectOutputPathCommand}" />
 
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border
-                        x:Name="OutputPathSelector"
-                        Background="{StaticResource FrameSolidColorBrush}"
-                        CornerRadius="5">
-                        <StackPanel Margin="10,10,10,10" Orientation="Vertical">
-                            <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="{StaticResource WhiteSolidColorBrush}">OutputPath</TextBlock>
-                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
-                                <Button
-                                    x:Name="OutputPathSelectButton"
-                                    Width="100"
-                                    Command="{Binding SelectOutputPathCommand}"
-                                    Content="SelectPath"
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource PathSelectButtonThemes}" />
-                                <TextBlock
-                                    Background="{StaticResource BackgroundSolidColorBrush}"
-                                    Foreground="{StaticResource WhiteSolidColorBrush}"
-                                    Text="{Binding RunModel.OutputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
                     <Border
                         x:Name="TotalFileNumber"
                         Background="#263238"
@@ -94,9 +53,7 @@
 
                         </DockPanel>
                     </Border>
-
                 </StackPanel>
-
             </Border>
             <Canvas MinHeight="140" />
             <DockPanel LastChildFill="False">
@@ -124,3 +81,14 @@
         </StackPanel>
     </Border>
 </UserControl>
+
+
+<!--    <UserControl.Resources>
+    <Style x:Key="ButtonOne" TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="Azure" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    </UserControl.Resources>-->

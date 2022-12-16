@@ -123,6 +123,7 @@ namespace image_categorizer.MVVM.ViewModel
             Properties.Settings.Default.OutputDirctory = model.OutputDirectorytPath;
             Properties.Settings.Default.DirectoryNameRule = String.Join(",", model.DirectoryRules);
             Properties.Settings.Default.FileNameRule = String.Join(",", model.FileNameRules);
+            Properties.Settings.Default.Save();
 
         }
         public void ReadSetting()
@@ -134,7 +135,7 @@ namespace image_categorizer.MVVM.ViewModel
                 string? directoryNameRule = Properties.Settings.Default.DirectoryNameRule;
                 SettingModel.DirectoryRules = directoryNameRule.Split(",");
                 string? fileNameRule = Properties.Settings.Default.FileNameRule;
-                SettingModel.FileNameRules = directoryNameRule.Split(",");
+                SettingModel.FileNameRules = fileNameRule.Split(",");
             }
         }
 

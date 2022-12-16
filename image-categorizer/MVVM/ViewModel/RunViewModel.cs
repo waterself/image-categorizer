@@ -1,6 +1,5 @@
 ﻿using image_categorizer.Core;
 using image_categorizer.MVVM.Model;
-using image_categorizer.MVVM.ViewModel;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -99,8 +98,10 @@ namespace image_categorizer.MVVM.ViewModel
         public void ImageCategorize()
         {
             Random rand = new Random();
-            string[]? directoryRules = new[] { "Format", "CameraModel", "Date", "None" };
-            string[]? fileNameRules = new[] { "Date", "None", "None", "None" };
+            /*            string[]? directoryRules = new[] { "CameraModel", "Date", "Format", "None" };
+                        string[]? fileNameRules = new[] { "CameraModel", "Date", "None", "None" };*/
+            string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
+            string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);

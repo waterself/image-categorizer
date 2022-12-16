@@ -23,7 +23,7 @@
                     <TextBlock
                         Background="{StaticResource BackgroundSolidColorBrush}"
                         Foreground="#ffffff"
-                        Text="{Binding Path=LabelName, ElementName=RuleSelectorControl}" />
+                        Text="{Binding Path=NameLabel, ElementName=RuleSelectorControl}" />
                     <Grid HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSolidColorBrush}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="188*" />
@@ -40,7 +40,6 @@
                                 ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
                                 SelectedIndex="0"
                                 SelectedItem="{Binding Path=RulesArray[0], ElementName=RuleSelectorControl}" />
-
                         </Border>
                         <Border Grid.Column="1" Margin="5,5,5,5">
                             <ComboBox
