@@ -34,18 +34,18 @@ namespace image_categorizer.MVVM.Model
                 OnPropertyChanged();
             }
         }
+        //using index
+        private string[] _directoryRules = new string[4];
 
-        private string[]? _directoryRules = new string[4];
-
-        public string[]? DirectoryRules
+        public string[] DirectoryRules
         {
             get { return _directoryRules; }
             set { _directoryRules = value; }
         }
 
-        private string[]? _fileNameRules = new string[4];
+        private string[] _fileNameRules = new string[4];
 
-        public string[]? FileNameRules
+        public string[] FileNameRules
         {
             get { return _fileNameRules; }
             set { _fileNameRules = value; }

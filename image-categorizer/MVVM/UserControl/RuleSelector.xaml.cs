@@ -36,20 +36,21 @@ namespace image_categorizer.MVVM.View
             get { return GetValue(RulesForComboBoxProperty) as ObservableCollection<string>; }
             set { SetValue(RulesForComboBoxProperty, value); }
         }
-
         public string[]? RulesArray
         {
-            get { return GetValue(RulesArrayProperty) as string[]; }
+            get { return (string[]?)GetValue(RulesArrayProperty); }
             set { SetValue(RulesArrayProperty, value); }
         }
         public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
             nameof(NameLabel), typeof(string), typeof(RuleSelector), new PropertyMetadata(string.Empty));
 
+        public static readonly DependencyProperty RulesArrayProperty = DependencyProperty.Register(
+       nameof(RulesArray), typeof(string[]), typeof(RuleSelector), new PropertyMetadata(new string[4] {"None", "None", "None", "None" }));
+
         public static readonly DependencyProperty RulesForComboBoxProperty = DependencyProperty.Register(
             nameof(RulesForComboBox), typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty RulesArrayProperty = DependencyProperty.Register(
-               nameof(RulesArray), typeof(string[]), typeof(RuleSelector), new PropertyMetadata(null));
+
             
     }
 }

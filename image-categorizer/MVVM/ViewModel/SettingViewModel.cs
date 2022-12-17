@@ -88,14 +88,14 @@ namespace image_categorizer.MVVM.ViewModel
 
 
         #region Logical Function
-        public string[] getDirectoryRules()
+/*        public string[] getDirectoryRules()
         {
             return SettingModel.DirectoryRules;
         }
         public string[] getFileNameRules()
         {
             return SettingModel.FileNameRules;
-        }
+        }*/
         public void RuleTest()
         {
             for (int i = 0; i < 4; i++)
@@ -121,6 +121,7 @@ namespace image_categorizer.MVVM.ViewModel
         {
             Properties.Settings.Default.InputDirectory = model.InputDirectorytPath;
             Properties.Settings.Default.OutputDirctory = model.OutputDirectorytPath;
+            //it's length is not 4, add None
             Properties.Settings.Default.DirectoryNameRule = String.Join(",", model.DirectoryRules);
             Properties.Settings.Default.FileNameRule = String.Join(",", model.FileNameRules);
             Properties.Settings.Default.Save();
