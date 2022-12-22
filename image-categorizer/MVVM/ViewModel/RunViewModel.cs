@@ -98,18 +98,13 @@ namespace image_categorizer.MVVM.ViewModel
         public void ImageCategorize()
         {
             Random rand = new Random();
-            /*            string[]? directoryRules = new[] { "CameraModel", "Date", "Format", "None" };
-                        string[]? fileNameRules = new[] { "CameraModel", "Date", "None", "None" };*/
+            /*            string[]? directoryRules = new[] { "Date", "Location", "None", "None" };
+                        string[]? fileNameRules = new[] { "Date", "None", "None", "None" };*/
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
-                Dictionary<string, List<string>>? TagList = new();
-                for (int i = 0; i < directoryRules.Length; i++)
-                {
-                    TagList.Add(directoryRules[i], new List<string>());
-                }
 
                 foreach (string file in imageFiles) //get metaData for Images
                 {
@@ -123,9 +118,15 @@ namespace image_categorizer.MVVM.ViewModel
                     if (coordinate != null)
                     {
                         imageDetails.Latitude = coordinate[0];
-                        imageDetails.Longtitude = coordinate[1];
+                        imageDetails.longitude = coordinate[1];
                     }
-                    imageDetails.Location = metaData.Location;
+                    if (coordinate != null)
+                    {
+                        imageDetails.Location = GeoCoding.GetLocation(coordinate[0], coordinate[1]);
+                    }
+                    else {
+                        imageDetails.Location = metaData.Location;
+                    }
                     imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
                     imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
                     imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
@@ -188,8 +189,8 @@ namespace image_categorizer.MVVM.ViewModel
                             default:
                                 break;
                         }
-                        imageDetails.FileName = String.Join("_", fileBuf); // make setting seperator
                     }
+                    imageDetails.FileName = String.Join("_", fileBuf); // make setting seperator
                     if (!RunModel.FileWithDetails.ContainsKey(file))
                     {
                         RunModel.FileWithDetails.Add(file, imageDetails);
@@ -231,8 +232,10 @@ namespace image_categorizer.MVVM.ViewModel
             else
             {
                 MessageBox.Show("Please Select Input/Output Directory");
+                RunModel.FileWithDetails.Clear();
             }
             MessageBox.Show("Categorize Done!");
+            RunModel.FileWithDetails.Clear();
         }
 
 

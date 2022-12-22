@@ -110,7 +110,7 @@ namespace image_categorizer.MVVM.ViewModel
             "Date",
             "CameraModel",
             "Format",
-            //"Location"
+            "Location"
         };
         public ObservableCollection<string> RulesForComboBox
         {

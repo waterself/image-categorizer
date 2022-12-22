@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SQLite;
+using System.Windows;
+
+namespace image_categorizer
+{
+    public static class GeoCoding
+    {
+        private static string dbName = "D:\\DB\\allcountries.db";
+        private static string dbversion = "3";
+        private static string connectString = String.Format($"Data Source={dbName};");
+        public static void GeoCodingInit()
+        {
+            if (!System.IO.File.Exists(dbName))
+            {
+                MessageBox.Show("Not Found Geocoding Data");
+                return;
+            }
+        }
+        public static string? GetLocation(double? latitude, double? longitude)
+        {
+            string getAdmin3Query = String.Format($"SELECT country, admin1, admin2 FROM lite ORDER BY ABS(latitude - {latitude})+ABS(longitude - {longitude}) LIMIT 1;");
+            using (SQLiteConnection connection = new SQLiteConnection(connectString)) {
+                connection.Open();
+                using SQLiteCommand GetAdmin3Command = new(getAdmin3Query, connection);
+                using SQLiteDataReader Admin3Reader = GetAdmin3Command.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                string admin2code = "None";
+                if (Admin3Reader.Read())
+                {
+                    admin2code = String.Format($"{Admin3Reader["country"]}.{Admin3Reader["admin1"]}.{Admin3Reader["admin2"]}");
+                }
+                if(admin2code.Length > 1) 
+                {
+                    admin2code = admin2code.Substring(0, admin2code.Length - 1); 
+                }
+                string getAdmin2Query = String.Format($"SELECT altname FROM admin2 WHERE admin2code LIKE '{admin2code}%';");
+                using SQLiteCommand GetAdmin2Command = new(getAdmin2Query, connection);
+                using SQLiteDataReader Admin2Reader = GetAdmin2Command.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+
+                string? location = null;
+                if (Admin2Reader.Read()) { location = Admin2Reader["altname"] as string; }
+
+/*                Admin3Reader.Close();
+                GetAdmin3Command.Dispose();
+                Admin2Reader.Close();
+                GetAdmin2Command.Dispose();
+                connection.Dispose();*/
+
+                return location;
+            }
+        }
+    }
+}

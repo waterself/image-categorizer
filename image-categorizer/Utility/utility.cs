@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 
 namespace image_categorizer
 {
-    public class Utility
+    public static class Utility
     {
         public static string deleteRegex(string input, string regex) 
         {
@@ -106,20 +106,19 @@ namespace image_categorizer
                 return null;
             }
         }
-        //public static string rename
         public static double[]? GetCoordinate(BitmapMetadata metaData)
         {
             if (metaData != null)
             {
                 double[]? ret = new double[2];
                 ulong[]? Latitude = metaData.GetQuery("/app1/ifd/gps/subifd:{ulong=2}") as ulong[];
-                ulong[]? Longtitude = metaData.GetQuery("/app1/ifd/gps/subifd:{ulong=4}") as ulong[];
+                ulong[]? longitude = metaData.GetQuery("/app1/ifd/gps/subifd:{ulong=4}") as ulong[];
                 string? latret = metaData.GetQuery("/app1/ifd/gps/subifd:{char=1}") as string;
                 string? longret = metaData.GetQuery("/app1/ifd/gps/subifd:{char=3}") as string;
                 if (latret == null || longret == null) { return null; }
 
                 ret[0] = ConvertCoordinate(Latitude);
-                ret[1] = ConvertCoordinate(Longtitude);
+                ret[1] = ConvertCoordinate(longitude);
                 if (latret == "S")
                 { ret[0] -= ret[0] * 2; }
                 if (longret == "W")

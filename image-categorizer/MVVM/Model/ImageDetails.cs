@@ -8,7 +8,7 @@
         public string? CameraModel { get; set; }
         public string? Format { get; set; }
         public double? Latitude { get; set; }
-        public double? Longtitude { get; set; }
+        public double? longitude { get; set; }
         public string? FilePath { get; set; }
         public string? FileName { get; set; }
 

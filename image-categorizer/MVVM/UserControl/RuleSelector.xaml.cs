@@ -25,6 +25,7 @@ namespace image_categorizer.MVVM.View
         {
             InitializeComponent();
         }
+        //boolean array to control combobox's isEnable
 
         public string? NameLabel {
             get { return GetValue(NameLabelProperty) as string; }
