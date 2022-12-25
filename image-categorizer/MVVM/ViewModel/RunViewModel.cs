@@ -34,7 +34,7 @@ namespace image_categorizer.MVVM.ViewModel
                 if (_runModel == null)
                 {
                     _runModel = new RunModel();
-                    //ReadSetting();
+                    ReadSetting();
                 }
                 return _runModel;
             }
@@ -97,107 +97,122 @@ namespace image_categorizer.MVVM.ViewModel
         #region Logical Function
         public void ImageCategorize()
         {
-            Random rand = new Random();
-            /*            string[]? directoryRules = new[] { "Date", "Location", "None", "None" };
-                        string[]? fileNameRules = new[] { "Date", "None", "None", "None" };*/
+            Random rand = new();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
-            if (RunModel.InputDirectorytPath != null && RunModel.OutputDirectorytPath != null)
+            DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
+            if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
-
                 foreach (string file in imageFiles) //get metaData for Images
                 {
-                    FileInfo fileInfo = new(file);
-                    using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    BitmapSource image = BitmapFrame.Create(fs);
-                    BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
-
                     ImageDetails imageDetails = new ImageDetails();
-                    double[]? coordinate = Utility.GetCoordinate(metaData);
-                    if (coordinate != null)
+                    try
                     {
-                        imageDetails.Latitude = coordinate[0];
-                        imageDetails.longitude = coordinate[1];
-                    }
-                    if (coordinate != null)
-                    {
-                        imageDetails.Location = GeoCoding.GetLocation(coordinate[0], coordinate[1]);
-                    }
-                    else {
-                        imageDetails.Location = metaData.Location;
-                    }
-                    imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
-                    imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
-                    imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
-                        metaData.CameraManufacturer, metaData.CameraModel);
-                    imageDetails.Format = metaData.Format;
+                        FileInfo fileInfo = new(file);
+                        using FileStream fs = new(file, FileMode.Open, FileAccess.Read, FileShare.Read);
+                        BitmapSource image = BitmapFrame.Create(fs); //COMException
+                        BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
 
-                    List<string?> pathBuf = new();
-                    for (int i = 0; i < directoryRules.Length; i++)
-                    {
-                        switch (directoryRules[i])
+                        double[]? coordinate = Utility.GetCoordinate(metaData);
+                        if (coordinate != null)
                         {
-                            case "Date":
-                                if (imageDetails.DateTaken != null)
-                                    pathBuf.Add(imageDetails.DateTaken);
-                                else pathBuf.Add("ETC");
-                                break;
-                            case "CameraModel":
-                                if (imageDetails.CameraModel != null)
-                                    pathBuf.Add(imageDetails.CameraModel);
-                                else pathBuf.Add("ETC");
-                                break;
-                            case "Format":
-                                if (imageDetails.Format != null)
-                                    pathBuf.Add(imageDetails.Format);
-                                else pathBuf.Add("ETC");
-                                break;
-                            case "Location":
-                                if (imageDetails.Location != null && imageDetails.Location != "/")
-                                    pathBuf.Add(imageDetails.Location);
-                                else pathBuf.Add("ETC");
-                                break;
-                            default:
-                                break;
+                            imageDetails.Latitude = coordinate[0];
+                            imageDetails.longitude = coordinate[1];
                         }
-                    }
-                    imageDetails.FilePath = String.Join("\\", pathBuf);
+                        if (coordinate != null)
+                        {
+                            imageDetails.Location = GeoCoding.GetLocation(coordinate[0], coordinate[1]);
+                        }
+                        else
+                        {
+                            imageDetails.Location = metaData.Location;
+                        }
+                        imageDetails.IsoDateTime = Utility.FormatIsoDateTime(metaData.DateTaken);
+                        imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
+                        imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
+                        imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
+                            metaData.CameraManufacturer, metaData.CameraModel);
+                        imageDetails.Format = metaData.Format;
 
-                    List<string?> fileBuf = new();
-                    for (int i = 0; i < fileNameRules.Length; i++)
-                    {
-                        switch (fileNameRules[i])
+                        List<string?> pathBuf = new();
+                        for (int i = 0; i < directoryRules.Length; i++)
                         {
-                            case "Date":
-                                if (imageDetails.DateTaken != null)
-                                    fileBuf.Add(String.Format($"{imageDetails.DateTaken}_{imageDetails.TimeTaken}"));
-                                else fileBuf.Add(rand.Next(2147483647).ToString());
-                                break;
-                            case "CameraModel":
-                                if (imageDetails.CameraModel != null)
-                                    fileBuf.Add(imageDetails.CameraModel);
-                                else
-                                    fileBuf.Add("ETC");
-                                break;
-                            case "Location":
-                                if (imageDetails.Location != null && imageDetails.Location != "/")
-                                    fileBuf.Add(imageDetails.Location);
-                                else
-                                    fileBuf.Add("ETC");
-                                break;
-                            default:
-                                break;
+                            switch (directoryRules[i])
+                            {
+                                case "Date":
+                                    if (imageDetails.DateTaken != null)
+                                        pathBuf.Add(imageDetails.DateTaken);
+                                    else pathBuf.Add("ETC");
+                                    break;
+                                case "CameraModel":
+                                    if (imageDetails.CameraModel != null)
+                                        pathBuf.Add(imageDetails.CameraModel);
+                                    else pathBuf.Add("ETC");
+                                    break;
+                                case "Format":
+                                    if (imageDetails.Format != null)
+                                        pathBuf.Add(imageDetails.Format);
+                                    else pathBuf.Add("ETC");
+                                    break;
+                                case "Location":
+                                    if (imageDetails.Location != null && imageDetails.Location != "/")
+                                        pathBuf.Add(imageDetails.Location);
+                                    else pathBuf.Add("ETC");
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
+                        imageDetails.FilePath = String.Join("\\", pathBuf);
+
+                        List<string?> fileBuf = new();
+                        for (int i = 0; i < fileNameRules.Length; i++)
+                        {
+                            switch (fileNameRules[i])
+                            {
+                                case "Date":
+                                    if (imageDetails.DateTaken != null)
+                                        fileBuf.Add(String.Format($"{imageDetails.DateTaken}_{imageDetails.TimeTaken}"));
+                                    else fileBuf.Add(rand.Next(2147483647).ToString());
+                                    break;
+                                case "CameraModel":
+                                    if (imageDetails.CameraModel != null)
+                                        fileBuf.Add(imageDetails.CameraModel);
+                                    else
+                                        fileBuf.Add("ETC");
+                                    break;
+                                case "Location":
+                                    if (imageDetails.Location != null && imageDetails.Location != "/")
+                                        fileBuf.Add(imageDetails.Location);
+                                    else
+                                        fileBuf.Add("ETC");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        imageDetails.FileName = String.Join("_", fileBuf); // make setting seperator
+
                     }
-                    imageDetails.FileName = String.Join("_", fileBuf); // make setting seperator
+                    catch (NotSupportedException) // no exif data in imagefile(ex. png)
+                    {
+                        FileInfo notSupported = new(file);
+                        imageDetails.FilePath = "No_Data_To_Categorize";
+                        imageDetails.FileName = notSupported.Name;
+                    }
+                    catch (FileFormatException e)
+                    {
+                        //error: file has damaged
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                    }
                     if (!RunModel.FileWithDetails.ContainsKey(file))
                     {
                         RunModel.FileWithDetails.Add(file, imageDetails);
                     }//An item with the same key has already been added.'
                 }
                 imageFiles.Clear();
-
+                DateTime currentTime = DateTime.Now;
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
 
@@ -208,25 +223,27 @@ namespace image_categorizer.MVVM.ViewModel
                         DirectoryInfo directoryInfo = new DirectoryInfo(destPath);
                         if (directoryInfo.Exists == false)
                         {
-                             directoryInfo.Create();
+                            directoryInfo.Create();
+                            SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
                         }
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message);
+                        //write log file
+                        System.Diagnostics.Debug.WriteLine(e.Message);
                     }
 
                     try
                     {
-                       File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
+                        File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message);
+                        //write log file
+                        System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
                 }
-
                 //messageBox for check delete original files
             }
             else

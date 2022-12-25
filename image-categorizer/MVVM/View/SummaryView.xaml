@@ -8,13 +8,7 @@
     d:DesignHeight="498"
     d:DesignWidth="740"
     mc:Ignorable="d">
-    <Grid Background="#4f5b62">
-        <TextBlock
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="48"
-            Foreground="#ffffff">
-            SummaryView
-        </TextBlock>
-    </Grid>
+    <Border Background="#4f5b62">
+        <DataGrid Margin="10" />
+    </Border>
 </UserControl>

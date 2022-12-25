@@ -88,35 +88,6 @@ namespace image_categorizer.MVVM.ViewModel
 
 
         #region Logical Function
-/*        public string[] getDirectoryRules()
-        {
-            return SettingModel.DirectoryRules;
-        }
-        public string[] getFileNameRules()
-        {
-            return SettingModel.FileNameRules;
-        }*/
-        public void RuleTest()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                System.Diagnostics.Debug.WriteLine(SettingModel.ToString);
-            }
-        }
-        #endregion Logical Function
-        #region Static Data
-        private readonly ObservableCollection<string> _rulesForComboBox = new() {
-            "None",
-            "Date",
-            "CameraModel",
-            "Format",
-            "Location"
-        };
-        public ObservableCollection<string> RulesForComboBox
-        {
-            get { return _rulesForComboBox; }
-        }
-        #endregion Static Data
         public void SaveSetting(SettingModel model)
         {
             Properties.Settings.Default.InputDirectory = model.InputDirectorytPath;
@@ -125,7 +96,7 @@ namespace image_categorizer.MVVM.ViewModel
             Properties.Settings.Default.DirectoryNameRule = String.Join(",", model.DirectoryRules);
             Properties.Settings.Default.FileNameRule = String.Join(",", model.FileNameRules);
             Properties.Settings.Default.Save();
-
+            MessageBox.Show("Setting Saved");
         }
         public void ReadSetting()
         {
@@ -139,6 +110,22 @@ namespace image_categorizer.MVVM.ViewModel
                 SettingModel.FileNameRules = fileNameRule.Split(",");
             }
         }
+        #endregion Logical Function
+
+        #region Static Data
+        private readonly ObservableCollection<string> _rulesForComboBox = new() {
+            "None",
+            "Date",
+            "CameraModel",
+            "Format",
+            "Location"
+        };
+        public ObservableCollection<string> RulesForComboBox
+        {
+            get { return _rulesForComboBox; }
+        }
+        #endregion Static Data
+
 
     }
 }

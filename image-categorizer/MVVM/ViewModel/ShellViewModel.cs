@@ -39,12 +39,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         public static SettingViewModel? SettingVM
         {
-            get
-            {
-                if (_settingVM == null) 
-                    _settingVM = new SettingViewModel();
-                return _settingVM;
-            }
+            get =>  (_settingVM ?? (_settingVM = new SettingViewModel()));
             set { _settingVM = value; }
         }
 
@@ -63,6 +58,7 @@ namespace image_categorizer.MVVM.ViewModel
         public ShellViewModel()
         {
             GeoCoding.GeoCodingInit();
+            SQLite.SQLiteinit();
             CurrentView = RunVM;
 
             RunViewCommand = new RelayCommand(o =>

@@ -9,9 +9,9 @@ namespace image_categorizer.MVVM.Model
 {
     class ShellModel : ObservableObject
     {
-        private string _programDirectory;
+        private string? _programDirectory;
 
-        public string ProgramDirectory
+        public string? ProgramDirectory
         {
             get { return _programDirectory; }
             set { _programDirectory = value; }

@@ -25,7 +25,7 @@ namespace image_categorizer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("asdfgasdfqwer")]
         public string InputDirectory {
             get {
                 return ((string)(this["InputDirectory"]));
@@ -68,6 +68,30 @@ namespace image_categorizer.Properties {
             }
             set {
                 this["FileNameRule"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
+        public string DirectoryRuleIndexes {
+            get {
+                return ((string)(this["DirectoryRuleIndexes"]));
+            }
+            set {
+                this["DirectoryRuleIndexes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
+        public string FileNameRuleIndexes {
+            get {
+                return ((string)(this["FileNameRuleIndexes"]));
+            }
+            set {
+                this["FileNameRuleIndexes"] = value;
             }
         }
     }

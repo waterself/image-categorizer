@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="InputDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">asdfgasdfqwer</Value>
     </Setting>
     <Setting Name="OutputDirctory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -13,6 +13,12 @@
     </Setting>
     <Setting Name="FileNameRule" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DirectoryRuleIndexes" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0</Value>
+    </Setting>
+    <Setting Name="FileNameRuleIndexes" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

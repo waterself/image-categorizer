@@ -13,6 +13,7 @@ namespace image_categorizer
         private static string dbName = "D:\\DB\\allcountries.db";
         private static string dbversion = "3";
         private static string connectString = String.Format($"Data Source={dbName};");
+
         public static void GeoCodingInit()
         {
             if (!System.IO.File.Exists(dbName))
@@ -27,22 +28,31 @@ namespace image_categorizer
             using (SQLiteConnection connection = new SQLiteConnection(connectString)) {
                 connection.Open();
                 using SQLiteCommand GetAdmin3Command = new(getAdmin3Query, connection);
-                using SQLiteDataReader Admin3Reader = GetAdmin3Command.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
-                string admin2code = "None";
+                using SQLiteDataReader Admin3Reader = GetAdmin3Command.ExecuteReader();
+                string admin2code;
                 if (Admin3Reader.Read())
                 {
                     admin2code = String.Format($"{Admin3Reader["country"]}.{Admin3Reader["admin1"]}.{Admin3Reader["admin2"]}");
                 }
+                else { admin2code = "None"; }
                 if(admin2code.Length > 1) 
                 {
                     admin2code = admin2code.Substring(0, admin2code.Length - 1); 
                 }
-                string getAdmin2Query = String.Format($"SELECT altname FROM admin2 WHERE admin2code LIKE '{admin2code}%';");
-                using SQLiteCommand GetAdmin2Command = new(getAdmin2Query, connection);
-                using SQLiteDataReader Admin2Reader = GetAdmin2Command.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
 
-                string? location = null;
-                if (Admin2Reader.Read()) { location = Admin2Reader["altname"] as string; }
+                string? location = "None";
+                while (admin2code.Length > 1)
+                {
+                    string getAdmin2Query = String.Format($"SELECT altname FROM admin2 WHERE admin2code LIKE '{admin2code}%';");
+                    using (SQLiteCommand GetAdmin2Command = new(getAdmin2Query, connection))
+                    {
+                        using (SQLiteDataReader Admin2Reader = GetAdmin2Command.ExecuteReader()) 
+                        {
+                            if (Admin2Reader.Read()) { location = Admin2Reader["altname"] as string; break; }
+                            else { admin2code = admin2code.Substring(0, admin2code.Length - 1); }
+                        }
+                    }
+                }
 
 /*                Admin3Reader.Close();
                 GetAdmin3Command.Dispose();

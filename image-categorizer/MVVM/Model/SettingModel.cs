@@ -43,6 +43,23 @@ namespace image_categorizer.MVVM.Model
             set { _directoryRules = value; }
         }
 
+        private int[]? _directoryRulesIndexes;
+
+        public int[]? DirectoryRulesIndexes
+        {
+            get { return _directoryRulesIndexes; }
+            set { _directoryRulesIndexes = value; }
+        }
+
+        private int[]? _fileNameRulesIndexes;
+
+        public int[]? FileNameRulesIndexes
+        {
+            get { return _fileNameRulesIndexes; }
+            set { _fileNameRulesIndexes = value; }
+        }
+
+
         private string[] _fileNameRules = new string[4];
 
         public string[] FileNameRules

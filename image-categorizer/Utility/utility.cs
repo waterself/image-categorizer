@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace image_categorizer
@@ -15,13 +16,23 @@ namespace image_categorizer
         public static List<string> GetImageFiles(string filePath)
         {
             List<string> imageFiles = new();
-            foreach (string file in Directory.GetFiles(filePath, "*.*", SearchOption.AllDirectories))
+            //need exception handling
+            try
             {
-                if (Regex.IsMatch(file, @".jpg|.png|.bmp|.JPG|.PNG|.BMP|.JPEG|.jpeg$"))
+                foreach (string file in Directory.GetFiles(filePath, "*.*", SearchOption.AllDirectories))
                 {
-                    imageFiles.Add(@file);
+                    string fileExtension = Path.GetExtension(file);
+                    if (Regex.IsMatch(fileExtension, @".jpg|.png|.bmp|.JPG|.PNG|.BMP|.JPEG|.jpeg$"))
+                    {
+                        imageFiles.Add(@file);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
             return imageFiles;
         }
         public static bool FileExistsCheck(string file)
@@ -58,6 +69,20 @@ namespace image_categorizer
                     return dateTime.ToString("HHmmss");
                 }
                 else return null;
+            }
+            else return null;
+        }
+
+        public static string? FormatIsoDateTime(string dateTaken)
+        {
+            DateTime dateTime = new();
+            if (dateTaken != null)
+            {
+                if (DateTime.TryParse(dateTaken, out dateTime))
+                {
+                    return dateTime.ToString("yyyy-MM-dd HH:MM:ss");
+                }
+                else return null; 
             }
             else return null;
         }
@@ -115,7 +140,7 @@ namespace image_categorizer
                 ulong[]? longitude = metaData.GetQuery("/app1/ifd/gps/subifd:{ulong=4}") as ulong[];
                 string? latret = metaData.GetQuery("/app1/ifd/gps/subifd:{char=1}") as string;
                 string? longret = metaData.GetQuery("/app1/ifd/gps/subifd:{char=3}") as string;
-                if (latret == null || longret == null) { return null; }
+                if (latret == null || longret == null || Latitude == null || longitude == null) { return null; }
 
                 ret[0] = ConvertCoordinate(Latitude);
                 ret[1] = ConvertCoordinate(longitude);
@@ -128,6 +153,7 @@ namespace image_categorizer
             else return null;
 
         }
+        //need null check
         public static double ConvertCoordinate(ulong[] coordinate)
         {
             double degrees = ConvertToUnsignedRational(coordinate[0]);

@@ -37,6 +37,11 @@ namespace image_categorizer.MVVM.View
             get { return GetValue(RulesForComboBoxProperty) as ObservableCollection<string>; }
             set { SetValue(RulesForComboBoxProperty, value); }
         }
+        public int[] ComboBoxSelectedindex
+        {
+            get { return GetValue(ComboBoxSelectedIndexProperty) as int[]; }
+            set { SetValue(ComboBoxSelectedIndexProperty, value); }
+        }
         public string[]? RulesArray
         {
             get { return (string[]?)GetValue(RulesArrayProperty); }
@@ -51,7 +56,8 @@ namespace image_categorizer.MVVM.View
         public static readonly DependencyProperty RulesForComboBoxProperty = DependencyProperty.Register(
             nameof(RulesForComboBox), typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));
 
-
+        public static readonly DependencyProperty ComboBoxSelectedIndexProperty = DependencyProperty.Register(
+            nameof(ComboBoxSelectedindex), typeof(int[]), typeof(RuleSelector), new PropertyMetadata(new int[4] { 0, 0, 0, 0 }));
             
     }
 }

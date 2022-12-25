@@ -12,6 +12,7 @@ namespace image_categorizer
         /*private static string dbName = String.Format($"{Environment.CurrentDirectory}\\ic.sqlite");*/
         private static string dbName = "D:\\DB\\ic.db";
         private static string dbversion = "3";
+        private static string tagTable = "image_tags";
         private static string connectString = String.Format($"Data Source = {dbName};");
         public static void SQLiteinit()
         {
@@ -22,18 +23,56 @@ namespace image_categorizer
                     SQLiteConnection.CreateFile(dbName);
                 }
                 connection.Open();
-                string createSql = "CREATE TABLE IF NOT EXISTS image_tags(datetime DATETIME, format varchar(5), camera_model varchar(80), modified_date DATETIME";
+                string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}(file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, modified_date TEXT);");
                 SQLiteCommand createCommand = new(createSql, connection);
+                int result =  createCommand.ExecuteNonQuery();
             }
         }
-        public static void InsertQuery(string VALUES)
+        public static int InsertQuery(string? filePath, string? dateTime, string? format, string? camera_model, string? modified_date)
         {
-            string sql = String.Format($"INSERT INTO ic.imagetags VALUES({VALUES})");
+            int result = -1;
+            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{filePath}\', \'{dateTime}\', \'{format}\', \'{camera_model}\', \'{modified_date}\');");
             using (SQLiteConnection connection = new SQLiteConnection(connectString))
-            { 
-                SQLiteCommand command = new(sql, connection);
-                int result = command.ExecuteNonQuery();
+            {
+                connection.Open();
+                using SQLiteCommand command = new(sql, connection);
+                result = command.ExecuteNonQuery();
             }
+            return result;
+        }
+        /// <summary>
+        /// select query with no condition
+        /// </summary>
+        /// <param name="select">dateTime,format,camera_model,modified_date)</param>
+        /// <returns>Dictionary(attribute, Datas)</returns>
+        public static Dictionary<string, List<string?>>? SelectQuery(string[] select)
+        {
+            Dictionary<string, List<string?>>? ret = new();
+            string attribute = String.Join(",", select);
+            string sql = String.Format($"SELECT {attribute} FROM {tagTable};");
+            using (SQLiteConnection connection = new(connectString))
+            {
+                using SQLiteCommand command = new(sql, connection);
+                using SQLiteDataReader reader = command.ExecuteReader();
+                while (reader.Read()) //for one row
+                {
+                    Dictionary<string, string?> attributeValue = new();
+                    for (int i = 0; i < select.Length; i++) // for attribute
+                    {
+                        attributeValue.Add(select[i], reader[select[i]] as string);
+                    }
+                    foreach (KeyValuePair<string, string?> item in attributeValue)
+                    {
+                        if (!ret.ContainsKey(item.Key))
+                        {
+                            List<string> colunmn = new List<string>();
+                            if (item.Value != null) { colunmn.Add(item.Value); }
+                            ret.Add(item.Key, colunmn);
+                        }
+                    }
+                }
+            }
+            return ret;
         }
     }
 }
