@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MVVM\UC\RankedDataView.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="MVVM\UC\RankedDataView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.117" />

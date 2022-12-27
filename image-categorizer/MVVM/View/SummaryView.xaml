@@ -9,6 +9,54 @@
     d:DesignWidth="740"
     mc:Ignorable="d">
     <Border Background="#4f5b62">
-        <DataGrid Margin="10" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="15"
+                Background="{StaticResource WhiteSolidColorBrush}"
+                CornerRadius="10">
+                <DataGrid />
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="15"
+                Background="{StaticResource WhiteSolidColorBrush}"
+                CornerRadius="10">
+                <DataGrid />
+            </Border>
+
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="15"
+                Background="{StaticResource WhiteSolidColorBrush}"
+                CornerRadius="10">
+                <DataGrid />
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="15"
+                Background="{StaticResource WhiteSolidColorBrush}"
+                CornerRadius="10">
+                <DataGrid />
+            </Border>
+        </Grid>
     </Border>
 </UserControl>
+<!--
+    사진을 가장 많이 찍은 년도 순서대로 최대 5개
+    올해 사진을 가장 많이 찍은 달
+    사진을 많이 찍은 도시 - 총합 100의 비율로
+    많이 사용한 카메라 순서대로
+-->

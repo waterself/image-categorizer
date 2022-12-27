@@ -37,9 +37,12 @@ namespace image_categorizer.MVVM.ViewModel
         }
         private static SettingViewModel? _settingVM;
 
-        public static SettingViewModel? SettingVM
+        /// <summary>
+        /// Reinitialized when get SettingView for update
+        /// </summary>
+        public SettingViewModel? SettingVM
         {
-            get =>  (_settingVM ?? (_settingVM = new SettingViewModel()));
+            get { return _settingVM ?? (_settingVM = new SettingViewModel()); }
             set { _settingVM = value; }
         }
 

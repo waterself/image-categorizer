@@ -13,7 +13,9 @@ namespace image_categorizer
         private static string dbName = "D:\\DB\\ic.db";
         private static string dbversion = "3";
         private static string tagTable = "image_tags";
+        private static string allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, modified_date TEXT";
         private static string connectString = String.Format($"Data Source = {dbName};");
+        public static bool isInit = false;
         public static void SQLiteinit()
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectString))
@@ -23,10 +25,11 @@ namespace image_categorizer
                     SQLiteConnection.CreateFile(dbName);
                 }
                 connection.Open();
-                string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}(file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, modified_date TEXT);");
+                string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}({allAttributes});");
                 SQLiteCommand createCommand = new(createSql, connection);
                 int result =  createCommand.ExecuteNonQuery();
             }
+            isInit = true;
         }
         public static int InsertQuery(string? filePath, string? dateTime, string? format, string? camera_model, string? modified_date)
         {
@@ -52,6 +55,7 @@ namespace image_categorizer
             string sql = String.Format($"SELECT {attribute} FROM {tagTable};");
             using (SQLiteConnection connection = new(connectString))
             {
+                connection.Open();
                 using SQLiteCommand command = new(sql, connection);
                 using SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read()) //for one row
@@ -60,14 +64,17 @@ namespace image_categorizer
                     for (int i = 0; i < select.Length; i++) // for attribute
                     {
                         attributeValue.Add(select[i], reader[select[i]] as string);
+                        if (!ret.ContainsKey(select[i]))
+                        {
+                            ret.Add(select[i], new List<string?>());
+                        }
                     }
                     foreach (KeyValuePair<string, string?> item in attributeValue)
                     {
-                        if (!ret.ContainsKey(item.Key))
+                        if (ret.ContainsKey(item.Key))
                         {
-                            List<string> colunmn = new List<string>();
-                            if (item.Value != null) { colunmn.Add(item.Value); }
-                            ret.Add(item.Key, colunmn);
+                            string? colunmn = "";
+                            if (item.Value != null) { colunmn = item.Value;  ret[item.Key].Add(colunmn); }
                         }
                     }
                 }

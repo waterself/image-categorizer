@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="InputDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">asdfgasdfqwer</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="OutputDirctory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

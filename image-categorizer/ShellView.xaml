@@ -16,72 +16,75 @@
     <Window.DataContext>
         <viewModel:ShellViewModel />
     </Window.DataContext>
-    <DockPanel
-        Height="600"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Stretch"
-        Background="{StaticResource PointSolidColorBrush}"
-        MouseLeftButtonDown="TitleBar_DragMove">
-
+    <Grid Background="{StaticResource PointSolidColorBrush}">
         <DockPanel
-            x:Name="TitleBar"
-            Grid.Row="0"
-            Grid.Column="1"
+            Height="600"
+            Margin="2"
             HorizontalAlignment="Stretch"
-            DockPanel.Dock="top"
+            VerticalAlignment="Stretch"
+            Background="{StaticResource PointSolidColorBrush}"
             MouseLeftButtonDown="TitleBar_DragMove">
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button
-                    Background="Yellow"
-                    DockPanel.Dock="Left"
-                    Style="{StaticResource TitleButtonThemes}" />
-                <Button
-                    Background="Red"
-                    Click="CloseButton_Click"
-                    DockPanel.Dock="Left"
-                    Style="{StaticResource TitleButtonThemes}" />
-            </StackPanel>
-        </DockPanel>
-        <Border Background="{StaticResource FrameSolidColorBrush}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <TextBlock
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="35"
-                    Foreground="#ffffff"
-                    Text="" />
-                <StackPanel Grid.Row="1" Grid.Column="0">
-                    <RadioButton
-                        Command="{Binding RunViewCommand}"
-                        Content="Run Categorizer"
-                        IsChecked="True"
-                        Style="{StaticResource MenuButtonThemes}" />
-                    <RadioButton
-                        Command="{Binding SettingViewCommand}"
-                        Content="Setting"
-                        IsChecked="False"
-                        Style="{StaticResource MenuButtonThemes}" />
-                    <RadioButton
-                        Command="{Binding SummaryViewCommand}"
-                        Content="Summery"
-                        IsChecked="False"
-                        Style="{StaticResource MenuButtonThemes}" />
+
+            <DockPanel
+                x:Name="TitleBar"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                DockPanel.Dock="top"
+                MouseLeftButtonDown="TitleBar_DragMove">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Button
+                        Background="Yellow"
+                        DockPanel.Dock="Left"
+                        Style="{StaticResource TitleButtonThemes}" />
+                    <Button
+                        Background="Red"
+                        Click="CloseButton_Click"
+                        DockPanel.Dock="Left"
+                        Style="{StaticResource TitleButtonThemes}" />
                 </StackPanel>
-                <ContentControl
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Content="{Binding CurrentView, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" />
-            </Grid>
-        </Border>
-    </DockPanel>
+            </DockPanel>
+            <Border Background="{StaticResource FrameSolidColorBrush}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="35"
+                        Foreground="#ffffff"
+                        Text="" />
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <RadioButton
+                            Command="{Binding RunViewCommand}"
+                            Content="Run Categorizer"
+                            IsChecked="True"
+                            Style="{StaticResource MenuButtonThemes}" />
+                        <RadioButton
+                            Command="{Binding SettingViewCommand}"
+                            Content="Setting"
+                            IsChecked="False"
+                            Style="{StaticResource MenuButtonThemes}" />
+                        <RadioButton
+                            Command="{Binding SummaryViewCommand}"
+                            Content="Summery"
+                            IsChecked="False"
+                            Style="{StaticResource MenuButtonThemes}" />
+                    </StackPanel>
+                    <ContentControl
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Content="{Binding CurrentView, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" />
+                </Grid>
+            </Border>
+        </DockPanel>
+    </Grid>
 </Window>

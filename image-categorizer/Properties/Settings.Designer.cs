@@ -25,7 +25,7 @@ namespace image_categorizer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("asdfgasdfqwer")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string InputDirectory {
             get {
                 return ((string)(this["InputDirectory"]));

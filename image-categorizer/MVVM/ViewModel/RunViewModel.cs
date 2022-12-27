@@ -64,7 +64,6 @@ namespace image_categorizer.MVVM.ViewModel
                             RunModel.InputDirectorytPath = fileName;
                             List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
                             RunModel.FileCount = imageFiles.Count;
-                            OnPropertyChanged();
                         }
                         else if (mode == "output")
                         {
@@ -104,7 +103,7 @@ namespace image_categorizer.MVVM.ViewModel
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
-                foreach (string file in imageFiles) //get metaData for Images
+                foreach(string file in imageFiles) //get metaData for Images
                 {
                     ImageDetails imageDetails = new ImageDetails();
                     try
