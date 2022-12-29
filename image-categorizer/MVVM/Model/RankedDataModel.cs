@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace image_categorizer.MVVM.Model
 {
-     class RankedDataModel
+     public class RankedDataModel
     {
         public RankedDataModel(int index = 0, string name = null, double rate = 0, int count=0)
         { 

@@ -18,12 +18,12 @@ namespace image_categorizer.MVVM.Model
             get { return _selectedDBData; }
             set { _selectedDBData = value; }
         }
-        private ObservableCollection<RankedDataModel> _monthRankList = new();
+        private ObservableCollection<RankedDataModel> _yearMonthRankList = new();
 
-        public ObservableCollection<RankedDataModel> MonthRankList
+        public ObservableCollection<RankedDataModel> YearMonthRankList
         {
-            get { return _monthRankList; }
-            set { _monthRankList = value; }
+            get { return _yearMonthRankList; }
+            set { _yearMonthRankList = value; }
         }
 
         private ObservableCollection<RankedDataModel> _yearRankList = new();

@@ -31,6 +31,7 @@ namespace image_categorizer
             }
             isInit = true;
         }
+        //Need Location Data
         public static int InsertQuery(string? filePath, string? dateTime, string? format, string? camera_model, string? modified_date)
         {
             int result = -1;

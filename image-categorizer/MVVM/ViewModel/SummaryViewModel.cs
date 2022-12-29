@@ -37,12 +37,13 @@ namespace image_categorizer.MVVM.ViewModel
                     int YearMonthsListSum = 0;
                     int YearMonthsOtherSum = YearMonthsListSum; 
                     Dictionary<string, List<string?>> YearMonths = Utility.GetSameValueList(SummaryModel.SelectedDBData["datetime"]);
-                    SummaryModel.MonthRankList = GetRankData(GetYearMonthList(YearMonths), out YearMonthsListSum);
+                    SummaryModel.YearMonthRankList = GetRankData(GetYearMonthList(YearMonths), out YearMonthsListSum);
                     
                     int YearListSum = 0;
                     SummaryModel.YearRankList = GetRankData(GetYearMonthList(YearMonths), out YearListSum);
                     YearMonths.Clear();
 
+                    //지역을 원래 안담았나?
                     Dictionary<string, List<string?>> Locations = Utility.GetSameValueList(SummaryModel.SelectedDBData["camera_model"]);
                     int LocationListSum = 0;
                     SummaryModel.LocationRankList = GetRankData(Locations, out LocationListSum);
@@ -54,6 +55,7 @@ namespace image_categorizer.MVVM.ViewModel
         }
 
 
+        #region init Logic
         private ObservableCollection<RankedDataModel> GetTopRank(ObservableCollection<RankedDataModel> ModelList, int size)
         {
             RankedDataModel[] High = new RankedDataModel[size];
@@ -165,6 +167,7 @@ namespace image_categorizer.MVVM.ViewModel
             }
             return Year;
         }
-    } 
+        #endregion init Logic
+    }
 }
 
