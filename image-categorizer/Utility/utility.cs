@@ -9,7 +9,7 @@ namespace image_categorizer
 {
     public static class Utility
     {
-        public static string deleteRegex(string input, string regex) 
+        public static string deleteRegex(string input, string regex)
         {
             return Regex.Replace(input, regex, "");
         }
@@ -73,7 +73,26 @@ namespace image_categorizer
             else return null;
         }
 
-        public static string? FormatIsoDateTime(string dateTaken)
+        public static string? FormatYearMonth(string dateTime)
+        {
+            DateTime datetime = new();
+            if (DateTime.TryParse(dateTime, out datetime))
+            {
+                return datetime.ToString("yyyy-MM");
+            }
+            else return null;
+        }
+        public static string? FormatYear(string dateTime)
+        {
+            DateTime datetime = new();
+            if (DateTime.TryParse(dateTime, out datetime))
+            {
+                return datetime.ToString("yyyy");
+            }
+            else return null;
+        }
+
+        public static string FormatIsoDateTime(string dateTaken)
         {
             DateTime dateTime = new();
             if (dateTaken != null)
@@ -82,9 +101,9 @@ namespace image_categorizer
                 {
                     return dateTime.ToString("yyyy-MM-dd HH:MM:ss");
                 }
-                else return null; 
+                else return"";
             }
-            else return null;
+            else return "";
         }
 
         public static string? GetCameraModelWithCameraManufacturer(string CameraManufacturer,
@@ -93,8 +112,8 @@ namespace image_categorizer
             if (CameraManufacturer != null && CameraModel != null)
             {
                 string formatedCameraModel = Regex.Replace(CameraModel, CameraManufacturer, "");
-                string formated = deleteRegex( String.Format($"{CameraManufacturer} {formatedCameraModel}"), "[\\/:*?\"<>|]");
-                string[] splited = formated.Split(new char[] { ' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+                string formated = deleteRegex(String.Format($"{CameraManufacturer} {formatedCameraModel}"), "[\\/:*?\"<>|]");
+                string[] splited = formated.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                 return String.Join(" ", splited);
 
             }
@@ -131,6 +150,25 @@ namespace image_categorizer
                 return null;
             }
         }
+        public static Dictionary<T, List<T?>>? GetSameValueList<T>(List<T>? list)
+        { 
+            Dictionary<T, List<T>>? result = new Dictionary<T, List<T>>();
+            if (list != null)
+            {
+                foreach (T item in list)
+                {
+                    if (!result.ContainsKey(item))
+                    {
+                        result.Add(item, new List<T>() { item });
+                    }
+                    else { 
+                        result[item].Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+             
         public static double[]? GetCoordinate(BitmapMetadata metaData)
         {
             if (metaData != null)

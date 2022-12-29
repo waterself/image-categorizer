@@ -214,7 +214,7 @@ namespace image_categorizer.MVVM.ViewModel
                 DateTime currentTime = DateTime.Now;
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
-
+                    
                     string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
                     try

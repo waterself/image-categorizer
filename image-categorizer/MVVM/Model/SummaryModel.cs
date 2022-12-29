@@ -49,6 +49,30 @@ namespace image_categorizer.MVVM.Model
             get { return _cameraModelList; }
             set { _cameraModelList = value; }
         }
+        private int _cameraModelListSum;
+
+        public int CameraModelListSum
+        {
+            get { return _cameraModelListSum; }
+            set { _cameraModelListSum = value; }
+        }
+
+        private int _yearMonthsListSum;
+
+        public int YearMonthsListSum
+        {
+            get { return _yearMonthsListSum; }
+            set { _yearMonthsListSum = value; }
+        }
+
+        private int _yearListSum;
+
+        public int YearListSum
+        {
+            get { return _yearListSum; }
+            set { _yearListSum = value; }
+        }
+
 
 
 
