@@ -103,7 +103,7 @@ namespace image_categorizer.MVVM.ViewModel
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
-                foreach(string file in imageFiles) //get metaData for Images
+                Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
                 {
                     ImageDetails imageDetails = new ImageDetails();
                     try
@@ -209,12 +209,13 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         RunModel.FileWithDetails.Add(file, imageDetails);
                     }//An item with the same key has already been added.'
-                }
+                }));
+                dataExtractTask.Wait();
                 imageFiles.Clear();
                 DateTime currentTime = DateTime.Now;
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
-                    
+
                     string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
                     try
@@ -223,7 +224,6 @@ namespace image_categorizer.MVVM.ViewModel
                         if (directoryInfo.Exists == false)
                         {
                             directoryInfo.Create();
-                            SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
                         }
                     }
                     catch (Exception e)
@@ -235,6 +235,7 @@ namespace image_categorizer.MVVM.ViewModel
                     try
                     {
                         File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
+                        SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
                     }
                     catch (Exception e)
                     {

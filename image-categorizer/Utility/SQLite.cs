@@ -13,7 +13,7 @@ namespace image_categorizer
         private static string dbName = "D:\\DB\\ic.db";
         private static string dbversion = "3";
         private static string tagTable = "image_tags";
-        private static string allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, modified_date TEXT";
+        private static string allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";
         private static string connectString = String.Format($"Data Source = {dbName};");
         public static bool isInit = false;
         public static void SQLiteinit()
@@ -32,10 +32,11 @@ namespace image_categorizer
             isInit = true;
         }
         //Need Location Data
-        public static int InsertQuery(string? filePath, string? dateTime, string? format, string? camera_model, string? modified_date)
+        public static int InsertQuery(string? filePath, string? dateTime, string? format, string? camera_model, string? location, string? modified_date)
         {
             int result = -1;
-            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{filePath}\', \'{dateTime}\', \'{format}\', \'{camera_model}\', \'{modified_date}\');");
+            //need generation
+            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{filePath}\', \'{dateTime}\', \'{format}\', \'{camera_model}\', \'{location}', \'{modified_date}\');");
             using (SQLiteConnection connection = new SQLiteConnection(connectString))
             {
                 connection.Open();

@@ -22,50 +22,17 @@
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10"
                 DockPanel.Dock="Top">
-                <StackPanel Margin="5,5,5,5" Orientation="Vertical">
-                    <Border
-                        x:Name="InputPathSelector"
-                        Background="{StaticResource FrameSolidColorBrush}"
-                        CornerRadius="5">
-                        <StackPanel Margin="10,10,10,10" Orientation="Vertical">
-                            <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="#ffffff">Default InputPath</TextBlock>
-                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
-                                <Button
-                                    x:Name="InputPathSelectButton"
-                                    Width="100"
-                                    Command="{Binding SelectInputPathCommand}"
-                                    Content="SelectPath"
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource PathSelectButtonThemes}" />
-                                <TextBlock
-                                    Background="{StaticResource BackgroundSolidColorBrush}"
-                                    Foreground="#ffffff"
-                                    Text="{Binding SettingModel.InputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
-
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border
-                        x:Name="OutputPathSelector"
-                        Background="{StaticResource FrameSolidColorBrush}"
-                        CornerRadius="5">
-                        <StackPanel Margin="10,10,10,10" Orientation="Vertical">
-                            <TextBlock Background="{StaticResource BackgroundSolidColorBrush}" Foreground="#ffffff">Default OutputPath</TextBlock>
-                            <DockPanel HorizontalAlignment="Stretch" LastChildFill="True">
-                                <Button
-                                    x:Name="OutputPathSelectButton"
-                                    Width="100"
-                                    Command="{Binding SelectOutputPathCommand}"
-                                    Content="SelectPath"
-                                    DockPanel.Dock="Right"
-                                    Style="{StaticResource PathSelectButtonThemes}" />
-                                <TextBlock
-                                    Background="{StaticResource BackgroundSolidColorBrush}"
-                                    Foreground="#ffffff"
-                                    Text="{Binding SettingModel.OutputDirectorytPath, TargetNullValue=Please Select Input Directory}" />
-                            </DockPanel>
-                        </StackPanel>
-                    </Border>
+                <StackPanel Margin="5,5,5,5">
+                    <local:PathSelector
+                        Margin="0,0,0,3"
+                        DirectoryPath="{Binding SettingModel.InputDirectorytPath}"
+                        NameLabel="Input Directory"
+                        SelectButtonCommand="{Binding SelectInputPathCommand}" />
+                    <local:PathSelector
+                        Margin="0,0,0,3"
+                        DirectoryPath="{Binding SettingModel.OutputDirectorytPath}"
+                        NameLabel="Output Directory"
+                        SelectButtonCommand="{Binding SelectOutputPathCommand}" />
                 </StackPanel>
             </Border>
             <local:RuleSelector

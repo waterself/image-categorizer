@@ -27,14 +27,15 @@
                     Margin="5,5,5,5"
                     Orientation="Vertical">
                     <local:PathSelector
+                        Margin="0,0,0,3"
                         DirectoryPath="{Binding RunModel.InputDirectorytPath}"
                         NameLabel="Input Directory"
                         SelectButtonCommand="{Binding SelectInputPathCommand}" />
                     <local:PathSelector
+                        Margin="0,0,0,3"
                         DirectoryPath="{Binding RunModel.OutputDirectorytPath}"
-                        NameLabel="Outpu tDirectory"
+                        NameLabel="Output Directory"
                         SelectButtonCommand="{Binding SelectOutputPathCommand}" />
-
                     <Border
                         x:Name="TotalFileNumber"
                         Background="#263238"
@@ -58,15 +59,24 @@
             <Canvas MinHeight="140" />
             <DockPanel LastChildFill="False">
                 <Border
-                    MinWidth="200"
-                    MinHeight="150"
-                    Margin="10,10,10,10"
-                    Background="{StaticResource FrameSolidColorBrush}"
-                    CornerRadius="10">
+                    Height="150"
+                    MinWidth="550"
+                    Margin="10,10,10,10">
                     <Border
-                        Margin="5"
-                        Background="{StaticResource BackgroundSolidColorBrush}"
-                        CornerRadius="5" />
+                        Height="50"
+                        Background="{StaticResource FrameSolidColorBrush}"
+                        CornerRadius="5">
+                        <Border
+                            Height="50"
+                            Margin="5"
+                            Background="{StaticResource BackgroundSolidColorBrush}"
+                            CornerRadius="5">
+                            <ProgressBar
+                                Maximum="100"
+                                Minimum="0"
+                                Value="{Binding RunModel.DataExtractProgress}" />
+                        </Border>
+                    </Border>
                 </Border>
                 <Button
                     x:Name="RunButton"

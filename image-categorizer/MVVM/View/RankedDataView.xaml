@@ -15,52 +15,60 @@
             Margin="5"
             Background="{StaticResource FrameSolidColorBrush}"
             CornerRadius="5">
-            <Grid Margin="5" Background="{StaticResource BackgroundSolidColorBrush}">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0" LastChildFill="true">
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Count}" />
-                    <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Rate}" />
-                    <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Name}" />
+            <Border Margin="5" Background="{StaticResource BackgroundSolidColorBrush}">
+                <Grid Margin="5" Background="{StaticResource BackgroundSolidColorBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" LastChildFill="true">
+                        <TextBlock
+                            DockPanel.Dock="Left"
+                            Foreground="{StaticResource WhiteSolidColorBrush}"
+                            Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Count}" />
+                        <TextBlock
+                            DockPanel.Dock="Right"
+                            Foreground="{StaticResource WhiteSolidColorBrush}"
+                            Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Rate}" />
+                        <TextBlock Foreground="{StaticResource WhiteSolidColorBrush}" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Name}" />
 
-                </DockPanel>
-                <DockPanel Grid.Row="1" LastChildFill="true">
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Count}" />
-                    <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Rate}" />
-                    <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Name}" />
+                    </DockPanel>
+                    <DockPanel Grid.Row="1" LastChildFill="true">
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Count}" />
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Rate}" />
+                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Name}" />
 
-                </DockPanel>
-                <DockPanel Grid.Row="2" LastChildFill="true">
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Count}" />
-                    <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Rate}" />
-                    <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Name}" />
+                    </DockPanel>
+                    <DockPanel Grid.Row="2" LastChildFill="true">
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Count}" />
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Rate}" />
+                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Name}" />
 
-                </DockPanel>
-                <DockPanel Grid.Row="3" LastChildFill="true">
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Count}" />
-                    <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Rate}" />
-                    <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Name}" />
+                    </DockPanel>
+                    <DockPanel Grid.Row="3" LastChildFill="true">
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Count}" />
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Rate}" />
+                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Name}" />
 
-                </DockPanel>
-                <DockPanel Grid.Row="4" LastChildFill="true">
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Count}" />
-                    <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Rate}" />
-                    <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Name}" />
+                    </DockPanel>
+                    <DockPanel Grid.Row="4" LastChildFill="true">
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Count}" />
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Rate}" />
+                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Name}" />
 
-                </DockPanel>
-                <DockPanel Grid.Row="5" LastChildFill="true">
-                    <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Count}" />
-                    <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Rate}" />
-                    <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Name}" />
+                    </DockPanel>
+                    <DockPanel Grid.Row="5" LastChildFill="true">
+                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Count}" />
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Rate}" />
+                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Name}" />
 
-                </DockPanel>
-            </Grid>
+                    </DockPanel>
+                </Grid>
+            </Border>
         </Border>
     </Grid>
 </UserControl>

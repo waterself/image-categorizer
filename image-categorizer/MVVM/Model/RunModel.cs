@@ -57,5 +57,22 @@ namespace image_categorizer.MVVM.Model
             set { _fileWithdetails = value; }
         }
         #endregion Logical Data
+        private int _dataExtractProgress = 50;
+
+        public int DataExtractProgress
+        {
+            get { return _dataExtractProgress; }
+            set { _dataExtractProgress = value; }
+        }
+
+        private int _fileCopyProgress;
+
+        public int FileCopyProgress
+        {
+            get { return _fileCopyProgress; }
+            set { _fileCopyProgress = value; }
+        }
+
+
     }
 }

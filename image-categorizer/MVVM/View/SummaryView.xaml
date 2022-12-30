@@ -28,7 +28,7 @@
                 Margin="15"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView RankedData="{Binding SummaryModel.YearRankList}" />
+                <DataGrid ItemsSource="{Binding SummaryModel.YearRankList}" />
             </Border>
             <Border
                 Grid.Row="0"
