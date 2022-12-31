@@ -6,8 +6,6 @@
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
-    d:DesignHeight="498"
-    d:DesignWidth="740"
     mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:SummaryViewModel />
@@ -25,35 +23,35 @@
             <Border
                 Grid.Row="0"
                 Grid.Column="0"
-                Margin="15"
+                Margin="14,14,7,7"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <DataGrid ItemsSource="{Binding SummaryModel.YearRankList}" />
+                <local:RankedDataView NameLabel="Year Rank" RankedData="{Binding SummaryModel.YearMonthRankList}" />
             </Border>
             <Border
                 Grid.Row="0"
                 Grid.Column="1"
-                Margin="15"
+                Margin="7,14,14,7"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView RankedData="{Binding SummaryModel.YearMonthRankList}" />
+                <local:RankedDataView NameLabel="Month Rank" RankedData="{Binding SummaryModel.YearMonthRankList}" />
             </Border>
 
             <Border
                 Grid.Row="1"
                 Grid.Column="0"
-                Margin="15"
+                Margin="14,7,7,14"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView RankedData="{Binding SummaryModel.CameraModelList}" />
+                <local:RankedDataView NameLabel="Camera Rank" RankedData="{Binding SummaryModel.CameraModelList}" />
             </Border>
             <Border
                 Grid.Row="1"
                 Grid.Column="1"
-                Margin="15"
+                Margin="7,7,14,14"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView RankedData="{Binding SummaryModel.LocationRankList}" />
+                <local:RankedDataView NameLabel="Location Rank" RankedData="{Binding SummaryModel.LocationRankList}" />
             </Border>
         </Grid>
     </Border>

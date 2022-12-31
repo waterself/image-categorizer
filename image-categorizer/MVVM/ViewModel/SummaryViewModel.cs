@@ -2,6 +2,7 @@
 using image_categorizer.MVVM.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -133,7 +134,7 @@ namespace image_categorizer.MVVM.ViewModel
                 dataModel.Count = RankedList[i].Count;
                 dataModel.Index = i;
                 dataModel.Name = RankedList[i].Name;
-                dataModel.Rate = ((double)RankedList[i].Count / (double)countSum) * 100;
+                dataModel.Rate = Math.Round(((double)RankedList[i].Count / (double)countSum) * 100, 2);
                 otherSum -= RankedList[i].Count;
                 result.Add(dataModel);
             }

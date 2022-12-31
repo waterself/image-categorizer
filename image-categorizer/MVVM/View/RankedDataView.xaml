@@ -6,8 +6,6 @@
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="RankedDataViewControl"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     DataContext="{Binding}"
     mc:Ignorable="d">
     <Grid>
@@ -15,60 +13,55 @@
             Margin="5"
             Background="{StaticResource FrameSolidColorBrush}"
             CornerRadius="5">
-            <Border Margin="5" Background="{StaticResource BackgroundSolidColorBrush}">
-                <Grid Margin="5" Background="{StaticResource BackgroundSolidColorBrush}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <DockPanel Grid.Row="0" LastChildFill="true">
-                        <TextBlock
-                            DockPanel.Dock="Left"
-                            Foreground="{StaticResource WhiteSolidColorBrush}"
-                            Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Count}" />
-                        <TextBlock
-                            DockPanel.Dock="Right"
-                            Foreground="{StaticResource WhiteSolidColorBrush}"
-                            Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Rate}" />
-                        <TextBlock Foreground="{StaticResource WhiteSolidColorBrush}" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[0].Name}" />
-
-                    </DockPanel>
-                    <DockPanel Grid.Row="1" LastChildFill="true">
-                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Count}" />
-                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Rate}" />
-                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[1].Name}" />
-
-                    </DockPanel>
-                    <DockPanel Grid.Row="2" LastChildFill="true">
-                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Count}" />
-                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Rate}" />
-                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[2].Name}" />
-
-                    </DockPanel>
-                    <DockPanel Grid.Row="3" LastChildFill="true">
-                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Count}" />
-                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Rate}" />
-                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[3].Name}" />
-
-                    </DockPanel>
-                    <DockPanel Grid.Row="4" LastChildFill="true">
-                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Count}" />
-                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Rate}" />
-                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[4].Name}" />
-
-                    </DockPanel>
-                    <DockPanel Grid.Row="5" LastChildFill="true">
-                        <TextBlock DockPanel.Dock="Left" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Count}" />
-                        <TextBlock DockPanel.Dock="Right" Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Rate}" />
-                        <TextBlock Text="{Binding ElementName=RankedDataViewControl, Path=RankedData[5].Name}" />
-
-                    </DockPanel>
-                </Grid>
-            </Border>
+            <Grid Margin="5" Background="{StaticResource WhiteSolidColorBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Background="{StaticResource WhiteSolidColorBrush}" />
+                <Border
+                    Grid.Row="0"
+                    Margin="4,4,4,2"
+                    Background="{StaticResource BackgroundSolidColorBrush}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="Bold"
+                        Foreground="{StaticResource WhiteSolidColorBrush}"
+                        Text="{Binding ElementName=RankedDataViewControl, Path=NameLabel}" />
+                </Border>
+                <local:RankedDataRowView
+                    Grid.Row="1"
+                    VerticalAlignment="Stretch"
+                    DataModel="{Binding ElementName=RankedDataViewControl, Path=RankedData[0]}" />
+                <local:RankedDataRowView
+                    Grid.Row="2"
+                    VerticalAlignment="Stretch"
+                    DataModel="{Binding ElementName=RankedDataViewControl, Path=RankedData[1]}" />
+                <local:RankedDataRowView
+                    Grid.Row="3"
+                    VerticalAlignment="Stretch"
+                    DataModel="{Binding ElementName=RankedDataViewControl, Path=RankedData[2]}" />
+                <local:RankedDataRowView
+                    Grid.Row="4"
+                    VerticalAlignment="Stretch"
+                    DataModel="{Binding ElementName=RankedDataViewControl, Path=RankedData[3]}" />
+                <local:RankedDataRowView
+                    Grid.Row="5"
+                    VerticalAlignment="Stretch"
+                    DataModel="{Binding ElementName=RankedDataViewControl, Path=RankedData[4]}" />
+                <local:RankedDataRowView
+                    Grid.Row="6"
+                    Margin="0,0,0,2"
+                    VerticalAlignment="Stretch"
+                    DataModel="{Binding ElementName=RankedDataViewControl, Path=RankedData[5]}" />
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

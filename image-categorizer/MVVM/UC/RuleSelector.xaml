@@ -6,8 +6,6 @@
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="RuleSelectorControl"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     DataContext="{Binding}"
     mc:Ignorable="d">
     <Border
