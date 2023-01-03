@@ -95,6 +95,8 @@ namespace image_categorizer.MVVM.ViewModel
             //it's length is not 4, add None
             Properties.Settings.Default.DirectoryNameRule = String.Join(",", model.DirectoryRules);
             Properties.Settings.Default.FileNameRule = String.Join(",", model.FileNameRules);
+            Properties.Settings.Default.FileNameRuleIndexes = String.Join(",", model.FileNameRulesIndexes);
+            Properties.Settings.Default.DirectoryRuleIndexes = String.Join(",", model.DirectoryRulesIndexes);
             Properties.Settings.Default.Save();
             MessageBox.Show("Setting Saved");
         }
@@ -108,6 +110,10 @@ namespace image_categorizer.MVVM.ViewModel
                 SettingModel.DirectoryRules = directoryNameRule.Split(",");
                 string? fileNameRule = Properties.Settings.Default.FileNameRule;
                 SettingModel.FileNameRules = fileNameRule.Split(",");
+                string[]? directoryNameRuleIndexes = Properties.Settings.Default.DirectoryRuleIndexes.Split(",");
+                SettingModel.DirectoryRulesIndexes = Array.ConvertAll(directoryNameRuleIndexes, s => int.Parse(s));
+                string[]? fileNameRuleIndexes = Properties.Settings.Default.FileNameRuleIndexes.Split(",");
+                SettingModel.FileNameRulesIndexes = Array.ConvertAll(fileNameRuleIndexes, s => int.Parse(s));
             }
         }
         #endregion Logical Function

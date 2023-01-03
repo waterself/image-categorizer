@@ -6,8 +6,6 @@
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
-    d:DesignHeight="498"
-    d:DesignWidth="740"
     mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:SettingViewModel />
@@ -52,12 +50,12 @@
                     Width="150"
                     Height="50"
                     Margin="10"
+                    Background="{StaticResource FrameSolidColorBrush}"
                     Command="{Binding SaveButtonCommand}"
+                    Content="Save"
                     DockPanel.Dock="right"
                     FontSize="20"
-                    Style="{StaticResource MainAcceptButtonThemes}">
-                    Save
-                </Button>
+                    Foreground="{StaticResource WhiteSolidColorBrush}" />
             </DockPanel>
         </DockPanel>
     </Grid>

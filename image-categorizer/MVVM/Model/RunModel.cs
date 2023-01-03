@@ -1,6 +1,6 @@
 ﻿using image_categorizer.Core;
 using System.Collections.Generic;
-
+using System.Threading;
 
 namespace image_categorizer.MVVM.Model
 {
@@ -57,21 +57,28 @@ namespace image_categorizer.MVVM.Model
             set { _fileWithdetails = value; }
         }
         #endregion Logical Data
-        private int _dataExtractProgress = 50;
 
-        public int DataExtractProgress
+        private long _categorizeProgress = 0;
+
+        public long CategorizeProgress
         {
-            get { return _dataExtractProgress; }
-            set { _dataExtractProgress = value; }
+            get { 
+               
+                return _categorizeProgress; }
+            set
+            {
+                _categorizeProgress = value;
+                OnPropertyChanged();
+            }
+        }
+        public long ProgressIncrement()
+        { 
+            Interlocked.Increment(ref _categorizeProgress);
+            OnPropertyChanged(nameof(_categorizeProgress));
+            return _categorizeProgress;
         }
 
-        private int _fileCopyProgress;
 
-        public int FileCopyProgress
-        {
-            get { return _fileCopyProgress; }
-            set { _fileCopyProgress = value; }
-        }
 
 
     }

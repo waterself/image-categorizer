@@ -32,17 +32,25 @@
                 HorizontalAlignment="Stretch"
                 DockPanel.Dock="top"
                 MouseLeftButtonDown="TitleBar_DragMove">
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <TextBlock
+                    Padding="15,0,0,0"
+                    DockPanel.Dock="Left"
+                    Foreground="{StaticResource WhiteSolidColorBrush}"
+                    Text="Image Categorizer" />
+                <DockPanel HorizontalAlignment="Right">
                     <Button
-                        Background="Yellow"
+                        Background="{StaticResource PointSolidColorBrush}"
+                        Click="Button_Click"
+                        Content="─"
                         DockPanel.Dock="Left"
                         Style="{StaticResource TitleButtonThemes}" />
                     <Button
-                        Background="Red"
+                        Background="{StaticResource PointSolidColorBrush}"
                         Click="CloseButton_Click"
+                        Content="X"
                         DockPanel.Dock="Left"
                         Style="{StaticResource TitleButtonThemes}" />
-                </StackPanel>
+                </DockPanel>
             </DockPanel>
             <Border Background="{StaticResource FrameSolidColorBrush}">
                 <Grid>
@@ -51,7 +59,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="80" />
+                        <RowDefinition Height="50" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock

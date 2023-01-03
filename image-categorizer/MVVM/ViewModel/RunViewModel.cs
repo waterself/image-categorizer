@@ -4,6 +4,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -100,9 +101,11 @@ namespace image_categorizer.MVVM.ViewModel
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
+            RunModel.CategorizeProgress = 0;
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
                 List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
                 {
                     ImageDetails imageDetails = new ImageDetails();
@@ -209,13 +212,16 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         RunModel.FileWithDetails.Add(file, imageDetails);
                     }//An item with the same key has already been added.'
+
+                    RunModel.CategorizeProgress = RunModel.ProgressIncrement();
                 }));
                 dataExtractTask.Wait();
                 imageFiles.Clear();
                 DateTime currentTime = DateTime.Now;
+                RunModel.CategorizeProgress = 0;
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
-
+                    
                     string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
                     try
@@ -243,6 +249,8 @@ namespace image_categorizer.MVVM.ViewModel
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
+                    RunModel.CategorizeProgress += 1;
+                    
                 }
                 //messageBox for check delete original files
             }
@@ -262,6 +270,7 @@ namespace image_categorizer.MVVM.ViewModel
             {
                 RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
                 RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
+                RunModel.FileCount = Utility.GetImageFiles(RunModel.InputDirectorytPath).Count;
             }
         }
         #endregion Logical Function

@@ -2,7 +2,6 @@
 
 
     <Style x:Key="MainAcceptButtonThemes" TargetType="{x:Type Button}">
-
         <Style.Setters>
             <Setter Property="Template">
                 <Setter.Value>
@@ -22,10 +21,12 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style.Setters>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#001b33" />
+                <Setter Property="Background" Value="Azure" />
             </Trigger>
         </Style.Triggers>
     </Style>
