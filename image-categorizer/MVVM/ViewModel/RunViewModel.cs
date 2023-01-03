@@ -259,6 +259,7 @@ namespace image_categorizer.MVVM.ViewModel
                 MessageBox.Show("Please Select Input/Output Directory");
                 RunModel.FileWithDetails.Clear();
             }
+            RunModel.CategorizeProgress = RunModel.FileCount;
             MessageBox.Show("Categorize Done!");
             RunModel.FileWithDetails.Clear();
         }

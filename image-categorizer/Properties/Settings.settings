@@ -9,10 +9,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="DirectoryNameRule" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">None,None,None,None</Value>
     </Setting>
     <Setting Name="FileNameRule" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">None,None,None,None</Value>
     </Setting>
     <Setting Name="DirectoryRuleIndexes" Type="System.String" Scope="User">
       <Value Profile="(Default)">0,0,0,0</Value>

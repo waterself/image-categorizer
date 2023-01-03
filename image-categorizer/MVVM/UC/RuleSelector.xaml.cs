@@ -34,12 +34,12 @@ namespace image_categorizer.MVVM.View
 
         public ObservableCollection<string>? RulesForComboBox
         {
-            get { return GetValue(RulesForComboBoxProperty) as ObservableCollection<string>; }
+            get { return (ObservableCollection<string>)GetValue(RulesForComboBoxProperty); }
             set { SetValue(RulesForComboBoxProperty, value); }
         }
         public int[] ComboBoxSelectedindex
         {
-            get { return GetValue(ComboBoxSelectedIndexProperty) as int[]; }
+            get { return (int[])GetValue(ComboBoxSelectedIndexProperty); }
             set { SetValue(ComboBoxSelectedIndexProperty, value); }
         }
         public string[]? RulesArray

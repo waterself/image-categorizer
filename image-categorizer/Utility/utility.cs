@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace image_categorizer
 {
@@ -30,7 +31,7 @@ namespace image_categorizer
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                System.Diagnostics.Debug.WriteLine(e.Message);
             }
 
             return imageFiles;
@@ -101,7 +102,7 @@ namespace image_categorizer
                 {
                     return dateTime.ToString("yyyy-MM-dd HH:MM:ss");
                 }
-                else return"";
+                else return "";
             }
             else return "";
         }
@@ -151,7 +152,7 @@ namespace image_categorizer
             }
         }
         public static Dictionary<T, List<T?>>? GetSameValueList<T>(List<T>? list)
-        { 
+        {
             Dictionary<T, List<T>>? result = new Dictionary<T, List<T>>();
             if (list != null)
             {
@@ -161,10 +162,70 @@ namespace image_categorizer
                     {
                         result.Add(item, new List<T>() { item });
                     }
-                    else { 
+                    else {
                         result[item].Add(item);
                     }
                 }
+            }
+            return result;
+        }
+        public static int[] ArrayLengthCheck(int[]? array, int size)
+        {
+            int[] result = new int[size];
+            if (array == null)
+            {
+                for (int i = 0; i < result.Length; i++)
+                {
+                    result[i] = 0;
+                }
+            }
+            else if (array.Length < size)
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    result[i] = array[i];
+                }
+            }
+            else if (array.Length > size)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    result[i] = array[i];
+                }
+            }
+            else
+            {
+                result = array;
+            }
+            return result;
+        }
+        public static string[] ArrayLengthCheck(string[]? array, int size)
+        {
+            string[] result = new string[size];
+            if (array == null)
+            {
+                for (int i = 0; i < result.Length; i++)
+                {
+                    result[i] = "None";
+                }
+            }
+            else if (array.Length < size)
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    result[i] = array[i];
+                }
+            }
+            else if (array.Length > size)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    result[i] = array[i];
+                }
+            }
+            else
+            {
+                result = array;
             }
             return result;
         }
