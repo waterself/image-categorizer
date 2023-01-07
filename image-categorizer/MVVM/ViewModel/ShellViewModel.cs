@@ -16,9 +16,9 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand SummaryViewCommand { get; set; }
 
 
-        private static RunViewModel? _runVM;
+        private RunViewModel? _runVM;
 
-        public static RunViewModel? RunVM
+        public RunViewModel? RunVM
         {
             get { 
                 if(_runVM == null)
@@ -28,14 +28,14 @@ namespace image_categorizer.MVVM.ViewModel
             set { _runVM = value; }
         }
 
-        private static SummaryViewModel? _summaryVM;
+        private SummaryViewModel? _summaryVM;
 
-        public static SummaryViewModel? SummaryVM
+        public SummaryViewModel? SummaryVM
         {
             get => _summaryVM ?? (_summaryVM = new SummaryViewModel());
             set { _summaryVM = value; }
         }
-        private static SettingViewModel? _settingVM;
+        private SettingViewModel? _settingVM;
 
         /// <summary>
         /// Reinitialized when get SettingView for update
@@ -67,15 +67,15 @@ namespace image_categorizer.MVVM.ViewModel
             RunViewCommand = new RelayCommand(o =>
             {
                 //call RunVM Constructor
-                CurrentView = RunVM.Clone();
+                CurrentView = RunVM;
             });
             SummaryViewCommand = new RelayCommand(o =>
             {
-                CurrentView = SummaryVM.Clone();
+                CurrentView = SummaryVM;
             });
             SettingViewCommand = new RelayCommand(o =>
             {
-                CurrentView = SettingVM.Clone();
+                CurrentView = SettingVM;
             });
 
         }
