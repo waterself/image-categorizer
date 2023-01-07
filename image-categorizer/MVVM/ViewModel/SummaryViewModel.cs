@@ -54,7 +54,7 @@ namespace image_categorizer.MVVM.ViewModel
                     System.Diagnostics.Debug.WriteLine("initialized");
 
                 }
-                catch(KeyNotFoundException e)
+                catch(KeyNotFoundException)
                 { 
                     ObservableCollection<RankedDataModel> None = new ObservableCollection<RankedDataModel>(new(6));
                     SummaryModel.CameraModelList = None;
@@ -132,7 +132,7 @@ namespace image_categorizer.MVVM.ViewModel
             {
                 RankedDataModel dataModel = new();
                 dataModel.Count = RankedList[i].Count;
-                dataModel.Index = i;
+                dataModel.Index = i+1;
                 dataModel.Name = RankedList[i].Name;
                 dataModel.Rate = Math.Round(((double)RankedList[i].Count / (double)countSum) * 100, 2);
                 otherSum -= RankedList[i].Count;

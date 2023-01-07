@@ -30,6 +30,11 @@ namespace image_categorizer.MVVM.View
             get { return (string)GetValue(NameLabelProperty); }
             set { SetValue(NameLabelProperty, value); }
         }
+        public string ContentLabel
+        {
+            get;
+            set;
+        }
 
         public ObservableCollection<RankedDataModel> RankedData {
             get { return (ObservableCollection<RankedDataModel>)GetValue(RankedDataProperty); }
@@ -38,6 +43,8 @@ namespace image_categorizer.MVVM.View
 
         public static readonly DependencyProperty RankedDataProperty = DependencyProperty.Register(
             nameof(RankedData), typeof(ObservableCollection<RankedDataModel>), typeof(RankedDataView), new PropertyMetadata(null));
+        public static readonly DependencyProperty ContentLabelProperty = DependencyProperty.Register(
+            nameof(ContentLabel), typeof(string), typeof(RankedDataView), new PropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
             nameof(NameLabel), typeof(string),typeof(RankedDataView), new PropertyMetadata(string.Empty)); 

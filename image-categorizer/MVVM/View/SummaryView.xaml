@@ -26,7 +26,10 @@
                 Margin="14,14,7,7"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView NameLabel="Year Rank" RankedData="{Binding SummaryModel.YearMonthRankList}" />
+                <local:RankedDataView
+                    ContentLabel="Year"
+                    NameLabel="Year Rank"
+                    RankedData="{Binding SummaryModel.YearMonthRankList}" />
             </Border>
             <Border
                 Grid.Row="0"
@@ -34,7 +37,10 @@
                 Margin="7,14,14,7"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView NameLabel="Month Rank" RankedData="{Binding SummaryModel.YearMonthRankList}" />
+                <local:RankedDataView
+                    ContentLabel="Month"
+                    NameLabel="Month Rank"
+                    RankedData="{Binding SummaryModel.YearMonthRankList}" />
             </Border>
 
             <Border
@@ -43,7 +49,10 @@
                 Margin="14,7,7,14"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView NameLabel="Camera Rank" RankedData="{Binding SummaryModel.CameraModelList}" />
+                <local:RankedDataView
+                    ContentLabel="Camera"
+                    NameLabel="Camera Rank"
+                    RankedData="{Binding SummaryModel.CameraModelList}" />
             </Border>
             <Border
                 Grid.Row="1"
@@ -51,7 +60,10 @@
                 Margin="7,7,14,14"
                 Background="{StaticResource WhiteSolidColorBrush}"
                 CornerRadius="10">
-                <local:RankedDataView NameLabel="Location Rank" RankedData="{Binding SummaryModel.LocationRankList}" />
+                <local:RankedDataView
+                    ContentLabel="Location"
+                    NameLabel="Location Rank"
+                    RankedData="{Binding SummaryModel.LocationRankList}" />
             </Border>
         </Grid>
     </Border>
