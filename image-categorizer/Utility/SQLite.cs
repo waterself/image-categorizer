@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using image_categorizer.MVVM.Model;
 
 namespace image_categorizer
 {
@@ -32,11 +33,11 @@ namespace image_categorizer
             isInit = true;
         }
         //Need Location Data
-        public static int InsertQuery(string? filePath, string? dateTime, string? format, string? camera_model, string? location, string? modified_date)
+        public static int InsertQuery(InsertQueryModel queryModel)
         {
             int result = -1;
             //need generation
-            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{filePath}\', \'{dateTime}\', \'{format}\', \'{camera_model}\', \'{location}', \'{modified_date}\');");
+            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{queryModel.fileName}\', \'{queryModel.dateTime}\', \'{queryModel.format}\', \'{queryModel.cameraModel}\', \'{queryModel.location}', \'{queryModel.currentTime}\');");
             using (SQLiteConnection connection = new SQLiteConnection(connectString))
             {
                 connection.Open();
