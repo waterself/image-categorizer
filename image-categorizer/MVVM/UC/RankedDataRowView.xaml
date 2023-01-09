@@ -47,7 +47,8 @@
                     DockPanel.Dock="Right"
                     FontSize="12"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
-                    Text="{Binding ElementName=RankedDataViewRow, Path=DataModel.Name}" />
+                    Text="{Binding ElementName=RankedDataViewRow, Path=DataModel.Name}"
+                    TextAlignment="Center" />
             </Border>
 
         </DockPanel>

@@ -44,7 +44,7 @@ namespace image_categorizer.MVVM.ViewModel
                     SummaryModel.YearMonthRankList = GetRankData(GetYearMonthList(YearMonths), out YearMonthsListSum);
 
                     int YearListSum = 0;
-                    SummaryModel.YearRankList = GetRankData(GetYearMonthList(YearMonths), out YearListSum);
+                    SummaryModel.YearRankList = GetRankData(GetYearList(YearMonths), out YearListSum);
                     YearMonths.Clear();
 
                     Dictionary<string, List<string?>> Locations = Utility.GetSameValueList(SummaryModel.SelectedDBData["location"]);

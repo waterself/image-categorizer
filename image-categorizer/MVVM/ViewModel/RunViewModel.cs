@@ -3,6 +3,7 @@ using image_categorizer.MVVM.Model;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace image_categorizer.MVVM.ViewModel
 {
     class RunViewModel : BaseViewModel
     {
+        private BackgroundWorker CategorizeThread;
         #region Constructor
         public RunViewModel()
         {
@@ -21,6 +23,11 @@ namespace image_categorizer.MVVM.ViewModel
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
             RunButtonCommand = Run();
+            CategorizeThread = new();
+            CategorizeThread.DoWork += new DoWorkEventHandler(ImageCategorize);
+            CategorizeThread.WorkerReportsProgress = true;
+            CategorizeThread.WorkerSupportsCancellation = true;
+
 
         }
         #endregion Constructor
@@ -84,7 +91,7 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RelayCommand ret = new(o =>
             {
-                ImageCategorize();
+                CategorizeThread.RunWorkerAsync();
             });
             return ret;
         }
@@ -95,8 +102,10 @@ namespace image_categorizer.MVVM.ViewModel
         #endregion RelayCommand
 
         #region Logical Function
-        public void ImageCategorize()
+
+        public void ImageCategorize(object? sender, DoWorkEventArgs doWorkEventArgs)
         {
+            
             Random rand = new();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
@@ -241,7 +250,8 @@ namespace image_categorizer.MVVM.ViewModel
                     try
                     {
                         File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
-                        SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
+                        //SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
+                        SQLite.InsertQuery(new InsertQueryModel(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
                     }
                     catch (Exception e)
                     {

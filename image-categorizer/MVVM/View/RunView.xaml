@@ -86,6 +86,7 @@
                     DockPanel.Dock="Right"
                     FontSize="20"
                     Foreground="{StaticResource WhiteSolidColorBrush}" />
+
             </DockPanel>
         </StackPanel>
     </Border>

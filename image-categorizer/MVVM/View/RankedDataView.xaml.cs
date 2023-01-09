@@ -32,8 +32,8 @@ namespace image_categorizer.MVVM.View
         }
         public string ContentLabel
         {
-            get;
-            set;
+            get { return (string)GetValue(ContentLabelProperty); }
+            set { SetValue(ContentLabelProperty, value); }
         }
 
         public ObservableCollection<RankedDataModel> RankedData {

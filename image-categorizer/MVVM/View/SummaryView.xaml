@@ -29,7 +29,7 @@
                 <local:RankedDataView
                     ContentLabel="Year"
                     NameLabel="Year Rank"
-                    RankedData="{Binding SummaryModel.YearMonthRankList}" />
+                    RankedData="{Binding SummaryModel.YearRankList}" />
             </Border>
             <Border
                 Grid.Row="0"
