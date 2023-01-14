@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="image_categorizer.MVVM.View.RankedDataRowView"
+    x:Class="image_categorizer.MVVM.UC.RankedDataRowView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:image_categorizer.MVVM.View"
+    xmlns:local="clr-namespace:image_categorizer.MVVM.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="RankedDataViewRow"
+    x:Name="RankedDataRowViewControl"
     DataContext="{Binding}"
     mc:Ignorable="d">
     <Border Background="{StaticResource WhiteSolidColorBrush}">
@@ -20,7 +20,7 @@
                     DockPanel.Dock="Left"
                     FontSize="15"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
-                    Text="{Binding ElementName=RankedDataViewRow, Path=DataModel.Index}"
+                    Text="{Binding ElementName=RankedDataRowViewControl, Path=DataModel.Index}"
                     TextAlignment="Center" />
             </Border>
             <Border
@@ -35,7 +35,7 @@
                     Background="{StaticResource BackgroundSolidColorBrush}"
                     FontSize="12"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
-                    Text="{Binding ElementName=RankedDataViewRow, Path=DataModel.Rate}"
+                    Text="{Binding ElementName=RankedDataRowViewControl, Path=DataModel.Rate}"
                     TextAlignment="Center" />
             </Border>
             <Border Margin="2,0,2,0" Background="{StaticResource BackgroundSolidColorBrush}">
@@ -47,7 +47,7 @@
                     DockPanel.Dock="Right"
                     FontSize="12"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
-                    Text="{Binding ElementName=RankedDataViewRow, Path=DataModel.Name}"
+                    Text="{Binding ElementName=RankedDataRowViewControl, Path=DataModel.Name}"
                     TextAlignment="Center" />
             </Border>
 

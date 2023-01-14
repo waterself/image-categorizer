@@ -129,7 +129,7 @@ namespace image_categorizer.MVVM.ViewModel
                         if (coordinate != null)
                         {
                             imageDetails.Latitude = coordinate[0];
-                            imageDetails.longitude = coordinate[1];
+                            imageDetails.Longitude = coordinate[1];
                         }
                         if (coordinate != null)
                         {

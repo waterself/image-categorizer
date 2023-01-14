@@ -2,6 +2,7 @@
     x:Class="image_categorizer.MVVM.View.SettingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UC="clr-namespace:image_categorizer.MVVM.UC"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -21,30 +22,59 @@
                 CornerRadius="10"
                 DockPanel.Dock="Top">
                 <StackPanel Margin="5,5,5,5">
-                    <local:PathSelector
+                    <UC:PathSelector
                         Margin="0,0,0,3"
                         DirectoryPath="{Binding SettingModel.InputDirectorytPath}"
-                        NameLabel="Input Directory"
+                        PathSelectorNameLabel="Input Directory"
                         SelectButtonCommand="{Binding SelectInputPathCommand}" />
-                    <local:PathSelector
+                    <UC:PathSelector
                         Margin="0,0,0,3"
                         DirectoryPath="{Binding SettingModel.OutputDirectorytPath}"
-                        NameLabel="Output Directory"
+                        PathSelectorNameLabel="Output Directory"
                         SelectButtonCommand="{Binding SelectOutputPathCommand}" />
                 </StackPanel>
             </Border>
-            <local:RuleSelector
-                x:Name="DirectoryRuleSelector"
-                DockPanel.Dock="Top"
-                NameLabel="Select Directory Rules"
-                RulesArray="{Binding SettingModel.DirectoryRules, Mode=TwoWay}"
-                RulesForComboBox="{Binding RulesForComboBox}" />
-            <local:RuleSelector
-                x:Name="FileNameRuleSelector"
-                DockPanel.Dock="Top"
-                NameLabel="Select FileName Rules"
-                RulesArray="{Binding SettingModel.FileNameRules, Mode=TwoWay}"
-                RulesForComboBox="{Binding RulesForComboBox}" />
+            <Border
+                Margin="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Background="{StaticResource WhiteSolidColorBrush}"
+                CornerRadius="10"
+                DockPanel.Dock="Top">
+                <StackPanel>
+                    <UC:RuleSelector
+                        x:Name="DirectoryRuleSelector"
+                        NameLabel="Select Directory Rules"
+                        RuleSelectedCommand="{Binding DirectoryRuleSelectorCommand}"
+                        RulesArray="{Binding SettingModel.DirectoryRules, Mode=TwoWay}"
+                        RulesForComboBox="{Binding RulesForComboBox}" />
+                    <UC:CategorizePreviewer
+                        Margin="5,0,5,5"
+                        CategorizePreViewerNameLabel="Path"
+                        NewValue="{Binding SettingModel.NewPathExample}"
+                        OldValue="{Binding SettingModel.OutputDirectorytPath}" />
+                </StackPanel>
+            </Border>
+            <Border
+                Margin="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Background="{StaticResource WhiteSolidColorBrush}"
+                CornerRadius="10"
+                DockPanel.Dock="Top">
+                <StackPanel>
+                    <UC:RuleSelector
+                        NameLabel="Select FileName Rules"
+                        RuleSelectedCommand="{Binding FileNameRuleSelectorCommand}"
+                        RulesArray="{Binding SettingModel.FileNameRules, Mode=TwoWay}"
+                        RulesForComboBox="{Binding RulesForComboBox}" />
+                    <UC:CategorizePreviewer
+                        Margin="5,0,5,5"
+                        CategorizePreViewerNameLabel="File"
+                        NewValue="{Binding SettingModel.NewFileNameExample}"
+                        OldValue="{Binding SettingModel.OldFileNameExample}" />
+                </StackPanel>
+            </Border>
             <DockPanel LastChildFill="False">
                 <Button
                     Width="150"

@@ -67,6 +67,37 @@ namespace image_categorizer.MVVM.Model
             get { return _fileNameRules; }
             set { _fileNameRules = value; }
         }
+
+        private string _oldPathExample = "C\\Images\\";
+
+        public string OldPathExample
+        {
+            get { return _oldPathExample; }
+            set { _oldPathExample = value; OnPropertyChanged(); }
+        }
+        private string _newPathExample = "C\\Output\\";
+
+        public string NewPathExample
+        {
+            get { return _newPathExample; }
+            set { _newPathExample = value; OnPropertyChanged(); }
+        }
+
+        private string _oldFileNameExample = "";
+
+        public string OldFileNameExample
+        {
+            get { return _oldFileNameExample; }
+            set { _oldFileNameExample = value; OnPropertyChanged(); }
+        }
+        private string _newFileNameExample = "";
+
+        public string NewFileNameExample
+        {
+            get { return _newFileNameExample; }
+            set { _newFileNameExample = value; OnPropertyChanged(); }
+        }
+
         #endregion Binding Data
 
     }

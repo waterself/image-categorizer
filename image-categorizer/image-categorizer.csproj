@@ -8,13 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="MVVM\UC\RankedDataView.xaml.cs" />
-    <Compile Remove="MVVM\View\RankedDataRowView.cs" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
 
   <ItemGroup>
-    <Page Remove="MVVM\UC\RankedDataView.xaml" />
+    <Compile Remove="MVVM\View\RankedDataRowView.cs" />
   </ItemGroup>
 
   <ItemGroup>

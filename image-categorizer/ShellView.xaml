@@ -18,7 +18,7 @@
     </Window.DataContext>
     <Grid Background="{StaticResource PointSolidColorBrush}">
         <DockPanel
-            Height="600"
+            MinHeight="600"
             Margin="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -32,11 +32,14 @@
                 HorizontalAlignment="Stretch"
                 DockPanel.Dock="top"
                 MouseLeftButtonDown="TitleBar_DragMove">
-                <TextBlock
-                    Padding="15,0,0,0"
-                    DockPanel.Dock="Left"
-                    Foreground="{StaticResource WhiteSolidColorBrush}"
-                    Text="Image Categorizer" />
+                <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock
+                        Padding="15,0,0,0"
+                        DockPanel.Dock="Left"
+                        Foreground="{StaticResource WhiteSolidColorBrush}"
+                        Text="Image Categorizer" />
+                </Border>
+
                 <DockPanel HorizontalAlignment="Right">
                     <Button
                         Background="{StaticResource PointSolidColorBrush}"

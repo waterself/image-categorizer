@@ -6,6 +6,7 @@ using System.Windows;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Collections.Generic;
 using System;
+using System.Windows.Controls;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -17,6 +18,9 @@ namespace image_categorizer.MVVM.ViewModel
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
             SaveButtonCommand = SaveSettingCommand();
+            DirectoryRuleSelectorCommand = PathExampleSetterCommand();
+            FileNameRuleSelectorCommand = FileNameExampleSetterCommand();
+
         }
         #endregion Constructor
 
@@ -81,9 +85,28 @@ namespace image_categorizer.MVVM.ViewModel
             });
             return ret;
         }
+        private RelayCommand PathExampleSetterCommand()
+        {
+            RelayCommand ret = new RelayCommand(o =>
+               {
+                   PathExampleSetter();
+
+               });
+            return ret;
+        }
+        private RelayCommand FileNameExampleSetterCommand()
+        {
+            RelayCommand ret = new RelayCommand(o =>
+            {
+                FileNameExampleSetter();
+            });
+            return ret;
+        }
         public RelayCommand SaveButtonCommand { get; set; }
         public RelayCommand SelectInputPathCommand { get; set; }
         public RelayCommand SelectOutputPathCommand { get; set; }
+        public RelayCommand DirectoryRuleSelectorCommand { get; set; }
+        public RelayCommand FileNameRuleSelectorCommand { get; set; }
         #endregion RelayCommand
 
 
@@ -116,6 +139,78 @@ namespace image_categorizer.MVVM.ViewModel
                 SettingModel.FileNameRulesIndexes = Array.ConvertAll(fileNameRuleIndexes, s => int.Parse(s));
             }
         }
+
+        public void PathExampleSetter()
+        {
+            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "Sony A6000", "jpg", null, null, null, null, null);
+
+            List<string?> pathBuf = new();
+            for (int i = 0; i < SettingModel.DirectoryRules.Length; i++)
+            {
+                switch (SettingModel.DirectoryRules[i])
+                {
+                    case "Date":
+                        if (exImage.DateTaken != null)
+                            pathBuf.Add(exImage.DateTaken);
+                        else pathBuf.Add("ETC");
+                        break;
+                    case "CameraModel":
+                        if (exImage.CameraModel != null)
+                            pathBuf.Add(exImage.CameraModel);
+                        else pathBuf.Add("ETC");
+                        break;
+                    case "Format":
+                        if (exImage.Format != null)
+                            pathBuf.Add(exImage.Format);
+                        else pathBuf.Add("ETC");
+                        break;
+                    case "Location":
+                        if (exImage.Location != null && exImage.Location != "/")
+                            pathBuf.Add(exImage.Location);
+                        else pathBuf.Add("ETC");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            string pathName = String.Join("\\", pathBuf);
+            SettingModel.NewPathExample = String.Format($"{SettingModel.OutputDirectorytPath}\\{pathName}");
+        }
+
+        public void FileNameExampleSetter()
+        {
+            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "Sony A6000", "jpg", null, null, null, "DC2082391.jpg", null);
+
+            List<string?> fileBuf = new();
+                for (int i = 0; i < SettingModel.FileNameRules.Length; i++)
+                {
+                    switch (SettingModel.FileNameRules[i])
+                    {
+                        case "Date":
+                            if (exImage.DateTaken != null)
+                                fileBuf.Add(String.Format($"{exImage.DateTaken}_{exImage.TimeTaken}"));
+                            else fileBuf.Add("ETC");
+                            break;
+                        case "CameraModel":
+                            if (exImage.CameraModel != null)
+                                fileBuf.Add(exImage.CameraModel);
+                            else
+                                fileBuf.Add("ETC");
+                            break;
+                        case "Location":
+                            if (exImage.Location != null && exImage.Location != "/")
+                                fileBuf.Add(exImage.Location);
+                            else
+                                fileBuf.Add("ETC");
+                            break;
+                        default:
+                            break;
+                    }
+            }
+            string filename = String.Join("_", fileBuf);
+                SettingModel.NewFileNameExample = String.Format($"{filename}.{exImage.Format}");
+        }
+        
         #endregion Logical Function
 
         #region Static Data

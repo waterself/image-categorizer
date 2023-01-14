@@ -1,65 +1,65 @@
 ﻿<UserControl
-    x:Class="image_categorizer.MVVM.View.RuleSelector"
+    x:Class="image_categorizer.MVVM.UC.RuleSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:image_categorizer.MVVM.View"
+    xmlns:local="clr-namespace:image_categorizer.MVVM.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="RuleSelectorControl"
     DataContext="{Binding}"
     mc:Ignorable="d">
-    <Border
-        Margin="10"
-        HorizontalAlignment="Stretch"
-        VerticalAlignment="Center"
-        Background="{StaticResource WhiteSolidColorBrush}"
-        CornerRadius="10"
-        DockPanel.Dock="Top">
-        <StackPanel Margin="5" Orientation="Vertical">
-            <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">
-                <StackPanel Margin="10">
+    <StackPanel Margin="5" Orientation="Vertical">
+        <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">
+            <StackPanel Margin="10">
+                <Border Background="{StaticResource BackgroundSolidColorBrush}">
                     <TextBlock
+                        Margin="5,0,0,0"
                         Background="{StaticResource BackgroundSolidColorBrush}"
                         Foreground="#ffffff"
                         Text="{Binding Path=NameLabel, ElementName=RuleSelectorControl}" />
-                    <Grid HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSolidColorBrush}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="188*" />
-                            <ColumnDefinition Width="188*" />
-                            <ColumnDefinition Width="188*" />
-                            <ColumnDefinition Width="188*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Border Grid.Column="0" Margin="5,5,5,5">
-                            <ComboBox
-                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                                SelectedIndex="{Binding Path=ComboBoxSelectedindex[0], ElementName=RuleSelectorControl}"
-                                SelectedItem="{Binding Path=RulesArray[0], ElementName=RuleSelectorControl}" />
-                        </Border>
-                        <Border Grid.Column="1" Margin="5,5,5,5">
-                            <ComboBox
-                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                                SelectedIndex="{Binding Path=ComboBoxSelectedindex[1], ElementName=RuleSelectorControl}"
-                                SelectedItem="{Binding Path=RulesArray[1], ElementName=RuleSelectorControl}" />
-                        </Border>
-                        <Border Grid.Column="2" Margin="5,5,5,5">
-                            <ComboBox
-                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                                SelectedIndex="{Binding Path=ComboBoxSelectedindex[2], ElementName=RuleSelectorControl}"
-                                SelectedItem="{Binding Path=RulesArray[2], ElementName=RuleSelectorControl}" />
-                        </Border>
-                        <Border Grid.Column="3" Margin="5,5,5,5">
-                            <ComboBox
-                                ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                                SelectedIndex="{Binding Path=ComboBoxSelectedindex[3], ElementName=RuleSelectorControl}"
-                                SelectedItem="{Binding Path=RulesArray[3], ElementName=RuleSelectorControl}" />
-                        </Border>
-                    </Grid>
-                </StackPanel>
-            </Border>
-        </StackPanel>
-    </Border>
+                </Border>
+                <Grid HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSolidColorBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="188*" />
+                        <ColumnDefinition Width="188*" />
+                        <ColumnDefinition Width="188*" />
+                        <ColumnDefinition Width="188*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Column="0" Margin="5,5,5,5">
+                        <ComboBox
+                            ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[0], ElementName=RuleSelectorControl}"
+                            SelectedItem="{Binding Path=RulesArray[0], ElementName=RuleSelectorControl}"
+                            SelectionChanged="RuleSelectedEventHandler" />
+                    </Border>
+                    <Border Grid.Column="1" Margin="5,5,5,5">
+                        <ComboBox
+                            ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[1], ElementName=RuleSelectorControl}"
+                            SelectedItem="{Binding Path=RulesArray[1], ElementName=RuleSelectorControl}"
+                            SelectionChanged="RuleSelectedEventHandler" />
+
+                    </Border>
+                    <Border Grid.Column="2" Margin="5,5,5,5">
+                        <ComboBox
+                            ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[2], ElementName=RuleSelectorControl}"
+                            SelectedItem="{Binding Path=RulesArray[2], ElementName=RuleSelectorControl}"
+                            SelectionChanged="RuleSelectedEventHandler" />
+                    </Border>
+                    <Border Grid.Column="3" Margin="5,5,5,5">
+                        <ComboBox
+                            ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[3], ElementName=RuleSelectorControl}"
+                            SelectedItem="{Binding Path=RulesArray[3], ElementName=RuleSelectorControl}"
+                            SelectionChanged="RuleSelectedEventHandler" />
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </StackPanel>
 </UserControl>

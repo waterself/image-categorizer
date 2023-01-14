@@ -1,4 +1,5 @@
-﻿using System;
+﻿using image_categorizer.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace image_categorizer.MVVM.View
+namespace image_categorizer.MVVM.UC
 {
     /// <summary>
     /// RuleSelector.xaml에 대한 상호 작용 논리
@@ -47,6 +48,13 @@ namespace image_categorizer.MVVM.View
             get { return (string[]?)GetValue(RulesArrayProperty); }
             set { SetValue(RulesArrayProperty, value); }
         }
+
+        public RelayCommand RuleSelectedCommand {
+            get { return (RelayCommand)GetValue(RuleSelectedCommandProperty); }
+            set { SetValue(RuleSelectedCommandProperty, value); }
+        }
+
+
         public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
             nameof(NameLabel), typeof(string), typeof(RuleSelector), new PropertyMetadata(string.Empty));
 
@@ -58,6 +66,13 @@ namespace image_categorizer.MVVM.View
 
         public static readonly DependencyProperty ComboBoxSelectedIndexProperty = DependencyProperty.Register(
             nameof(ComboBoxSelectedindex), typeof(int[]), typeof(RuleSelector), new PropertyMetadata(new int[4] { 0, 0, 0, 0 }));
-            
+
+        public static readonly DependencyProperty RuleSelectedCommandProperty = DependencyProperty.Register(
+            nameof(RuleSelectedCommand), typeof(RelayCommand), typeof(RuleSelector), new FrameworkPropertyMetadata(null));
+
+        private void RuleSelectedEventHandler(object sender, SelectionChangedEventArgs e)
+        {
+            RuleSelectedCommand.Execute(sender);
+        }
     }
 }

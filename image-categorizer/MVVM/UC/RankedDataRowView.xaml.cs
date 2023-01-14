@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using image_categorizer.MVVM.Model;
 
-namespace image_categorizer.MVVM.View
+namespace image_categorizer.MVVM.UC
 {
     /// <summary>
     /// RankedDataRowView.xaml에 대한 상호 작용 논리
@@ -25,7 +13,8 @@ namespace image_categorizer.MVVM.View
         {
             InitializeComponent();
         }
-        public RankedDataModel DataModel {
+        public RankedDataModel DataModel
+        {
             get { return (RankedDataModel)GetValue(DataModelProperty); }
             set { SetValue(DataModelProperty, value); }
         }
