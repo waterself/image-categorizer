@@ -20,7 +20,6 @@ namespace image_categorizer.MVVM.ViewModel
             SaveButtonCommand = SaveSettingCommand();
             DirectoryRuleSelectorCommand = PathExampleSetterCommand();
             FileNameRuleSelectorCommand = FileNameExampleSetterCommand();
-
         }
         #endregion Constructor
 
@@ -31,8 +30,8 @@ namespace image_categorizer.MVVM.ViewModel
             get
             {
                 if (_settingModel == null)
-                {
-                    _settingModel = new SettingModel();
+                { 
+                _settingModel = new SettingModel();
                     ReadSetting();
                 }
                 return _settingModel;
@@ -118,8 +117,8 @@ namespace image_categorizer.MVVM.ViewModel
             //it's length is not 4, add None
             Properties.Settings.Default.DirectoryNameRule = String.Join(",", Utility.ArrayLengthCheck(model.DirectoryRules, 4));
             Properties.Settings.Default.FileNameRule = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRules, 4));
-            Properties.Settings.Default.FileNameRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRulesIndexes, 4));
-            Properties.Settings.Default.DirectoryRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.DirectoryRulesIndexes, 4));
+            //Properties.Settings.Default.FileNameRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRulesIndexes, 4));
+            //Properties.Settings.Default.DirectoryRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.DirectoryRulesIndexes, 4));
             Properties.Settings.Default.Save();
             MessageBox.Show("Setting Saved");
         }
@@ -133,16 +132,16 @@ namespace image_categorizer.MVVM.ViewModel
                 SettingModel.DirectoryRules = Utility.ArrayLengthCheck(directoryNameRule.Split(","), 4);
                 string? fileNameRule = Properties.Settings.Default.FileNameRule;
                 SettingModel.FileNameRules = Utility.ArrayLengthCheck(fileNameRule.Split(","), 4);
-                string[]? directoryNameRuleIndexes = Properties.Settings.Default.DirectoryRuleIndexes.Split(",");
-                SettingModel.DirectoryRulesIndexes = Array.ConvertAll(directoryNameRuleIndexes, s => int.Parse(s));
-                string[]? fileNameRuleIndexes = Properties.Settings.Default.FileNameRuleIndexes.Split(",");
-                SettingModel.FileNameRulesIndexes = Array.ConvertAll(fileNameRuleIndexes, s => int.Parse(s));
+                //string[]? directoryNameRuleIndexes = Properties.Settings.Default.DirectoryRuleIndexes.Split(",");
+                SettingModel.DirectoryRulesIndexes = Array.ConvertAll(SettingModel.DirectoryRules, s => ComboBoxIndexConverter(s));
+                //string[]? fileNameRuleIndexes = Properties.Settings.Default.FileNameRuleIndexes.Split(",");
+                SettingModel.FileNameRulesIndexes = Array.ConvertAll(SettingModel.FileNameRules, s => ComboBoxIndexConverter(s));
             }
         }
 
         public void PathExampleSetter()
         {
-            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "Sony A6000", "jpg", null, null, null, null, null);
+            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "samsung SM-G998N", "jpg", null, null, null, null, null);
 
             List<string?> pathBuf = new();
             for (int i = 0; i < SettingModel.DirectoryRules.Length; i++)
@@ -179,8 +178,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void FileNameExampleSetter()
         {
-            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "Sony A6000", "jpg", null, null, null, "DC2082391.jpg", null);
-
+            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "samsung SM-G998N", "jpg", null, null, null, "Sample.jpg", null);
             List<string?> fileBuf = new();
                 for (int i = 0; i < SettingModel.FileNameRules.Length; i++)
                 {
@@ -208,9 +206,33 @@ namespace image_categorizer.MVVM.ViewModel
                     }
             }
             string filename = String.Join("_", fileBuf);
-                SettingModel.NewFileNameExample = String.Format($"{filename}.{exImage.Format}");
+            SettingModel.NewFileNameExample = String.Format($"{filename}.{exImage.Format}");
         }
-        
+
+        private int ComboBoxIndexConverter(string s)
+        {
+            int ret = 0;
+            switch (s)
+            {
+                case "None":
+                    ret = 0;
+                    break;
+                case "Date":
+                    ret = 1;
+                    break;
+                case "CameraModel":
+                    ret = 2;
+                    break;
+                case "Format":
+                    ret = 3;
+                    break;
+                case "Location":
+                    ret = 4;
+                    break;
+            }
+            return ret;
+                
+        }
         #endregion Logical Function
 
         #region Static Data

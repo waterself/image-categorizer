@@ -19,7 +19,6 @@ namespace image_categorizer.MVVM.ViewModel
         #region Constructor
         public RunViewModel()
         {
-
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
             RunButtonCommand = Run();
@@ -27,8 +26,6 @@ namespace image_categorizer.MVVM.ViewModel
             CategorizeThread.DoWork += new DoWorkEventHandler(ImageCategorize);
             CategorizeThread.WorkerReportsProgress = true;
             CategorizeThread.WorkerSupportsCancellation = true;
-
-
         }
         #endregion Constructor
 
@@ -228,6 +225,7 @@ namespace image_categorizer.MVVM.ViewModel
                 imageFiles.Clear();
                 DateTime currentTime = DateTime.Now;
                 RunModel.CategorizeProgress = 0;
+                List<InsertQueryModel> insertQueries = new();
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
                     
@@ -251,7 +249,7 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
                         //SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
-                        SQLite.InsertQuery(new InsertQueryModel(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
+                        insertQueries.Add(new InsertQueryModel(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
                     }
                     catch (Exception e)
                     {
@@ -262,6 +260,7 @@ namespace image_categorizer.MVVM.ViewModel
                     RunModel.CategorizeProgress += 1;
                     
                 }
+                SQLite.InsertQuery(insertQueries);
                 //messageBox for check delete original files
             }
             else
@@ -270,6 +269,7 @@ namespace image_categorizer.MVVM.ViewModel
                 RunModel.FileWithDetails.Clear();
             }
             RunModel.CategorizeProgress = RunModel.FileCount;
+            
             MessageBox.Show("Categorize Done!");
             RunModel.FileWithDetails.Clear();
         }

@@ -24,7 +24,7 @@ namespace image_categorizer.MVVM.UC
         {
             InitializeComponent();
         }
-        public string? CategorizePreViewerNameLabel
+        public string CategorizePreViewerNameLabel
         {
             get { return (string)GetValue(CategorizePreViewerNamelabelProperty); }
             set { SetValue(CategorizePreViewerNamelabelProperty, value); }
@@ -40,7 +40,7 @@ namespace image_categorizer.MVVM.UC
         }
 
         public static readonly DependencyProperty CategorizePreViewerNamelabelProperty = DependencyProperty.Register(
-           nameof(CategorizePreViewerNameLabel), typeof(string), typeof(PathSelector), new PropertyMetadata(string.Empty));
+           nameof(CategorizePreViewerNameLabel), typeof(string), typeof(CategorizePreviewer), new PropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty OldValueProperty = DependencyProperty.Register(
             nameof(OldValue), typeof(string), typeof(CategorizePreviewer), new PropertyMetadata(null));

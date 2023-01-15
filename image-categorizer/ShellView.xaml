@@ -53,6 +53,7 @@
                         Content="X"
                         DockPanel.Dock="Left"
                         Style="{StaticResource TitleButtonThemes}" />
+
                 </DockPanel>
             </DockPanel>
             <Border Background="{StaticResource FrameSolidColorBrush}">

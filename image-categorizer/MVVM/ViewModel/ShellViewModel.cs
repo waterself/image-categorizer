@@ -20,12 +20,13 @@ namespace image_categorizer.MVVM.ViewModel
 
         public RunViewModel? RunVM
         {
-            get { 
-                if(_runVM == null)
-                    _runVM = new RunViewModel();
-                return _runVM;
-            }
+            get => _runVM ?? (_runVM = new RunViewModel());
             set { _runVM = value; }
+        }
+        public SettingViewModel? SettingVM
+        {
+            get { return _settingVM ?? (_settingVM = new SettingViewModel()); }
+            set { _settingVM = value; }
         }
 
         private SummaryViewModel? _summaryVM;
@@ -37,14 +38,6 @@ namespace image_categorizer.MVVM.ViewModel
         }
         private SettingViewModel? _settingVM;
 
-        /// <summary>
-        /// Reinitialized when get SettingView for update
-        /// </summary>
-        public SettingViewModel? SettingVM
-        {
-            get { return _settingVM ?? (_settingVM = new SettingViewModel()); }
-            set { _settingVM = value; }
-        }
 
 
         private object _currentView;
@@ -66,7 +59,6 @@ namespace image_categorizer.MVVM.ViewModel
 
             RunViewCommand = new RelayCommand(o =>
             {
-                //call RunVM Constructor
                 CurrentView = RunVM;
             });
             SummaryViewCommand = new RelayCommand(o =>

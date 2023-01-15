@@ -28,12 +28,12 @@ namespace image_categorizer
                 connection.Open();
                 string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}({allAttributes});");
                 SQLiteCommand createCommand = new(createSql, connection);
-                int result =  createCommand.ExecuteNonQuery();
+                int result = createCommand.ExecuteNonQuery();
             }
             isInit = true;
         }
         //Need Location Data
-        public static int InsertQuery(InsertQueryModel queryModel)
+        public static void InsertQuery(InsertQueryModel queryModel)
         {
             int result = -1;
             //need generation
@@ -44,7 +44,20 @@ namespace image_categorizer
                 using SQLiteCommand command = new(sql, connection);
                 result = command.ExecuteNonQuery();
             }
-            return result;
+        }
+
+        public static async void InsertQuery(List<InsertQueryModel> queryModels)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectString))
+            {
+                connection.Open();
+                foreach (InsertQueryModel insertQuery in queryModels)
+                {
+                    string sql = String.Format($"INSERT INTO image_tags VALUES(\'{insertQuery.fileName}\', \'{insertQuery.dateTime}\', \'{insertQuery.format}\', \'{insertQuery.cameraModel}\', \'{insertQuery.location}', \'{insertQuery.currentTime}\');");
+                    using SQLiteCommand command = new(sql, connection);
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
         }
         /// <summary>
         /// select query with no condition
