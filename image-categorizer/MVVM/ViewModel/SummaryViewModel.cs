@@ -22,13 +22,15 @@ namespace image_categorizer.MVVM.ViewModel
         }
 
         public void InitSummaryModel()
-        { 
+        {
             //exception: KeyNotFoundException -> DataBase has no Data
             //exception: NullValueException
-            if (SummaryModel != null && SQLite.isInit == true)
+            SQLite summarySQL = new();
+            summarySQL.SQLiteinit();
+            if (SummaryModel != null && summarySQL.isInit == true)
             {
                 string[] attributes = new[] { "file_path", "datetime", "format", "camera_model","location", "modified_date" }; 
-                SummaryModel.SelectedDBData = SQLite.SelectQuery(attributes);
+                SummaryModel.SelectedDBData = summarySQL.SelectQuery(attributes);
 
                 try
                 {

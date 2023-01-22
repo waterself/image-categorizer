@@ -8,16 +8,26 @@ using image_categorizer.MVVM.Model;
 
 namespace image_categorizer
 {
-    public static class SQLite
+    public class SQLite
     {
-        /*private static string dbName = String.Format($"{Environment.CurrentDirectory}\\ic.sqlite");*/
-        private static string dbName = "D:\\DB\\ic.db";
-        private static string dbversion = "3";
-        private static string tagTable = "image_tags";
-        private static string allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";
-        private static string connectString = String.Format($"Data Source = {dbName};");
-        public static bool isInit = false;
-        public static void SQLiteinit()
+        /*private string dbName = String.Format($"{Environment.CurrentDirectory}\\ic.sqlite");*/
+        public SQLite()
+        {
+        dbName = "D:\\DB\\ic.db";
+        dbversion = "3";
+        tagTable = "image_tags";
+        allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";
+        connectString = String.Format($"Data Source = {dbName};");
+        isInit = false;
+        }
+
+        private string dbName;
+        private string dbversion;
+        private string tagTable;
+        private string allAttributes;
+        private string connectString;
+        public bool isInit = false;
+        public void SQLiteinit()
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectString))
             {
@@ -33,7 +43,7 @@ namespace image_categorizer
             isInit = true;
         }
         //Need Location Data
-        public static void InsertQuery(InsertQueryModel queryModel)
+        public void InsertQuery(InsertQueryModel queryModel)
         {
             int result = -1;
             //need generation
@@ -46,7 +56,7 @@ namespace image_categorizer
             }
         }
 
-        public static async void InsertQuery(List<InsertQueryModel> queryModels)
+        public async void InsertQuery(List<InsertQueryModel> queryModels)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectString))
             {
@@ -64,7 +74,7 @@ namespace image_categorizer
         /// </summary>
         /// <param name="select">dateTime,format,camera_model,modified_date)</param>
         /// <returns>Dictionary(attribute, Datas)</returns>
-        public static Dictionary<string, List<string?>>? SelectQuery(string[] select)
+        public Dictionary<string, List<string?>>? SelectQuery(string[] select)
         {
             Dictionary<string, List<string?>>? ret = new();
             string attribute = String.Join(",", select);

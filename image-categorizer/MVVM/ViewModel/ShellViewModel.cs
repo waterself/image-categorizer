@@ -1,4 +1,5 @@
 ﻿using image_categorizer.Core;
+
 using System.Data.SQLite;
 using image_categorizer.MVVM.View;
 using System.Collections.ObjectModel;
@@ -53,8 +54,6 @@ namespace image_categorizer.MVVM.ViewModel
 
         public ShellViewModel()
         {
-            GeoCoding.GeoCodingInit();
-            SQLite.SQLiteinit();
             CurrentView = RunVM;
 
             RunViewCommand = new RelayCommand(o =>

@@ -40,7 +40,7 @@ namespace image_categorizer.MVVM.Model
         public string[] DirectoryRules
         {
             get { return _directoryRules; }
-            set { _directoryRules = value; }
+            set { _directoryRules = value; OnPropertyChanged(); }
         }
 
         private int[]? _directoryRulesIndexes = new int[4];
@@ -48,7 +48,9 @@ namespace image_categorizer.MVVM.Model
         public int[]? DirectoryRulesIndexes
         {
             get { return _directoryRulesIndexes; }
-            set { _directoryRulesIndexes = value; }
+            set { _directoryRulesIndexes = value;
+                OnPropertyChanged();
+            }
         }
 
         private int[]? _fileNameRulesIndexes = new int[4];
@@ -56,7 +58,9 @@ namespace image_categorizer.MVVM.Model
         public int[]? FileNameRulesIndexes
         {
             get { return _fileNameRulesIndexes; }
-            set { _fileNameRulesIndexes = value; }
+            set { _fileNameRulesIndexes = value;
+                OnPropertyChanged();
+            }
         }
 
 
@@ -65,7 +69,7 @@ namespace image_categorizer.MVVM.Model
         public string[] FileNameRules
         {
             get { return _fileNameRules; }
-            set { _fileNameRules = value; }
+            set { _fileNameRules = value; OnPropertyChanged(); }
         }
 
         private string _oldPathExample = "";

@@ -104,6 +104,8 @@ namespace image_categorizer.MVVM.ViewModel
         {
             
             Random rand = new();
+            GeoCoding geoCoding = new GeoCoding();
+            geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
@@ -130,7 +132,7 @@ namespace image_categorizer.MVVM.ViewModel
                         }
                         if (coordinate != null)
                         {
-                            imageDetails.Location = GeoCoding.GetLocation(coordinate[0], coordinate[1]);
+                            imageDetails.Location = geoCoding.GetLocation(coordinate[0], coordinate[1]);
                         }
                         else
                         {
@@ -260,7 +262,9 @@ namespace image_categorizer.MVVM.ViewModel
                     RunModel.CategorizeProgress += 1;
                     
                 }
-                SQLite.InsertQuery(insertQueries);
+                SQLite summarySQL = new();
+                summarySQL.SQLiteinit();
+                summarySQL.InsertQuery(insertQueries);
                 //messageBox for check delete original files
             }
             else

@@ -20,6 +20,8 @@ namespace image_categorizer.MVVM.ViewModel
             SaveButtonCommand = SaveSettingCommand();
             DirectoryRuleSelectorCommand = PathExampleSetterCommand();
             FileNameRuleSelectorCommand = FileNameExampleSetterCommand();
+            _settingModel = new();
+            ReadSetting();
         }
         #endregion Constructor
 
@@ -114,7 +116,6 @@ namespace image_categorizer.MVVM.ViewModel
         {
             Properties.Settings.Default.InputDirectory = model.InputDirectorytPath;
             Properties.Settings.Default.OutputDirctory = model.OutputDirectorytPath;
-            //it's length is not 4, add None
             Properties.Settings.Default.DirectoryNameRule = String.Join(",", Utility.ArrayLengthCheck(model.DirectoryRules, 4));
             Properties.Settings.Default.FileNameRule = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRules, 4));
             //Properties.Settings.Default.FileNameRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRulesIndexes, 4));

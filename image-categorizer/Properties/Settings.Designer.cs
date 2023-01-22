@@ -12,7 +12,7 @@ namespace image_categorizer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -73,7 +73,7 @@ namespace image_categorizer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1,2,3,4")]
         public string DirectoryRuleIndexes {
             get {
                 return ((string)(this["DirectoryRuleIndexes"]));
@@ -85,13 +85,49 @@ namespace image_categorizer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1,2,3,4")]
         public string FileNameRuleIndexes {
             get {
                 return ((string)(this["FileNameRuleIndexes"]));
             }
             set {
                 this["FileNameRuleIndexes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ic.db")]
+        public string IcTagDBName {
+            get {
+                return ((string)(this["IcTagDBName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ic4t@g")]
+        public string IcTagDBPassword {
+            get {
+                return ((string)(this["IcTagDBPassword"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("allcountries.db")]
+        public string GeoNameDBName {
+            get {
+                return ((string)(this["GeoNameDBName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#naGazetterMe")]
+        public string GeoNameDBPassword {
+            get {
+                return ((string)(this["GeoNameDBPassword"]));
             }
         }
     }

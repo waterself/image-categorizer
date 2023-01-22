@@ -8,13 +8,20 @@ using System.Windows;
 
 namespace image_categorizer
 {
-    public static class GeoCoding
+    public class GeoCoding
     {
-        private static string dbName = "D:\\DB\\allcountries.db";
-        private static string dbversion = "3";
-        private static string connectString = String.Format($"Data Source={dbName};");
+        public GeoCoding()
+        { 
+            dbName = "D:\\DB\\allcountries.db";
+            dbversion = "3";
+            connectString = String.Format($"Data Source={dbName};");
+        }
 
-        public static void GeoCodingInit()
+        private string dbName;
+        private string dbversion;
+        private string connectString;
+
+        public void GeoCodingInit()
         {
             if (!System.IO.File.Exists(dbName))
             {
@@ -22,7 +29,7 @@ namespace image_categorizer
                 return;
             }
         }
-        public static string? GetLocation(double? latitude, double? longitude)
+        public string? GetLocation(double? latitude, double? longitude)
         {
             string getAdmin3Query = String.Format($"SELECT country, admin1, admin2 FROM lite ORDER BY ABS(latitude - {latitude})+ABS(longitude - {longitude}) LIMIT 1;");
             using (SQLiteConnection connection = new SQLiteConnection(connectString)) {
