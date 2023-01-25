@@ -34,7 +34,7 @@
                     <Border Grid.Column="0" Margin="5,5,5,5">
                         <ComboBox
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[0], ElementName=RuleSelectorControl, Mode=TwoWay}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedIndex[0], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[0], ElementName=RuleSelectorControl}"
                             SelectionChanged="RuleSelectedEventHandler" />
                     </Border>
@@ -42,21 +42,21 @@
                     <Border Grid.Column="2" Margin="5,5,5,5">
                         <ComboBox
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[1], ElementName=RuleSelectorControl, Mode=TwoWay}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedIndex[1], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[1], ElementName=RuleSelectorControl}"
                             SelectionChanged="RuleSelectedEventHandler" />
                     </Border>
                     <Border Grid.Column="4" Margin="5,5,5,5">
                         <ComboBox
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[2], ElementName=RuleSelectorControl, Mode=TwoWay}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedIndex[2], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[2], ElementName=RuleSelectorControl}"
                             SelectionChanged="RuleSelectedEventHandler" />
                     </Border>
                     <Border Grid.Column="6" Margin="5,5,5,5">
                         <ComboBox
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
-                            SelectedIndex="{Binding Path=ComboBoxSelectedindex[3], ElementName=RuleSelectorControl, Mode=TwoWay}"
+                            SelectedIndex="{Binding Path=ComboBoxSelectedIndex[3], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[3], ElementName=RuleSelectorControl}"
                             SelectionChanged="RuleSelectedEventHandler" />
                     </Border>
