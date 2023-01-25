@@ -44,6 +44,7 @@
                 <StackPanel>
                     <UC:RuleSelector
                         x:Name="DirectoryRuleSelector"
+                        ComboBoxSelectedIndex="{Binding SettingModel.DirectoryRulesIndexes}"
                         NameLabel="Select Directory Rules"
                         RuleSelectedCommand="{Binding DirectoryRuleSelectorCommand}"
                         RulesArray="{Binding SettingModel.DirectoryRules, Mode=TwoWay}"
@@ -64,6 +65,7 @@
                 DockPanel.Dock="Top">
                 <StackPanel>
                     <UC:RuleSelector
+                        ComboBoxSelectedIndex="{Binding SettingModel.FileNameRulesIndexes}"
                         NameLabel="Select FileName Rules"
                         RuleSelectedCommand="{Binding FileNameRuleSelectorCommand}"
                         RulesArray="{Binding SettingModel.FileNameRules, Mode=TwoWay}"
