@@ -169,24 +169,24 @@ namespace image_categorizer
             }
             return result;
         }
-        public static int[] ArrayLengthCheck(int[]? array, int size)
+        public static List<int> ArrayLengthCheck(List<int> array, int size)
         {
-            int[] result = new int[size];
+            List<int> result = new List<int>(size);
             if (array == null)
             {
-                for (int i = 0; i < result.Length; i++)
+                for (int i = 0; i < result.Count; i++)
                 {
                     result[i] = 0;
                 }
             }
-            else if (array.Length < size)
+            else if (array.Count < size)
             {
-                for (int i = 0; i < array.Length; i++)
+                for (int i = 0; i < array.Count; i++)
                 {
                     result[i] = array[i];
                 }
             }
-            else if (array.Length > size)
+            else if (array.Count > size)
             {
                 for (int i = 0; i < size; i++)
                 {

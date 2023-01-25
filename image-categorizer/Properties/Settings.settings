@@ -15,10 +15,10 @@
       <Value Profile="(Default)">None,None,None,None</Value>
     </Setting>
     <Setting Name="DirectoryRuleIndexes" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1,2,3,4</Value>
+      <Value Profile="(Default)">4,3,2,1</Value>
     </Setting>
     <Setting Name="FileNameRuleIndexes" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1,2,3,4</Value>
+      <Value Profile="(Default)">4,3,2,1</Value>
     </Setting>
     <Setting Name="IcTagDBName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">ic.db</Value>

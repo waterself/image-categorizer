@@ -33,6 +33,7 @@
                     </Grid.RowDefinitions>
                     <Border Grid.Column="0" Margin="5,5,5,5">
                         <ComboBox
+                            x:Name="Rule1"
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
                             SelectedIndex="{Binding Path=ComboBoxSelectedindex[0], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[0], ElementName=RuleSelectorControl}"
@@ -41,6 +42,7 @@
 
                     <Border Grid.Column="2" Margin="5,5,5,5">
                         <ComboBox
+                            x:Name="Rule2"
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
                             SelectedIndex="{Binding Path=ComboBoxSelectedindex[1], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[1], ElementName=RuleSelectorControl}"
@@ -48,6 +50,7 @@
                     </Border>
                     <Border Grid.Column="4" Margin="5,5,5,5">
                         <ComboBox
+                            x:Name="Rule3"
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
                             SelectedIndex="{Binding Path=ComboBoxSelectedindex[2], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[2], ElementName=RuleSelectorControl}"
@@ -55,6 +58,7 @@
                     </Border>
                     <Border Grid.Column="6" Margin="5,5,5,5">
                         <ComboBox
+                            x:Name="Rule4"
                             ItemsSource="{Binding Path=RulesForComboBox, ElementName=RuleSelectorControl}"
                             SelectedIndex="{Binding Path=ComboBoxSelectedindex[3], ElementName=RuleSelectorControl, Mode=TwoWay}"
                             SelectedItem="{Binding Path=RulesArray[3], ElementName=RuleSelectorControl}"

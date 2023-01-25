@@ -17,9 +17,9 @@
         <Grid Margin="10,10,10,10" Background="{StaticResource BackgroundSolidColorBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="7*" />
+                <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="9*" />
+                <ColumnDefinition Width="14*" />
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0">
                 <TextBlock Style="{DynamicResource PreViewerTextStyle}" Text="{Binding ElementName=CategorizePreviewerControl, Path=CategorizePreViewerNameLabel}" />

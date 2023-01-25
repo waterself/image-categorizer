@@ -6,10 +6,11 @@ using System.Windows;
 
 namespace image_categorizer.MVVM.Model
 {
-    class SettingModel : BaseViewModel
+    class SettingModel : ObservableObject
     {
+
         #region Binding Data
-        private string? _inputDirectoryPath = "C:\\Test";
+        private string? _inputDirectoryPath;
 
         public string? InputDirectorytPath
         {
@@ -23,7 +24,7 @@ namespace image_categorizer.MVVM.Model
 
         //"Please Select Output Directory";
         //private string? _outputDirectoryPath = null;
-        private string? _outputDirectoryPath = "C:\\output";
+        private string? _outputDirectoryPath;
 
         public string? OutputDirectorytPath
         {
@@ -43,9 +44,9 @@ namespace image_categorizer.MVVM.Model
             set { _directoryRules = value; OnPropertyChanged(); }
         }
 
-        private int[]? _directoryRulesIndexes = new int[4];
+        private List<int> _directoryRulesIndexes = new List<int>(4) { 4, 3, 2, 1 };
 
-        public int[]? DirectoryRulesIndexes
+        public List<int> DirectoryRulesIndexes
         {
             get { return _directoryRulesIndexes; }
             set { _directoryRulesIndexes = value;
@@ -53,9 +54,9 @@ namespace image_categorizer.MVVM.Model
             }
         }
 
-        private int[]? _fileNameRulesIndexes = new int[4];
+        private List<int> _fileNameRulesIndexes = new List<int>(4) { 4, 3, 2, 1 };
 
-        public int[]? FileNameRulesIndexes
+        public List<int> FileNameRulesIndexes
         {
             get { return _fileNameRulesIndexes; }
             set { _fileNameRulesIndexes = value;

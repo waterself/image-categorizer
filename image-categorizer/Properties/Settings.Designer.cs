@@ -73,7 +73,7 @@ namespace image_categorizer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1,2,3,4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4,3,2,1")]
         public string DirectoryRuleIndexes {
             get {
                 return ((string)(this["DirectoryRuleIndexes"]));
@@ -85,7 +85,7 @@ namespace image_categorizer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1,2,3,4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4,3,2,1")]
         public string FileNameRuleIndexes {
             get {
                 return ((string)(this["FileNameRuleIndexes"]));

@@ -26,7 +26,6 @@ namespace image_categorizer.MVVM.UC
         {
             InitializeComponent();
         }
-        //boolean array to control combobox's isEnable
 
         public string? NameLabel {
             get { return GetValue(NameLabelProperty) as string; }
@@ -38,9 +37,9 @@ namespace image_categorizer.MVVM.UC
             get { return (ObservableCollection<string>)GetValue(RulesForComboBoxProperty); }
             set { SetValue(RulesForComboBoxProperty, value); }
         }
-        public int[] ComboBoxSelectedindex
+        public List<int>? ComboBoxSelectedIndex
         {
-            get { return (int[])GetValue(ComboBoxSelectedIndexProperty); }
+            get { return (List<int>)GetValue(ComboBoxSelectedIndexProperty); }
             set { SetValue(ComboBoxSelectedIndexProperty, value); }
         }
         public string[]? RulesArray
@@ -59,13 +58,13 @@ namespace image_categorizer.MVVM.UC
             nameof(NameLabel), typeof(string), typeof(RuleSelector), new PropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty RulesArrayProperty = DependencyProperty.Register(
-       nameof(RulesArray), typeof(string[]), typeof(RuleSelector), new PropertyMetadata(new string[4] {"None", "None", "None", "None" }));
+       nameof(RulesArray), typeof(string[]), typeof(RuleSelector), new PropertyMetadata(new string[4]));
 
         public static readonly DependencyProperty RulesForComboBoxProperty = DependencyProperty.Register(
             nameof(RulesForComboBox), typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ComboBoxSelectedIndexProperty = DependencyProperty.Register(
-            nameof(ComboBoxSelectedindex), typeof(int[]), typeof(RuleSelector), new PropertyMetadata(new int[4] { 0, 0, 0, 0 }));
+            nameof(ComboBoxSelectedIndex), typeof(List<int>), typeof(RuleSelector), new PropertyMetadata(new List<int>(4) { 0, 0, 0, 0 }));
 
         public static readonly DependencyProperty RuleSelectedCommandProperty = DependencyProperty.Register(
             nameof(RuleSelectedCommand), typeof(RelayCommand), typeof(RuleSelector), new FrameworkPropertyMetadata(null));
