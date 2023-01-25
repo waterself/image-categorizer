@@ -38,7 +38,7 @@ namespace image_categorizer.MVVM.UC
             get { return (ObservableCollection<string>)GetValue(RulesForComboBoxProperty); }
             set { SetValue(RulesForComboBoxProperty, value); }
         }
-        public int[] ComboBoxSelectedindex
+        public int[] ComboBoxSelectedIndex
         {
             get { return (int[])GetValue(ComboBoxSelectedIndexProperty); }
             set { SetValue(ComboBoxSelectedIndexProperty, value); }
@@ -65,7 +65,7 @@ namespace image_categorizer.MVVM.UC
             nameof(RulesForComboBox), typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ComboBoxSelectedIndexProperty = DependencyProperty.Register(
-            nameof(ComboBoxSelectedindex), typeof(int[]), typeof(RuleSelector), new PropertyMetadata(new int[4] { 0, 0, 0, 0 }));
+            nameof(ComboBoxSelectedIndex), typeof(int[]), typeof(RuleSelector), new PropertyMetadata(new int[4] { 0, 0, 0, 0 }));
 
         public static readonly DependencyProperty RuleSelectedCommandProperty = DependencyProperty.Register(
             nameof(RuleSelectedCommand), typeof(RelayCommand), typeof(RuleSelector), new FrameworkPropertyMetadata(null));
