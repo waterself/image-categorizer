@@ -83,17 +83,16 @@
                     </Border>
                 </Border>
                 <Button
-                    x:Name="RunButton"
-                    Width="150"
-                    Height="50"
-                    Margin="0,0,10,0"
-                    Background="{StaticResource FrameSolidColorBrush}"
-                    Command="{Binding RunButtonCommand}"
-                    Content="Run"
-                    DockPanel.Dock="Right"
-                    FontSize="20"
-                    Foreground="{StaticResource WhiteSolidColorBrush}" />
-
+                        x:Name="RunButton"
+                        Width="150"
+                        Height="50"
+                        Margin="0,0,10,0"
+                        Background="{StaticResource FrameSolidColorBrush}"
+                        Command="{Binding RunButtonCommand}"
+                        Content="Run"
+                        DockPanel.Dock="Right"
+                        FontSize="20"
+                        Foreground="{StaticResource WhiteSolidColorBrush}" />
             </DockPanel>
         </StackPanel>
     </Border>

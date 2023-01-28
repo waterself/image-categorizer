@@ -7,24 +7,28 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="#263238">
+                        <DockPanel Background="{StaticResource BackgroundSolidColorBrush}">
+                            <ContentControl
+                                Margin="5,2,2,2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="&#xED43;"
+                                DockPanel.Dock="Left"
+                                FontFamily="Segoe MDL2 Assets" />
                             <TextBlock
                                 Margin="2,2,2,2"
                                 VerticalAlignment="Center"
                                 Foreground="#ffffff"
                                 Text="{TemplateBinding Property=Content}" />
-                        </Grid>
+                        </DockPanel>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style.Setters>
         <!--  if directory is selected, show check point  -->
         <Style.Triggers>
-            <Trigger Property="IsMouseCaptured" Value="True">
-                <Setter Property="Background" Value="#001b33" />
+            <Trigger Property="IsMouseDirectlyOver" Value="True">
+                <Setter Property="Background" Value="Azure" />
             </Trigger>
         </Style.Triggers>
     </Style>
