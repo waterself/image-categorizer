@@ -10,7 +10,6 @@ namespace image_categorizer.Core
 {
     class BaseViewModel : INotifyPropertyChanged, ICloneable
     {
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         { 

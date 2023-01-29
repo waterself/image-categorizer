@@ -7,37 +7,24 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <DockPanel Background="{StaticResource BackgroundSolidColorBrush}" x:Name="PathSelectorDockPanel">
-                            <ContentControl
-                                x:Name="icon"
-                                Margin="5,2,2,2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Content="&#xED43;"
-                                DockPanel.Dock="Left"
-                                FontFamily="Segoe MDL2 Assets" />
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="#263238">
                             <TextBlock
-                                x:Name="text"
                                 Margin="2,2,2,2"
                                 VerticalAlignment="Center"
                                 Foreground="#ffffff"
                                 Text="{TemplateBinding Property=Content}" />
-                        </DockPanel>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="Azure" TargetName="PathSelectorDockPanel"/>
-                                <Setter Property="Foreground" Value="{StaticResource PointSolidColorBrush}" TargetName="icon"/>
-                                <Setter Property="Foreground" Value="{StaticResource PointSolidColorBrush}" TargetName="text"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style.Setters>
         <!--  if directory is selected, show check point  -->
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="Azure" />
+            <Trigger Property="IsMouseCaptured" Value="True">
+                <Setter Property="Background" Value="#001b33" />
             </Trigger>
         </Style.Triggers>
     </Style>
