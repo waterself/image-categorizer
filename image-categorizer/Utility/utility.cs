@@ -10,6 +10,7 @@ namespace image_categorizer
 {
     public static class Utility
     {
+        public static string programDir = AppDomain.CurrentDomain.BaseDirectory;
         public static string deleteRegex(string input, string regex)
         {
             return Regex.Replace(input, regex, "");

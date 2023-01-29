@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using image_categorizer.MVVM.Model;
+using image_categorizer.MVVM.ViewModel;
 
 namespace image_categorizer
 {
@@ -12,7 +13,7 @@ namespace image_categorizer
     {
         public SQLite()
         {
-            dbName = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\ic.db";
+            dbName = $"{Utility.programDir}\\Data\\ic.db";
             dbversion = "3";
             tagTable = "image_tags";
             allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";

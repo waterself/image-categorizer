@@ -16,7 +16,7 @@
     <Window.DataContext>
         <viewModel:ShellViewModel />
     </Window.DataContext>
-    <Window.Resources />
+    
     <Grid Background="{StaticResource PointSolidColorBrush}">
         <DockPanel
             MinHeight="600"
