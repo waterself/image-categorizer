@@ -12,9 +12,9 @@ namespace image_categorizer
     {
         public GeoCoding()
         { 
-            dbName = "D:\\DB\\allcountries.db";
+            dbName = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\allcountries.db";
             dbversion = "3";
-            connectString = String.Format($"Data Source={dbName};");
+            connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.GeoNameDBPassword}");
         }
 
         private string dbName;

@@ -16,6 +16,7 @@
     <Window.DataContext>
         <viewModel:ShellViewModel />
     </Window.DataContext>
+    
     <Grid Background="{StaticResource PointSolidColorBrush}">
         <DockPanel
             MinHeight="600"
@@ -39,21 +40,21 @@
                         Foreground="{StaticResource WhiteSolidColorBrush}"
                         Text="Image Categorizer" />
                 </Border>
-
                 <DockPanel HorizontalAlignment="Right">
                     <Button
-                        Background="{StaticResource PointSolidColorBrush}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Click="Button_Click"
-                        Content="─"
+                        Content="&#xEF2D;"
                         DockPanel.Dock="Left"
                         Style="{StaticResource TitleButtonThemes}" />
                     <Button
-                        Background="{StaticResource PointSolidColorBrush}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Click="CloseButton_Click"
-                        Content="X"
+                        Content="&#xEF2C;"
                         DockPanel.Dock="Left"
                         Style="{StaticResource TitleButtonThemes}" />
-
                 </DockPanel>
             </DockPanel>
             <Border Background="{StaticResource FrameSolidColorBrush}">

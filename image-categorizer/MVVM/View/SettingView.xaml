@@ -82,9 +82,11 @@
                     Width="150"
                     Height="50"
                     Margin="10"
+                    Style="{StaticResource SaveButtonThemes}"
                     Background="{StaticResource FrameSolidColorBrush}"
                     Command="{Binding SaveButtonCommand}"
                     Content="Save"
+                    ToolTip="Save Settings"                    
                     DockPanel.Dock="right"
                     FontSize="20"
                     Foreground="{StaticResource WhiteSolidColorBrush}" />

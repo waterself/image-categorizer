@@ -8,40 +8,43 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="PathSelectorControl"
     DataContext="{Binding}"
+    Style="{StaticResource UserControlTrigerTheme}"
     mc:Ignorable="d">
-    <Border
-        VerticalAlignment="Center"
-        Background="{StaticResource FrameSolidColorBrush}"
-        CornerRadius="5">
-        <StackPanel>
-            <DockPanel Margin="10,10,10,10">
-                <Button
-                    Width="100"
-                    Padding="5,0,0,0"
-                    Background="{StaticResource BackgroundSolidColorBrush}"
-                    Command="{Binding Path=SelectButtonCommand, ElementName=PathSelectorControl}"
-                    Content="SelectPath"
-                    DockPanel.Dock="Right"
-                    Foreground="{StaticResource WhiteSolidColorBrush}" />
-                <Canvas
-                    Width="5"
-                    Background="{StaticResource FrameSolidColorBrush}"
-                    DockPanel.Dock="Right" />
-                <StackPanel Orientation="Vertical">
-                    <TextBlock
-                        MinWidth="50"
+    <ContentControl>
+        <Border
+            VerticalAlignment="Center"
+            Background="{StaticResource FrameSolidColorBrush}"
+            CornerRadius="5">
+            <StackPanel>
+                <DockPanel Margin="10,10,10,10">
+                    <Button
+                        Width="100"
                         Padding="5,0,0,0"
-                        Background="{StaticResource BackgroundSolidColorBrush}"
+                        Command="{Binding Path=SelectButtonCommand, ElementName=PathSelectorControl}"
+                        Content="SelectPath"
+                        DockPanel.Dock="Right"
                         Foreground="{StaticResource WhiteSolidColorBrush}"
-                        Text="{Binding Path=PathSelectorNameLabel, ElementName=PathSelectorControl}" />
-                    <TextBlock
-                        MinWidth="50"
-                        Padding="5,0,0,0"
-                        Background="{StaticResource BackgroundSolidColorBrush}"
-                        Foreground="{StaticResource WhiteSolidColorBrush}"
-                        Text="{Binding Path=DirectoryPath, ElementName=PathSelectorControl, TargetNullValue=Please Select Input Directory}" />
-                </StackPanel>
-            </DockPanel>
-        </StackPanel>
-    </Border>
+                        Style="{StaticResource PathSelectButtonThemes}" />
+                    <Canvas
+                        Width="5"
+                        Background="{StaticResource FrameSolidColorBrush}"
+                        DockPanel.Dock="Right" />
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock
+                            MinWidth="50"
+                            Padding="5,0,0,0"
+                            Background="{StaticResource BackgroundSolidColorBrush}"
+                            Foreground="{StaticResource WhiteSolidColorBrush}"
+                            Text="{Binding Path=PathSelectorNameLabel, ElementName=PathSelectorControl}" />
+                        <TextBlock
+                            MinWidth="50"
+                            Padding="5,0,0,0"
+                            Background="{StaticResource BackgroundSolidColorBrush}"
+                            Foreground="{StaticResource WhiteSolidColorBrush}"
+                            Text="{Binding Path=DirectoryPath, ElementName=PathSelectorControl, TargetNullValue=Please Select Input Directory}" />
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+    </ContentControl>
 </UserControl>
