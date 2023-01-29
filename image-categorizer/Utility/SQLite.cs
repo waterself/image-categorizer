@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using image_categorizer.MVVM.Model;
-using image_categorizer.MVVM.ViewModel;
 
 namespace image_categorizer
 {
@@ -101,7 +100,7 @@ namespace image_categorizer
                         if (ret.ContainsKey(item.Key))
                         {
                             string? colunmn = "";
-                            if (item.Value != null) { colunmn = item.Value; ret[item.Key].Add(colunmn); }
+                            if (item.Value != null) { colunmn = item.Value;  ret[item.Key].Add(colunmn); }
                         }
                     }
                 }

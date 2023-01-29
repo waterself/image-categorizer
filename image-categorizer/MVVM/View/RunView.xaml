@@ -12,8 +12,7 @@
         <viewModel:RunViewModel />
     </UserControl.DataContext>
 
-    <Border
-        Background="{StaticResource BackgroundSolidColorBrush}">
+    <Border Background="{StaticResource BackgroundSolidColorBrush}">
         <StackPanel VerticalAlignment="Top">
             <Border
                 x:Name="PathSelector"
@@ -61,10 +60,8 @@
                     </Border>
                 </StackPanel>
             </Border>
-            <Canvas MinHeight="140" >
-                
-            </Canvas>
-                <DockPanel LastChildFill="False">
+            <Canvas MinHeight="140" />
+            <DockPanel LastChildFill="False">
                 <Border
                     Height="150"
                     MinWidth="550"
@@ -86,19 +83,17 @@
                     </Border>
                 </Border>
                 <Button
-                        Style="{StaticResource MainAcceptButtonThemes}"
-                        x:Name="RunButton"
-                        Width="150"
-                        Height="50"
-                        Margin="0,0,10,0"
-                      Background="{StaticResource FrameSolidColorBrush}"
-                        Command="{Binding RunButtonCommand}"
-                        Content="Run"
-                    ToolTip="Categorize With Setting Tap's Settings"
-                    ToolTipService.Placement="Left"
-                        DockPanel.Dock="Right"
-                        FontSize="20"
-                        Foreground="{StaticResource WhiteSolidColorBrush}" />
+                    x:Name="RunButton"
+                    Width="150"
+                    Height="50"
+                    Margin="0,0,10,0"
+                    Background="{StaticResource FrameSolidColorBrush}"
+                    Command="{Binding RunButtonCommand}"
+                    Content="Run"
+                    DockPanel.Dock="Right"
+                    FontSize="20"
+                    Foreground="{StaticResource WhiteSolidColorBrush}" />
+
             </DockPanel>
         </StackPanel>
     </Border>
