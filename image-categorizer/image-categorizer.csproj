@@ -28,10 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.sqlite.core" Version="7.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
-    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
-    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.117" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
 

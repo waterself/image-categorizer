@@ -13,11 +13,11 @@ namespace image_categorizer
     {
         public SQLite()
         {
-            dbName = $"{Utility.programDir}\\Data\\ic.db";
+            dbName = $"D:\\DB\\Data\\ic.db";
             dbversion = "3";
             tagTable = "image_tags";
             allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";
-            connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.IcTagDBPassword}");
+            connectString = String.Format($"Data Source={dbName};");
             isInit = false;
         }
 
@@ -35,7 +35,7 @@ namespace image_categorizer
                 {
                     SQLiteConnection.CreateFile(dbName);
                 }
-                connection.SetPassword(Properties.Settings.Default.IcTagDBPassword);
+                //connection.SetPassword(Properties.Settings.Default.IcTagDBPassword);
                 connection.Open();
                 string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}({allAttributes});");
                 SQLiteCommand createCommand = new(createSql, connection);

@@ -12,9 +12,9 @@ namespace image_categorizer
     {
         public GeoCoding()
         { 
-            dbName = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\allcountries.db";
+            dbName = $"D:\\DB\\Data\\allcountries.db";
             dbversion = "3";
-            connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.GeoNameDBPassword}");
+            connectString = String.Format($"Data Source={dbName};");
         }
 
         private string dbName;
@@ -61,12 +61,12 @@ namespace image_categorizer
                     }
                 }
 
-/*                Admin3Reader.Close();
-                GetAdmin3Command.Dispose();
-                Admin2Reader.Close();
-                GetAdmin2Command.Dispose();
-                connection.Dispose();*/
-
+                /*                Admin3Reader.Close();
+                                GetAdmin3Command.Dispose();
+                                Admin2Reader.Close();
+                                GetAdmin2Command.Dispose();
+                                connection.Dispose();*/
+                connection.Dispose();
                 return location;
             }
         }
