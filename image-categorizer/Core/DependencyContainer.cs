@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace image_categorizer.Core
 {
-    internal class FocusableUserControl : UserControl
+    public class DependencyContainer
     {
-        private Boolean _isMouseOver = false;
-        
+        public IUtility utility;
+
+        public DependencyContainer() { 
+            utility = new Utility();
+        }
     }
 }

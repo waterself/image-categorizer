@@ -10,9 +10,10 @@ namespace image_categorizer
 {
     public class GeoCoding
     {
-        public GeoCoding()
+        public GeoCoding(string baseDirectory)
         { 
-            dbName = $"{AppDomain.CurrentDomain.BaseDirectory}\\Data\\allcountries.db";
+
+            dbName = $"{baseDirectory}\\Data\\allcountries.db";
             dbversion = "3";
             connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.GeoNameDBPassword}");
         }
@@ -20,17 +21,22 @@ namespace image_categorizer
         private string dbName;
         private string dbversion;
         private string connectString;
+        private bool _hasDataBase = false;
 
         public void GeoCodingInit()
         {
             if (!System.IO.File.Exists(dbName))
             {
                 MessageBox.Show("Not Found Geocoding Data");
+                _hasDataBase = false;
                 return;
             }
+            _hasDataBase = true;
+            return;
         }
         public string? GetLocation(double? latitude, double? longitude)
         {
+            if (_hasDataBase == false) { return "No Geocode Data"; }
             string getAdmin3Query = String.Format($"SELECT country, admin1, admin2 FROM lite ORDER BY ABS(latitude - {latitude})+ABS(longitude - {longitude}) LIMIT 1;");
             using (SQLiteConnection connection = new SQLiteConnection(connectString)) {
                 connection.Open();
@@ -60,13 +66,6 @@ namespace image_categorizer
                         }
                     }
                 }
-
-/*                Admin3Reader.Close();
-                GetAdmin3Command.Dispose();
-                Admin2Reader.Close();
-                GetAdmin2Command.Dispose();
-                connection.Dispose();*/
-
                 return location;
             }
         }

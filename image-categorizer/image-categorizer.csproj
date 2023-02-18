@@ -46,6 +46,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Update="Utility\IcTagSql.cs">
+      <CustomToolNamespace>ICTagSql</CustomToolNamespace>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

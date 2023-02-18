@@ -6,37 +6,43 @@ using System.Text;
 using System.Threading.Tasks;
 using image_categorizer.MVVM.Model;
 using image_categorizer.MVVM.ViewModel;
+using SQLitePCL;
 
 namespace image_categorizer
 {
-    public class SQLite
+    public class IcTagSql
     {
-        public SQLite()
+        
+        public IcTagSql(string baseDirectory)
         {
-            dbName = $"{Utility.programDir}\\Data\\ic.db";
-            dbversion = "3";
+            dbName = $"{baseDirectory}\\Data\\ic.db";
             tagTable = "image_tags";
             allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";
-            connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.IcTagDBPassword}");
+            //connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.IcTagDBPassword}");
+            connectString = new();
+            connectString.DataSource = "D:\\Data\\ic.db";
+            connectString.SyncMode = SynchronizationModes.Off;
+            connectString.JournalMode = SQLiteJournalModeEnum.Memory;
+            connectString.TextPassword = Properties.Settings.Default.IcTagDBPassword;
             isInit = false;
         }
-
         private string dbName;
-        private string dbversion;
         private string tagTable;
         private string allAttributes;
-        private string connectString;
+        //private string connectStringString;
+        private SQLiteConnectionStringBuilder connectString;
         public bool isInit = false;
         public void SQLiteinit()
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectString))
+            using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
             {
                 if (!System.IO.File.Exists(dbName))
                 {
                     SQLiteConnection.CreateFile(dbName);
+                    return;
                 }
-                connection.SetPassword(Properties.Settings.Default.IcTagDBPassword);
                 connection.Open();
+                //connection.ChangePassword(Properties.Settings.Default.IcTagDBPassword);
                 string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}({allAttributes});");
                 SQLiteCommand createCommand = new(createSql, connection);
                 int result = createCommand.ExecuteNonQuery();
@@ -49,7 +55,7 @@ namespace image_categorizer
             int result = -1;
             //need generation
             string sql = String.Format($"INSERT INTO image_tags VALUES(\'{queryModel.fileName}\', \'{queryModel.dateTime}\', \'{queryModel.format}\', \'{queryModel.cameraModel}\', \'{queryModel.location}', \'{queryModel.currentTime}\');");
-            using (SQLiteConnection connection = new SQLiteConnection(connectString))
+            using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
             {
                 connection.Open();
                 using SQLiteCommand command = new(sql, connection);
@@ -59,7 +65,7 @@ namespace image_categorizer
 
         public async void InsertQuery(List<InsertQueryModel> queryModels)
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectString))
+            using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
             {
                 connection.Open();
                 foreach (InsertQueryModel insertQuery in queryModels)
@@ -80,7 +86,7 @@ namespace image_categorizer
             Dictionary<string, List<string?>>? ret = new();
             string attribute = String.Join(",", select);
             string sql = String.Format($"SELECT {attribute} FROM {tagTable};");
-            using (SQLiteConnection connection = new(connectString))
+            using (SQLiteConnection connection = new(connectString.ToString()))
             {
                 connection.Open();
                 using SQLiteCommand command = new(sql, connection);

@@ -116,8 +116,8 @@ namespace image_categorizer.MVVM.ViewModel
         {
             Properties.Settings.Default.InputDirectory = model.InputDirectorytPath;
             Properties.Settings.Default.OutputDirctory = model.OutputDirectorytPath;
-            Properties.Settings.Default.DirectoryNameRule = String.Join(",", Utility.ArrayLengthCheck(model.DirectoryRules, 4));
-            Properties.Settings.Default.FileNameRule = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRules, 4));
+            Properties.Settings.Default.DirectoryNameRule = String.Join(",", _utility.ArrayLengthCheck(model.DirectoryRules, 4));
+            Properties.Settings.Default.FileNameRule = String.Join(",", _utility.ArrayLengthCheck(model.FileNameRules, 4));
             //Properties.Settings.Default.FileNameRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRulesIndexes, 4));
             //Properties.Settings.Default.DirectoryRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.DirectoryRulesIndexes, 4));
             Properties.Settings.Default.Save();
@@ -130,9 +130,9 @@ namespace image_categorizer.MVVM.ViewModel
                 SettingModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
                 SettingModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
                 string? directoryNameRule = Properties.Settings.Default.DirectoryNameRule;
-                SettingModel.DirectoryRules = Utility.ArrayLengthCheck(directoryNameRule.Split(","), 4);
+                SettingModel.DirectoryRules = _utility.ArrayLengthCheck(directoryNameRule.Split(","), 4);
                 string? fileNameRule = Properties.Settings.Default.FileNameRule;
-                SettingModel.FileNameRules = Utility.ArrayLengthCheck(fileNameRule.Split(","), 4);
+                SettingModel.FileNameRules = _utility.ArrayLengthCheck(fileNameRule.Split(","), 4);
                 //string[]? directoryNameRuleIndexes = Properties.Settings.Default.DirectoryRuleIndexes.Split(",");
                 SettingModel.DirectoryRulesIndexes = Array.ConvertAll(SettingModel.DirectoryRules, s => ComboBoxIndexConverter(s));
                 //string[]? fileNameRuleIndexes = Properties.Settings.Default.FileNameRuleIndexes.Split(",");

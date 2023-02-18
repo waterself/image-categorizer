@@ -6,16 +6,17 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
+
 namespace image_categorizer
 {
-    public static class Utility
+    public class Utility : IUtility
     {
-        public static string programDir = AppDomain.CurrentDomain.BaseDirectory;
-        public static string deleteRegex(string input, string regex)
+        public string ProgramDir { get; set; } = "D:\\DB";
+        public string deleteRegex(string input, string regex)
         {
             return Regex.Replace(input, regex, "");
         }
-        public static List<string> GetImageFiles(string filePath)
+        public List<string> GetImageFiles(string filePath)
         {
             List<string> imageFiles = new();
             //need exception handling
@@ -37,7 +38,7 @@ namespace image_categorizer
 
             return imageFiles;
         }
-        public static bool FileExistsCheck(string file)
+        public bool FileExistsCheck(string file)
         {
             if (File.Exists(file))
             {
@@ -48,7 +49,7 @@ namespace image_categorizer
                 return false;
             }
         }
-        public static string? FormatDateTaken(string? date)
+        public string? FormatDateTaken(string? date)
         {
             if (date != null)
             {
@@ -61,7 +62,7 @@ namespace image_categorizer
             }
             else return null;
         }
-        public static string? FormatTimeTaken(string? date)
+        public string? FormatTimeTaken(string? date)
         {
             if (date != null)
             {
@@ -75,7 +76,7 @@ namespace image_categorizer
             else return null;
         }
 
-        public static string? FormatYearMonth(string dateTime)
+        public string? FormatYearMonth(string dateTime)
         {
             DateTime datetime = new();
             if (DateTime.TryParse(dateTime, out datetime))
@@ -84,7 +85,7 @@ namespace image_categorizer
             }
             else return null;
         }
-        public static string? FormatYear(string dateTime)
+        public string? FormatYear(string dateTime)
         {
             DateTime datetime = new();
             if (DateTime.TryParse(dateTime, out datetime))
@@ -94,7 +95,7 @@ namespace image_categorizer
             else return null;
         }
 
-        public static string FormatIsoDateTime(string dateTaken)
+        public string FormatIsoDateTime(string dateTaken)
         {
             DateTime dateTime = new();
             if (dateTaken != null)
@@ -108,7 +109,7 @@ namespace image_categorizer
             else return "";
         }
 
-        public static string? GetCameraModelWithCameraManufacturer(string CameraManufacturer,
+        public string? GetCameraModelWithCameraManufacturer(string CameraManufacturer,
             string CameraModel)
         {
             if (CameraManufacturer != null && CameraModel != null)
@@ -133,7 +134,7 @@ namespace image_categorizer
             }
 
         }
-        public static List<T>? ListDistinct<T>(List<T>? list)
+        public List<T>? ListDistinct<T>(List<T>? list)
         {
             List<T>? targetList = new();
             if (list != null)
@@ -152,7 +153,7 @@ namespace image_categorizer
                 return null;
             }
         }
-        public static Dictionary<T, List<T?>>? GetSameValueList<T>(List<T>? list)
+        public Dictionary<T, List<T?>>? GetSameValueList<T>(List<T>? list)
         {
             Dictionary<T, List<T>>? result = new Dictionary<T, List<T>>();
             if (list != null)
@@ -163,14 +164,15 @@ namespace image_categorizer
                     {
                         result.Add(item, new List<T>() { item });
                     }
-                    else {
+                    else
+                    {
                         result[item].Add(item);
                     }
                 }
             }
             return result;
         }
-        public static int[] ArrayLengthCheck(int[]? array, int size)
+        public int[] ArrayLengthCheck(int[]? array, int size)
         {
             int[] result = new int[size];
             if (array == null)
@@ -200,7 +202,7 @@ namespace image_categorizer
             }
             return result;
         }
-        public static string[] ArrayLengthCheck(string[]? array, int size)
+        public string[] ArrayLengthCheck(string[]? array, int size)
         {
             string[] result = new string[size];
             if (array == null)
@@ -230,8 +232,8 @@ namespace image_categorizer
             }
             return result;
         }
-             
-        public static double[]? GetCoordinate(BitmapMetadata metaData)
+
+        public double[]? GetCoordinate(BitmapMetadata metaData)
         {
             if (metaData != null)
             {
@@ -254,14 +256,14 @@ namespace image_categorizer
 
         }
         //need null check
-        public static double ConvertCoordinate(ulong[] coordinate)
+        public double ConvertCoordinate(ulong[] coordinate)
         {
             double degrees = ConvertToUnsignedRational(coordinate[0]);
             double minutes = ConvertToUnsignedRational(coordinate[1]);
             double seconds = ConvertToUnsignedRational(coordinate[2]);
             return degrees + (minutes / 60.0) + (seconds / 3600);
         }
-        public static double ConvertToUnsignedRational(ulong value)
+        public double ConvertToUnsignedRational(ulong value)
         {
             //0xFFFFFFFFL Unsignedintmax
             return (value & 0xFFFFFFFFL) / (double)((value & 0xFFFFFFFF00000000L) >> 32);

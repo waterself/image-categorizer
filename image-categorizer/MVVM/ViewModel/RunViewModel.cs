@@ -19,6 +19,7 @@ namespace image_categorizer.MVVM.ViewModel
         #region Constructor
         public RunViewModel()
         {
+
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
             RunButtonCommand = Run();
@@ -67,7 +68,7 @@ namespace image_categorizer.MVVM.ViewModel
                         if (mode == "input")
                         {
                             RunModel.InputDirectorytPath = fileName;
-                            List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                            List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
                             RunModel.FileCount = imageFiles.Count;
                         }
                         else if (mode == "output")
@@ -104,7 +105,7 @@ namespace image_categorizer.MVVM.ViewModel
         {
             
             Random rand = new();
-            GeoCoding geoCoding = new GeoCoding();
+            GeoCoding geoCoding = new GeoCoding(_utility.ProgramDir);
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
@@ -112,7 +113,7 @@ namespace image_categorizer.MVVM.ViewModel
             RunModel.CategorizeProgress = 0;
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
-                List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
                 
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
                 {
@@ -124,7 +125,7 @@ namespace image_categorizer.MVVM.ViewModel
                         BitmapSource image = BitmapFrame.Create(fs); //COMException
                         BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
 
-                        double[]? coordinate = Utility.GetCoordinate(metaData);
+                        double[]? coordinate = _utility.GetCoordinate(metaData);
                         if (coordinate != null)
                         {
                             imageDetails.Latitude = coordinate[0];
@@ -138,10 +139,10 @@ namespace image_categorizer.MVVM.ViewModel
                         {
                             imageDetails.Location = metaData.Location;
                         }
-                        imageDetails.IsoDateTime = Utility.FormatIsoDateTime(metaData.DateTaken);
-                        imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
-                        imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
-                        imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
+                        imageDetails.IsoDateTime = _utility.FormatIsoDateTime(metaData.DateTaken);
+                        imageDetails.DateTaken = _utility.FormatDateTaken(metaData.DateTaken);
+                        imageDetails.TimeTaken = _utility.FormatTimeTaken(metaData.DateTaken);
+                        imageDetails.CameraModel = _utility.GetCameraModelWithCameraManufacturer(
                             metaData.CameraManufacturer, metaData.CameraModel);
                         imageDetails.Format = metaData.Format;
 
@@ -250,7 +251,7 @@ namespace image_categorizer.MVVM.ViewModel
                     try
                     {
                         File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
-                        //SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
+                        //IcTagSql.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
                         insertQueries.Add(new InsertQueryModel(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
                     }
                     catch (Exception e)
@@ -262,7 +263,7 @@ namespace image_categorizer.MVVM.ViewModel
                     RunModel.CategorizeProgress += 1;
                     
                 }
-                SQLite summarySQL = new();
+                IcTagSql summarySQL = new(_utility.ProgramDir);
                 summarySQL.SQLiteinit();
                 summarySQL.InsertQuery(insertQueries);
                 //messageBox for check delete original files
@@ -285,7 +286,7 @@ namespace image_categorizer.MVVM.ViewModel
             {
                 RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
                 RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
-                RunModel.FileCount = Utility.GetImageFiles(RunModel.InputDirectorytPath).Count;
+                RunModel.FileCount = _utility.GetImageFiles(RunModel.InputDirectorytPath).Count;
             }
         }
         #endregion Logical Function

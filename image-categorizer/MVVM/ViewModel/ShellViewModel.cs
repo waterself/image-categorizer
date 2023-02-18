@@ -9,7 +9,7 @@ using image_categorizer;
 
 namespace image_categorizer.MVVM.ViewModel
 {
-    class ShellViewModel : BaseViewModel
+    class ShellViewModel : ObservableObject
     {
         // Command Properties
         public RelayCommand RunViewCommand { get; set; }
@@ -17,16 +17,19 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand SummaryViewCommand { get; set; }
 
 
+
+
         private RunViewModel? _runVM;
 
         public RunViewModel? RunVM
         {
-            get => _runVM ?? (_runVM = new RunViewModel());
+            get { return new RunViewModel(); }
             set { _runVM = value; }
         }
+        private SettingViewModel? _settingVM;
         public SettingViewModel? SettingVM
         {
-            get { return _settingVM ?? (_settingVM = new SettingViewModel()); }
+            get { return new SettingViewModel(); }
             set { _settingVM = value; }
         }
 
@@ -34,10 +37,10 @@ namespace image_categorizer.MVVM.ViewModel
 
         public SummaryViewModel? SummaryVM
         {
-            get => _summaryVM ?? (_summaryVM = new SummaryViewModel());
+            get { return new SummaryViewModel(); }
             set { _summaryVM = value; }
         }
-        private SettingViewModel? _settingVM;
+
 
 
 
@@ -54,6 +57,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         public ShellViewModel()
         {
+
             CurrentView = RunVM;
 
             RunViewCommand = new RelayCommand(o =>
