@@ -22,8 +22,6 @@
 
   <ItemGroup>
     <None Remove="20131124_223504.jpg" />
-    <None Remove="Assets\Close.png" />
-    <None Remove="Assets\Minimize.png" />
     <None Remove="Close.png" />
   </ItemGroup>
 
@@ -33,11 +31,6 @@
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
     <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.117" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Assets\Close.png" />
-    <Resource Include="Assets\Minimize.png" />
   </ItemGroup>
 
   <ItemGroup>

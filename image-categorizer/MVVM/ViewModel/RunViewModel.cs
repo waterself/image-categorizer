@@ -105,7 +105,7 @@ namespace image_categorizer.MVVM.ViewModel
         {
             
             Random rand = new();
-            GeoCoding geoCoding = new GeoCoding(_utility.ProgramDir);
+            IGeoCoding geoCoding = new GeoCoding(_utility.ProgramDir);
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');

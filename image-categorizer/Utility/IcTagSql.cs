@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using image_categorizer.MVVM.Model;
 using image_categorizer.MVVM.ViewModel;
-using SQLitePCL;
 
 namespace image_categorizer
 {

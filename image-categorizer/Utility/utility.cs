@@ -11,7 +11,7 @@ namespace image_categorizer
 {
     public class Utility : IUtility
     {
-        public string ProgramDir { get; set; } = "D:\\DB";
+        public string ProgramDir { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
         public string deleteRegex(string input, string regex)
         {
             return Regex.Replace(input, regex, "");
