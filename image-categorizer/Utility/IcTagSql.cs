@@ -6,25 +6,27 @@ using System.Text;
 using System.Threading.Tasks;
 using image_categorizer.MVVM.Model;
 using image_categorizer.MVVM.ViewModel;
+using System.IO;
 
 namespace image_categorizer
 {
     public class IcTagSql
     {
-        
         public IcTagSql(string baseDirectory)
         {
+            dbFolder = $"{baseDirectory}\\Data";
             dbName = $"{baseDirectory}\\Data\\ic.db";
             tagTable = "image_tags";
             allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";
             //connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.IcTagDBPassword}");
             connectString = new();
-            connectString.DataSource = "D:\\Data\\ic.db";
+            connectString.DataSource = dbName;
             connectString.SyncMode = SynchronizationModes.Off;
             connectString.JournalMode = SQLiteJournalModeEnum.Memory;
-            connectString.TextPassword = Properties.Settings.Default.IcTagDBPassword;
+            //connectString.TextPassword = Properties.Settings.Default.IcTagDBPassword;
             isInit = false;
         }
+        private string dbFolder;
         private string dbName;
         private string tagTable;
         private string allAttributes;
@@ -37,8 +39,11 @@ namespace image_categorizer
             {
                 if (!System.IO.File.Exists(dbName))
                 {
+                    DirectoryInfo di = new(dbFolder);
+                    if (di.Exists == false) { 
+                        di.Create();
+                    }
                     SQLiteConnection.CreateFile(dbName);
-                    return;
                 }
                 connection.Open();
                 //connection.ChangePassword(Properties.Settings.Default.IcTagDBPassword);
@@ -59,10 +64,11 @@ namespace image_categorizer
                 connection.Open();
                 using SQLiteCommand command = new(sql, connection);
                 result = command.ExecuteNonQuery();
+                connection.Close();
             }
         }
 
-        public async void InsertQuery(List<InsertQueryModel> queryModels)
+        public void InsertQuery(List<InsertQueryModel> queryModels)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
             {
@@ -71,8 +77,9 @@ namespace image_categorizer
                 {
                     string sql = String.Format($"INSERT INTO image_tags VALUES(\'{insertQuery.fileName}\', \'{insertQuery.dateTime}\', \'{insertQuery.format}\', \'{insertQuery.cameraModel}\', \'{insertQuery.location}', \'{insertQuery.currentTime}\');");
                     using SQLiteCommand command = new(sql, connection);
-                    await command.ExecuteNonQueryAsync();
+                    command.ExecuteNonQueryAsync();
                 }
+                connection.Close();
             }
         }
         /// <summary>
@@ -110,6 +117,7 @@ namespace image_categorizer
                         }
                     }
                 }
+                connection.Close();
             }
             return ret;
         }

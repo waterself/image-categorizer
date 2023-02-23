@@ -19,6 +19,15 @@ namespace image_categorizer.MVVM.Model
             }
         }
 
+        private int _maxProgress = 100;
+
+        public int MaxProgress
+        {
+            get { return _maxProgress; }
+            set { _maxProgress = value; OnPropertyChanged(); }
+        }
+
+
         //private string? _inputDirectoryPath = null;
 
         private string? _inputDirectoryPath = "D:\\Test";

@@ -15,12 +15,12 @@ namespace image_categorizer
 
             dbName = $"{baseDirectory}\\Data\\allcountries.db";
             dbversion = "3";
-            connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.GeoNameDBPassword}");
+            connectString = new();
+            connectString.DataSource = dbName;
         }
-
         private string dbName;
         private string dbversion;
-        private string connectString;
+        private SQLiteConnectionStringBuilder connectString;
         private bool _hasDataBase = false;
 
         public void GeoCodingInit()
@@ -38,7 +38,7 @@ namespace image_categorizer
         {
             if (_hasDataBase == false) { return "No Geocode Data"; }
             string getAdmin3Query = String.Format($"SELECT country, admin1, admin2 FROM lite ORDER BY ABS(latitude - {latitude})+ABS(longitude - {longitude}) LIMIT 1;");
-            using (SQLiteConnection connection = new SQLiteConnection(connectString))
+            using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
             {
                 connection.Open();
                 using SQLiteCommand GetAdmin3Command = new(getAdmin3Query, connection);

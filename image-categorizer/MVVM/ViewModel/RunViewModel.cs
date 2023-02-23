@@ -15,6 +15,7 @@ namespace image_categorizer.MVVM.ViewModel
 {
     class RunViewModel : BaseViewModel
     {
+        private object dataBaseLock = new();
         private BackgroundWorker CategorizeThread;
         #region Constructor
         public RunViewModel()
@@ -103,7 +104,9 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void ImageCategorize(object? sender, DoWorkEventArgs doWorkEventArgs)
         {
-            
+            RunModel.MaxProgress = RunModel.FileCount;
+            Logger RunLogger = new(_utility.ProgramDir);
+            var Lock = new object();
             Random rand = new();
             IGeoCoding geoCoding = new GeoCoding(_utility.ProgramDir);
             geoCoding.GeoCodingInit();
@@ -111,10 +114,11 @@ namespace image_categorizer.MVVM.ViewModel
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
             RunModel.CategorizeProgress = 0;
+
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
                 List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
-                
+
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
                 {
                     ImageDetails imageDetails = new ImageDetails();
@@ -125,6 +129,13 @@ namespace image_categorizer.MVVM.ViewModel
                         BitmapSource image = BitmapFrame.Create(fs); //COMException
                         BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
 
+                        imageDetails.IsoDateTime = _utility.FormatIsoDateTime(metaData.DateTaken);
+                        imageDetails.DateTaken = _utility.FormatDateTaken(metaData.DateTaken);
+                        imageDetails.TimeTaken = _utility.FormatTimeTaken(metaData.DateTaken);
+                        imageDetails.CameraModel = _utility.GetCameraModelWithCameraManufacturer(
+                            metaData.CameraManufacturer, metaData.CameraModel);
+                        imageDetails.Format = metaData.Format;
+
                         double[]? coordinate = _utility.GetCoordinate(metaData);
                         if (coordinate != null)
                         {
@@ -133,18 +144,12 @@ namespace image_categorizer.MVVM.ViewModel
                         }
                         if (coordinate != null)
                         {
-                            imageDetails.Location = geoCoding.GetLocation(coordinate[0], coordinate[1]);
+                            lock (dataBaseLock) { imageDetails.Location = geoCoding.GetLocation(coordinate[0], coordinate[1]); }
                         }
                         else
                         {
                             imageDetails.Location = metaData.Location;
                         }
-                        imageDetails.IsoDateTime = _utility.FormatIsoDateTime(metaData.DateTaken);
-                        imageDetails.DateTaken = _utility.FormatDateTaken(metaData.DateTaken);
-                        imageDetails.TimeTaken = _utility.FormatTimeTaken(metaData.DateTaken);
-                        imageDetails.CameraModel = _utility.GetCameraModelWithCameraManufacturer(
-                            metaData.CameraManufacturer, metaData.CameraModel);
-                        imageDetails.Format = metaData.Format;
 
                         List<string?> pathBuf = new();
                         for (int i = 0; i < directoryRules.Length; i++)
@@ -211,10 +216,14 @@ namespace image_categorizer.MVVM.ViewModel
                         FileInfo notSupported = new(file);
                         imageDetails.FilePath = "No_Data_To_Categorize";
                         imageDetails.FileName = notSupported.Name;
+                        string message = $"File : {file}, Error : Not Supported File";
+                        RunLogger.WriteLog(message);
                     }
                     catch (FileFormatException e)
                     {
                         //error: file has damaged
+                        string message = $"File : {file}, Error : Corrupted File";
+                        RunLogger.WriteLog(message);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                     }
                     if (!RunModel.FileWithDetails.ContainsKey(file))
@@ -224,6 +233,7 @@ namespace image_categorizer.MVVM.ViewModel
 
                     RunModel.CategorizeProgress = RunModel.ProgressIncrement();
                 }));
+                RunLogger.WriteLog("extract end", true);
                 dataExtractTask.Wait();
                 imageFiles.Clear();
                 DateTime currentTime = DateTime.Now;
@@ -231,7 +241,7 @@ namespace image_categorizer.MVVM.ViewModel
                 List<InsertQueryModel> insertQueries = new();
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
-                    
+
                     string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
                     try
@@ -245,6 +255,8 @@ namespace image_categorizer.MVVM.ViewModel
                     catch (Exception e)
                     {
                         //write log file
+                        string message = "directory create error";
+                        RunLogger.WriteLog(message);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                     }
 
@@ -257,11 +269,13 @@ namespace image_categorizer.MVVM.ViewModel
                     catch (Exception e)
                     {
                         //write log file
+                        string message = $"File : {fileName}, Error : {e.Message}";
+                        RunLogger.WriteLog(message);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
                     RunModel.CategorizeProgress += 1;
-                    
+
                 }
                 IcTagSql summarySQL = new(_utility.ProgramDir);
                 summarySQL.SQLiteinit();
@@ -274,9 +288,10 @@ namespace image_categorizer.MVVM.ViewModel
                 RunModel.FileWithDetails.Clear();
             }
             RunModel.CategorizeProgress = RunModel.FileCount;
-            
+
             MessageBox.Show("Categorize Done!");
             RunModel.FileWithDetails.Clear();
+
         }
 
 

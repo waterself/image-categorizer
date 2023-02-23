@@ -21,13 +21,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_C20196C101BA4B549F10E4870D71CB80"
+        "MsmKey" = "8:_AA4839643C824A6A9027E29C25EEA4C3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_EF0B9BC13F95449AA535FE96694F76A9"
+        "MsmKey" = "8:_BE76B6FAD4B74CFA85A5A24DFD36F114"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C20196C101BA4B549F10E4870D71CB80"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -49,6 +55,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -132,12 +154,12 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C20196C101BA4B549F10E4870D71CB80"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AA4839643C824A6A9027E29C25EEA4C3"
             {
-            "SourcePath" = "8:LICENSE.rtf"
-            "TargetName" = "8:LICENSE.rtf"
+            "SourcePath" = "8:allcountries.db"
+            "TargetName" = "8:allcountries.db"
             "Tag" = "8:"
-            "Folder" = "8:_996E4746955A412A8D95E4F2F539C9C6"
+            "Folder" = "8:_C2B5ABDB54A14FD2B61620E7D55BEDE1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -152,12 +174,32 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EF0B9BC13F95449AA535FE96694F76A9"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BE76B6FAD4B74CFA85A5A24DFD36F114"
             {
-            "SourcePath" = "8:D:\\Data\\DB\\allcountries.db"
-            "TargetName" = "8:allcountries.db"
+            "SourcePath" = "8:ic.db"
+            "TargetName" = "8:ic.db"
             "Tag" = "8:"
             "Folder" = "8:_C2B5ABDB54A14FD2B61620E7D55BEDE1"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C20196C101BA4B549F10E4870D71CB80"
+            {
+            "SourcePath" = "8:LICENSE.rtf"
+            "TargetName" = "8:LICENSE.rtf"
+            "Tag" = "8:"
+            "Folder" = "8:_996E4746955A412A8D95E4F2F539C9C6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -191,7 +233,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_996E4746955A412A8D95E4F2F539C9C6"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -240,7 +282,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:image-categorizer-setup"
         "ProductCode" = "8:{89E38493-EFE8-4300-80A7-A0FAD7D4CE67}"
-        "PackageCode" = "8:{15F568D2-1B43-4285-863C-55A53C130484}"
+        "PackageCode" = "8:{18A6D723-8B3D-4C58-AB66-3C41CD2D3A75}"
         "UpgradeCode" = "8:{911F805D-5FA7-4664-A085-C5DB965369DD}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -261,7 +303,7 @@
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
@@ -883,7 +925,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_25EB40114F1D449D9F6B02F05231FA98"
             {
-            "SourcePath" = "8:..\\image-categorizer\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\image-categorizer\\obj\\Debug\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_996E4746955A412A8D95E4F2F539C9C6"
