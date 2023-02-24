@@ -92,6 +92,7 @@
                     Content="Run"
                     DockPanel.Dock="Right"
                     FontSize="20"
+                    IsEnabled="{Binding RunModel.IsIdle}"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
                     Style="{StaticResource MainAcceptButtonThemes}"
                     ToolTip="Categorize With Setting Tap's Settings"

@@ -16,8 +16,8 @@ namespace image_categorizer
 
         public Logger(string programDir) {
             logQueue = new();
-            logFolder = $"{programDir}\\Log";
-            logFileName = $"{logFolder}\\{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ff")}task.txt";
+            logFolder = $"{programDir}Log";
+            logFileName = $"{logFolder}{DateTime.Now.ToString("yyyy-MM-dd_HH:mm:ss:ff")}task.txt";
             DirectoryInfo di = new(logFolder);
             if (!di.Exists)
             { 

@@ -55,6 +55,25 @@ namespace image_categorizer.MVVM.Model
                 OnPropertyChanged();
             }
         }
+
+        private bool _isIdle = true;
+
+        public bool IsIdle
+        {
+            get { return _isIdle; }
+            set { _isIdle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _runButtonIcon;
+
+        public string RunButtonIcon
+        {
+            get { return _runButtonIcon; }
+            set { _runButtonIcon = value; }
+        }
+
         #endregion Binding Data
 
         #region Logical Data

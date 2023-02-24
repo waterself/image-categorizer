@@ -117,6 +117,7 @@ namespace image_categorizer.MVVM.ViewModel
 
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
+                RunModel.IsIdle = false;
                 List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
 
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
@@ -256,7 +257,7 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         //write log file
                         string message = "directory create error";
-                        RunLogger.WriteLog(message);
+                        RunLogger.WriteLog(message, true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                     }
 
@@ -270,7 +271,7 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         //write log file
                         string message = $"File : {fileName}, Error : {e.Message}";
-                        RunLogger.WriteLog(message);
+                        RunLogger.WriteLog(message, true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
@@ -290,6 +291,7 @@ namespace image_categorizer.MVVM.ViewModel
             RunModel.CategorizeProgress = RunModel.FileCount;
 
             MessageBox.Show("Categorize Done!");
+            RunModel.IsIdle = true;
             RunModel.FileWithDetails.Clear();
 
         }
