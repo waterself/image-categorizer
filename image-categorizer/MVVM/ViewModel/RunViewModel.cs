@@ -305,12 +305,10 @@ namespace image_categorizer.MVVM.ViewModel
                 RunModel.FileWithDetails.Clear();
             }
             RunModel.CategorizeProgress = RunModel.FileCount;
-
-            MessageBox.Show("Categorize Done!");
             RunLogger.WriteLog("file copy done", true);
             RunModel.IsIdle = true;
             RunModel.FileWithDetails.Clear();
-
+            MessageBox.Show("Categorize Done!");
         }
 
 

@@ -12,14 +12,13 @@ namespace image_categorizer
     {
         private string logFileName;
         private string logFolder;
-        //TODO: StreamWriter Lock
         private StreamWriter streamWriter;
         private Queue<string> logQueue;
 
         public Logger(string programDir) {
             logQueue = new();
             logFolder = $"{programDir}Log";
-            logFileName = $"{logFolder}{DateTime.Now.ToString("yyyy-MMddHHmmssff")}task.txt";
+            logFileName = $"{logFolder}\\{DateTime.Now.ToString("yyyy-MMddHHmmssff")}task.txt";
             DirectoryInfo di = new(logFolder);
             if (!di.Exists)
             { 
@@ -42,7 +41,6 @@ namespace image_categorizer
                 {
                     lock (streamWriter)
                     {
-
                         while (logQueue.Count > 0)
                         {
                             string log = logQueue.Dequeue();
