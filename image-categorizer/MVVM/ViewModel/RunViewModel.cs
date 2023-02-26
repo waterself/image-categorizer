@@ -15,7 +15,6 @@ namespace image_categorizer.MVVM.ViewModel
 {
     class RunViewModel : BaseViewModel
     {
-        private object dataBaseLock = new();
         private BackgroundWorker CategorizeThread;
         #region Constructor
         public RunViewModel()
@@ -113,6 +112,21 @@ namespace image_categorizer.MVVM.ViewModel
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
+            DirectoryInfo outputPathCheck = new(RunModel.OutputDirectorytPath);
+            if (!outputPathCheck.Exists)
+            {
+                try
+                {
+                    outputPathCheck.Create();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                    RunLogger.WriteLog(e.Message, true);
+                    return;           
+                }
+            }
+     
             RunModel.CategorizeProgress = 0;
 
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
@@ -145,7 +159,7 @@ namespace image_categorizer.MVVM.ViewModel
                         }
                         if (coordinate != null)
                         {
-                            lock (dataBaseLock) { imageDetails.Location = geoCoding.GetLocation(coordinate[0], coordinate[1]); }
+                            lock (geoCoding) { imageDetails.Location = geoCoding.GetLocation(coordinate[0], coordinate[1]); }
                         }
                         else
                         {
@@ -227,10 +241,13 @@ namespace image_categorizer.MVVM.ViewModel
                         RunLogger.WriteLog(message);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                     }
-                    if (!RunModel.FileWithDetails.ContainsKey(file))
-                    {
-                        RunModel.FileWithDetails.Add(file, imageDetails);
-                    }//An item with the same key has already been added.'
+                    lock (RunModel.FileWithDetails) {
+                        if (!RunModel.FileWithDetails.ContainsKey(file))
+                        {
+                            RunModel.FileWithDetails.Add(file, imageDetails);
+                        }//An item with the same key has already been added.'
+                    }
+
 
                     RunModel.CategorizeProgress = RunModel.ProgressIncrement();
                 }));
@@ -242,7 +259,6 @@ namespace image_categorizer.MVVM.ViewModel
                 List<InsertQueryModel> insertQueries = new();
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
-
                     string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
                     try
@@ -291,6 +307,7 @@ namespace image_categorizer.MVVM.ViewModel
             RunModel.CategorizeProgress = RunModel.FileCount;
 
             MessageBox.Show("Categorize Done!");
+            RunLogger.WriteLog("file copy done", true);
             RunModel.IsIdle = true;
             RunModel.FileWithDetails.Clear();
 
