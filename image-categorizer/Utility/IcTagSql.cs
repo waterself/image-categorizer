@@ -13,6 +13,7 @@ namespace image_categorizer
     public class IcTagSql
     {
 
+        #region ClassMember
         private string dbFolder;
         private string dbName;
         private string tagTable;
@@ -20,7 +21,9 @@ namespace image_categorizer
         //private string connectStringString;
         private SQLiteConnectionStringBuilder connectString;
         public bool isInit = false;
+        #endregion ClassMember
 
+        #region Constructor
         public IcTagSql(string baseDirectory)
         {
             dbFolder = $"{baseDirectory}\\Data";
@@ -43,7 +46,8 @@ namespace image_categorizer
                 if (!System.IO.File.Exists(dbName))
                 {
                     DirectoryInfo di = new(dbFolder);
-                    if (di.Exists == false) { 
+                    if (di.Exists == false)
+                    {
                         di.Create();
                     }
                     SQLiteConnection.CreateFile(dbName);
@@ -56,6 +60,9 @@ namespace image_categorizer
             }
             isInit = true;
         }
+        #endregion Constructor
+
+        #region Queries
         //Need Location Data
         public void InsertQuery(InsertQueryModel queryModel)
         {
@@ -89,7 +96,7 @@ namespace image_categorizer
         /// select query with no condition
         /// </summary>
         /// <param name="select">dateTime,format,camera_model,modified_date)</param>
-        /// <returns>Dictionary(attribute, Datas)</returns>
+        /// <returns>Dictionary(attribute, Data)</returns>
         public Dictionary<string, List<string?>>? SelectQuery(string[] select)
         {
             Dictionary<string, List<string?>>? ret = new();
@@ -146,5 +153,6 @@ namespace image_categorizer
                 }
             }
         }
+        #endregion Queries
     }
 }

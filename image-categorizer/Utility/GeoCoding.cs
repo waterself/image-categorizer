@@ -10,6 +10,15 @@ namespace image_categorizer
 {
     public class GeoCoding : IGeoCoding
     {
+
+        #region ClassMember
+        private string dbName;
+        private string dbversion;
+        private SQLiteConnectionStringBuilder connectString;
+        private bool _hasDataBase = false;
+        #endregion ClassMember
+
+        #region Constructor
         public GeoCoding(string baseDirectory)
         {
 
@@ -18,10 +27,6 @@ namespace image_categorizer
             connectString = new();
             connectString.DataSource = dbName;
         }
-        private string dbName;
-        private string dbversion;
-        private SQLiteConnectionStringBuilder connectString;
-        private bool _hasDataBase = false;
 
         public void GeoCodingInit()
         {
@@ -34,6 +39,9 @@ namespace image_categorizer
             _hasDataBase = true;
             return;
         }
+        #endregion Constructor
+
+        #region Queries
         public string? GetLocation(double? latitude, double? longitude)
         {
             if (_hasDataBase == false) { return "No Geocode Data"; }
@@ -70,5 +78,6 @@ namespace image_categorizer
                 return location;
             }
         }
+        #endregion Queries
     }
 }
