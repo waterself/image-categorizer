@@ -19,7 +19,7 @@ namespace image_categorizer.MVVM.ViewModel
 
 
 
-        private RunViewModel? _runVM;
+       /* private RunViewModel? _runVM;
 
         public RunViewModel? RunVM
         {
@@ -39,13 +39,11 @@ namespace image_categorizer.MVVM.ViewModel
         {
             get { return new SummaryViewModel(); }
             set { _summaryVM = value; }
-        }
+        }*/
 
 
-
-
-        private object _currentView;
-        public object CurrentView
+        private BaseViewModel? _currentView;
+        public BaseViewModel? CurrentView
         {
             get { return _currentView; }
             set
@@ -58,19 +56,19 @@ namespace image_categorizer.MVVM.ViewModel
         public ShellViewModel()
         {
 
-            CurrentView = RunVM;
+            CurrentView = new RunViewModel();
 
             RunViewCommand = new RelayCommand(o =>
             {
-                CurrentView = RunVM;
+                CurrentView = new RunViewModel();
             });
             SummaryViewCommand = new RelayCommand(o =>
             {
-                CurrentView = SummaryVM;
+                CurrentView = new SummaryViewModel();
             });
             SettingViewCommand = new RelayCommand(o =>
             {
-                CurrentView = SettingVM;
+                CurrentView = new SettingViewModel();
             });
 
         }

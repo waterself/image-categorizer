@@ -19,7 +19,6 @@ namespace image_categorizer.MVVM.ViewModel
         #region Constructor
         public RunViewModel()
         {
-
             SelectInputPathCommand = PathSelectCommand("input");
             SelectOutputPathCommand = PathSelectCommand("output");
             RunButtonCommand = Run();
@@ -27,7 +26,9 @@ namespace image_categorizer.MVVM.ViewModel
             CategorizeThread.DoWork += new DoWorkEventHandler(ImageCategorize);
             CategorizeThread.WorkerReportsProgress = true;
             CategorizeThread.WorkerSupportsCancellation = true;
+            ReadSetting();
         }
+
         #endregion Constructor
 
         #region Model Property
@@ -279,9 +280,11 @@ namespace image_categorizer.MVVM.ViewModel
 
                     try
                     {
-                        File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
+                        string outputPath = String.Format($"{destPath}\\{fileName}");
+                        File.Copy(item.Key, outputPath, true);
                         //IcTagSql.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
-                        insertQueries.Add(new InsertQueryModel(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
+                        //Insert OutputPath
+                        insertQueries.Add(new InsertQueryModel(outputPath, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
                     }
                     catch (Exception e)
                     {

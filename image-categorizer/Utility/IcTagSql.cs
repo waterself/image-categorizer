@@ -12,12 +12,21 @@ namespace image_categorizer
 {
     public class IcTagSql
     {
+
+        private string dbFolder;
+        private string dbName;
+        private string tagTable;
+        private string allAttributes;
+        //private string connectStringString;
+        private SQLiteConnectionStringBuilder connectString;
+        public bool isInit = false;
+
         public IcTagSql(string baseDirectory)
         {
             dbFolder = $"{baseDirectory}\\Data";
             dbName = $"{baseDirectory}\\Data\\ic.db";
             tagTable = "image_tags";
-            allAttributes = "file_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , modified_date TEXT";
+            allAttributes = "file_output_path TEXT, datetime TEXT, format TEXT, camera_model TEXT, location TEXT , categorized_date TEXT";
             //connectString = String.Format($"Data Source={dbName};Password={Properties.Settings.Default.IcTagDBPassword}");
             connectString = new();
             connectString.DataSource = dbName;
@@ -26,13 +35,7 @@ namespace image_categorizer
             //connectString.TextPassword = Properties.Settings.Default.IcTagDBPassword;
             isInit = false;
         }
-        private string dbFolder;
-        private string dbName;
-        private string tagTable;
-        private string allAttributes;
-        //private string connectStringString;
-        private SQLiteConnectionStringBuilder connectString;
-        public bool isInit = false;
+
         public void SQLiteinit()
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
@@ -58,7 +61,7 @@ namespace image_categorizer
         {
             int result = -1;
             //need generation
-            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{queryModel.fileName}\', \'{queryModel.dateTime}\', \'{queryModel.format}\', \'{queryModel.cameraModel}\', \'{queryModel.location}', \'{queryModel.currentTime}\');");
+            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{queryModel.fileOutputPath}\', \'{queryModel.dateTime}\', \'{queryModel.format}\', \'{queryModel.cameraModel}\', \'{queryModel.location}', \'{queryModel.currentTime}\');");
             using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
             {
                 connection.Open();
@@ -75,7 +78,7 @@ namespace image_categorizer
                 connection.Open();
                 foreach (InsertQueryModel insertQuery in queryModels)
                 {
-                    string sql = String.Format($"INSERT INTO image_tags VALUES(\'{insertQuery.fileName}\', \'{insertQuery.dateTime}\', \'{insertQuery.format}\', \'{insertQuery.cameraModel}\', \'{insertQuery.location}', \'{insertQuery.currentTime}\');");
+                    string sql = String.Format($"INSERT INTO image_tags VALUES(\'{insertQuery.fileOutputPath}\', \'{insertQuery.dateTime}\', \'{insertQuery.format}\', \'{insertQuery.cameraModel}\', \'{insertQuery.location}', \'{insertQuery.currentTime}\');");
                     using SQLiteCommand command = new(sql, connection);
                     command.ExecuteNonQueryAsync();
                 }
@@ -120,6 +123,28 @@ namespace image_categorizer
                 connection.Close();
             }
             return ret;
+        }
+
+        /// <summary>
+        /// delete row query with equal condition
+        /// </summary>
+        /// <param name="attribute">using delete query for condition</param>
+        /// <param name="keys">values for delete row</param>
+        public void DeleteQuary(string attribute, List<string> keys)
+        {
+            using (SQLiteConnection connection = new(connectString.ToString()))
+            {
+                connection.Open();
+                foreach (string key in keys)
+                {
+                    string sql = String.Format($"DELETE FROM {tagTable} WHERE {attribute} = \"{key}\";");
+                    using (SQLiteCommand command = new(sql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                   
+                }
+            }
         }
     }
 }
