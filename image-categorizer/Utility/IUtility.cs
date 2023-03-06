@@ -20,6 +20,7 @@ namespace image_categorizer
         string? GetCameraModelWithCameraManufacturer(string CameraManufacturer, string CameraModel);
         double[]? GetCoordinate(BitmapMetadata metaData);
         List<string> GetImageFiles(string filePath);
+        List<string> GetVideoFiles(string filePath);
         Dictionary<T, List<T?>>? GetSameValueList<T>(List<T>? list);
         List<T>? ListDistinct<T>(List<T>? list);
     }

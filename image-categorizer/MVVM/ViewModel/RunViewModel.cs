@@ -59,6 +59,7 @@ namespace image_categorizer.MVVM.ViewModel
             RelayCommand ret = new RelayCommand(o =>
             {
                 CommonOpenFileDialog openFileDialog = new();
+                //TODO:이니셜 디렉토리를 전에 선택한 디렉토리로 수정 
                 openFileDialog.InitialDirectory = "C:\\";
                 openFileDialog.IsFolderPicker = true;
                 if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
@@ -69,8 +70,7 @@ namespace image_categorizer.MVVM.ViewModel
                         if (mode == "input")
                         {
                             RunModel.InputDirectorytPath = fileName;
-                            List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
-                            RunModel.FileCount = imageFiles.Count;
+                            RunModel.FileCount = _utility.GetImageFiles(RunModel.InputDirectorytPath).Count + _utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
                         }
                         else if (mode == "output")
                         {
@@ -106,8 +106,6 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RunModel.MaxProgress = RunModel.FileCount;
             Logger RunLogger = new(_utility.ProgramDir);
-            var Lock = new object();
-            Random rand = new();
             IGeoCoding geoCoding = new GeoCoding(_utility.ProgramDir);
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
@@ -134,6 +132,8 @@ namespace image_categorizer.MVVM.ViewModel
             {
                 RunModel.IsIdle = false;
                 List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
+                //TODO: 비디오파일의 복사를 처리하기 - 가급적 이미지파일과 같이
+                List<string> videoFiles = _utility.GetVideoFiles(RunModel.InputDirectorytPath);
 
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
                 {
@@ -199,6 +199,7 @@ namespace image_categorizer.MVVM.ViewModel
                         imageDetails.FilePath = String.Join("\\", pathBuf);
 
                         List<string?> fileBuf = new();
+                        Random rand = new();
                         for (int i = 0; i < fileNameRules.Length; i++)
                         {
                             switch (fileNameRules[i])
@@ -248,7 +249,6 @@ namespace image_categorizer.MVVM.ViewModel
                             RunModel.FileWithDetails.Add(file, imageDetails);
                         }//An item with the same key has already been added.'
                     }
-
 
                     RunModel.CategorizeProgress = RunModel.ProgressIncrement();
                 }));
@@ -321,7 +321,7 @@ namespace image_categorizer.MVVM.ViewModel
             {
                 RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
                 RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
-                RunModel.FileCount = _utility.GetImageFiles(RunModel.InputDirectorytPath).Count;
+                RunModel.FileCount = _utility.GetImageFiles(RunModel.InputDirectorytPath).Count + _utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
             }
         }
         #endregion Logical Function

@@ -19,13 +19,14 @@ namespace image_categorizer
         public List<string> GetImageFiles(string filePath)
         {
             List<string> imageFiles = new();
+            Logger utilityLogger = new(ProgramDir);
             //need exception handling
             try
             {
                 foreach (string file in Directory.GetFiles(filePath, "*.*", SearchOption.AllDirectories))
                 {
                     string fileExtension = Path.GetExtension(file);
-                    if (Regex.IsMatch(fileExtension, @".jpg|.png|.bmp|.JPG|.PNG|.BMP|.JPEG|.jpeg$"))
+                    if (Regex.IsMatch(fileExtension, @"/(?i:^.*\.(jpg|jpeg|png|gif|bmp|tiff|psd|raw|cr2|nef|orf|sr2)$)/gm"))
                     {
                         imageFiles.Add(@file);
                     }
@@ -33,10 +34,35 @@ namespace image_categorizer
             }
             catch (Exception e)
             {
+                utilityLogger.WriteLog(e.Message, true);
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
 
             return imageFiles;
+        }
+
+        public List<string> GetVideoFiles(string filePath)
+        {
+            List<string> videoFiles = new();
+            Logger utilityLogger = new(ProgramDir);
+            try
+            {
+                foreach (string file in Directory.GetFiles(filePath, "*.*", SearchOption.AllDirectories))
+                {
+                    string fileExtension = Path.GetExtension(file);
+                    if (Regex.IsMatch(fileExtension, @"\/(?i:^.*\\.(mp4|avi|wmv|mov|flv|mkv|webm|vob|ogv|m4v|3gp|3g2|mpeg|mpg|m2v|m4v|svi|3gpp|3gpp2|mxf|roq|nsv|flv|f4v|f4p|f4a|f4b)$)/gm"))
+                    { 
+                        videoFiles.Add(@file);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                utilityLogger.WriteLog(e.Message, true);
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+            return videoFiles;
+
         }
         public bool FileExistsCheck(string file)
         {
