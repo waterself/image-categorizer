@@ -6,6 +6,8 @@ namespace image_categorizer
     public interface IUtility
     {
         public string ProgramDir { get; set; }
+        public Logger Logger { get; set; }
+
         int[] ArrayLengthCheck(int[]? array, int size);
         string[] ArrayLengthCheck(string[]? array, int size);
         double ConvertCoordinate(ulong[] coordinate);

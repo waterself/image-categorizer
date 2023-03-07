@@ -10,9 +10,12 @@ namespace image_categorizer.Core
 {
     class BaseViewModel : INotifyPropertyChanged, ICloneable
     {
-        protected IUtility _utility;
-        public BaseViewModel() {
-            _utility = new Utility();
+        public string ProgramDir { get; set; }
+        private DependencyContainer container;
+        public BaseViewModel()
+        {
+            container = new DependencyContainer();
+            ProgramDir = container.programDir;    
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

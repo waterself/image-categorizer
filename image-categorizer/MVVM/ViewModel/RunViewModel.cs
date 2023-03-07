@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using Microsoft.Win32;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -58,9 +59,11 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RelayCommand ret = new RelayCommand(o =>
             {
+                Logger PathSelectLogger = new Logger(base.ProgramDir, "PathSelect");
+                IUtility utility = new Utility(base.ProgramDir, ref PathSelectLogger);
                 CommonOpenFileDialog openFileDialog = new();
                 //TODO:이니셜 디렉토리를 전에 선택한 디렉토리로 수정 
-                openFileDialog.InitialDirectory = "C:\\";
+                openFileDialog.InitialDirectory = RunModel.InputDirectorytPath ?? "C:\\";
                 openFileDialog.IsFolderPicker = true;
                 if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
@@ -70,7 +73,7 @@ namespace image_categorizer.MVVM.ViewModel
                         if (mode == "input")
                         {
                             RunModel.InputDirectorytPath = fileName;
-                            RunModel.FileCount = _utility.GetImageFiles(RunModel.InputDirectorytPath).Count + _utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
+                            RunModel.FileCount = utility.GetImageFiles(RunModel.InputDirectorytPath).Count + utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
                         }
                         else if (mode == "output")
                         {
@@ -105,7 +108,8 @@ namespace image_categorizer.MVVM.ViewModel
         public void ImageCategorize(object? sender, DoWorkEventArgs doWorkEventArgs)
         {
             RunModel.MaxProgress = RunModel.FileCount;
-            Logger RunLogger = new(_utility.ProgramDir);
+            Logger RunLogger = new(base.ProgramDir, "Categorize");
+            IUtility _utility = new Utility(base.ProgramDir, ref RunLogger);
             IGeoCoding geoCoding = new GeoCoding(_utility.ProgramDir);
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
@@ -276,6 +280,8 @@ namespace image_categorizer.MVVM.ViewModel
                         string message = "directory create error";
                         RunLogger.WriteLog(message, true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
+                        MessageBox.Show("Error! Please Check Log file");
+                        return;
                     }
 
                     try
@@ -290,12 +296,44 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         //write log file
                         string message = $"File : {fileName}, Error : {e.Message}";
-                        RunLogger.WriteLog(message, true);
+                        RunLogger.WriteLog(message, false);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
                     RunModel.CategorizeProgress += 1;
 
+                }
+                foreach (string videoFile in videoFiles)
+                {
+                    string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\VideoFolder");
+                    try
+                    {
+                        DirectoryInfo directoryInfo = new DirectoryInfo(destPath);
+                        if (directoryInfo.Exists == false)
+                        {
+                            directoryInfo.Create();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        string message = "directory create error";
+                        RunLogger.WriteLog(message, true);
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                        MessageBox.Show("Error! Please Check Log file");
+                    }
+                    try
+                    {
+                        string outputPath = String.Format($"{destPath}\\{videoFile}");
+                        File.Copy(videoFile, outputPath, false);
+                    }
+                    catch (Exception e)
+                    {
+                        string message = $"File : {videoFile}, Error : {e.Message}";
+                        RunLogger.WriteLog(message, false);
+                        System.Diagnostics.Debug.WriteLine(e.Message);
+                        continue;
+                    }
+                    RunModel.CategorizeProgress += 1;
                 }
                 IcTagSql summarySQL = new(_utility.ProgramDir);
                 summarySQL.SQLiteinit();
@@ -317,11 +355,13 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void ReadSetting()
         {
+            Logger logger = new Logger(base.ProgramDir, "RunTab ReadSetting");
+            IUtility utility = new Utility(base.ProgramDir, ref logger);
             if (RunModel != null)
             {
                 RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
                 RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
-                RunModel.FileCount = _utility.GetImageFiles(RunModel.InputDirectorytPath).Count + _utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
+                RunModel.FileCount = utility.GetImageFiles(RunModel.InputDirectorytPath).Count + utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
             }
         }
         #endregion Logical Function

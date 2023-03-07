@@ -8,10 +8,11 @@ namespace image_categorizer.Core
 {
     public class DependencyContainer
     {
-        public IUtility utility;
+        public string programDir;
 
-        public DependencyContainer() { 
-            utility = new Utility();
+        public DependencyContainer()
+        {
+            programDir = AppDomain.CurrentDomain.BaseDirectory;
         }
     }
 }

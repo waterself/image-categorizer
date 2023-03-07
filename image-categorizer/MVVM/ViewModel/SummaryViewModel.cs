@@ -28,9 +28,11 @@ namespace image_categorizer.MVVM.ViewModel
 
             //exception: KeyNotFoundException -> DataBase has no Data
             //exception: NullValueException;
+            Logger logger = new Logger(base.ProgramDir, "SummaryTab Loading");
+            IUtility utility = new Utility(base.ProgramDir, ref logger);
             if (SummaryModel != null)
             {
-                IcTagSql summarySQL = new(_utility.ProgramDir);
+                IcTagSql summarySQL = new(utility.ProgramDir);
                 summarySQL.SQLiteinit();
                 string[] attributes = new[] { "file_output_path", "datetime", "format", "camera_model", "location", "categorized_date" };
                 SummaryModel.SelectedDBData = summarySQL.SelectQuery(attributes);
@@ -55,7 +57,7 @@ namespace image_categorizer.MVVM.ViewModel
 
                 try
                 {
-                    Dictionary<string, List<string?>> CameraModels = _utility.GetSameValueList(SummaryModel.SelectedDBData["camera_model"]);
+                    Dictionary<string, List<string?>> CameraModels = utility.GetSameValueList(SummaryModel.SelectedDBData["camera_model"]);
                     int CameraModelListSum = 0;
                     SummaryModel.CameraModelList = GetRankData(CameraModels, out CameraModelListSum);
                     CameraModels.Clear();
@@ -63,14 +65,14 @@ namespace image_categorizer.MVVM.ViewModel
 
                     int YearMonthsListSum = 0;
                     int YearMonthsOtherSum = YearMonthsListSum;
-                    Dictionary<string, List<string?>> YearMonths = _utility.GetSameValueList(SummaryModel.SelectedDBData["datetime"]);
+                    Dictionary<string, List<string?>> YearMonths = utility.GetSameValueList(SummaryModel.SelectedDBData["datetime"]);
                     SummaryModel.YearMonthRankList = GetRankData(GetYearMonthList(YearMonths), out YearMonthsListSum);
 
                     int YearListSum = 0;
                     SummaryModel.YearRankList = GetRankData(GetYearList(YearMonths), out YearListSum);
                     YearMonths.Clear();
 
-                    Dictionary<string, List<string?>> Locations = _utility.GetSameValueList(SummaryModel.SelectedDBData["location"]);
+                    Dictionary<string, List<string?>> Locations = utility.GetSameValueList(SummaryModel.SelectedDBData["location"]);
                     int LocationListSum = 0;
                     SummaryModel.LocationRankList = GetRankData(Locations, out LocationListSum);
                     Locations.Clear();
@@ -87,8 +89,7 @@ namespace image_categorizer.MVVM.ViewModel
                 }
                 catch (Exception e)
                 {
-                    Logger sqlLogger = new Logger(_utility.ProgramDir);
-                    sqlLogger.WriteLog(e.Message, true);
+                    logger.WriteLog(e.Message, true);
                     MessageBox.Show(e.Message);
                 }
             }
@@ -176,7 +177,7 @@ namespace image_categorizer.MVVM.ViewModel
             Dictionary<string, List<string?>> YearMonth = new();
             foreach (KeyValuePair<string, List<string?>> item in dateTimes)
             {
-                string? formatedDate = _utility.FormatYearMonth(item.Key);
+                string? formatedDate = utility.FormatYearMonth(item.Key);
                 if (!string.IsNullOrEmpty(formatedDate))
                 {
                     if (YearMonth.ContainsKey(formatedDate))
@@ -194,7 +195,7 @@ namespace image_categorizer.MVVM.ViewModel
             Dictionary<string, List<string?>> Year = new();
             foreach (KeyValuePair<string, List<string?>> item in dateTimes)
             {
-                string? formatedDate = _utility.FormatYear(item.Key);
+                string? formatedDate = utility.FormatYear(item.Key);
                 if (!string.IsNullOrEmpty(formatedDate))
                 {
                     if (Year.ContainsKey(formatedDate))
