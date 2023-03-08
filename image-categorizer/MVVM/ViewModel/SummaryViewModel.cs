@@ -29,10 +29,10 @@ namespace image_categorizer.MVVM.ViewModel
             //exception: KeyNotFoundException -> DataBase has no Data
             //exception: NullValueException;
             Logger logger = new Logger(base.ProgramDir, "SummaryTab Loading");
-            IUtility utility = new Utility(base.ProgramDir, ref logger);
+            IUtility utility = new Utility(ref logger);
             if (SummaryModel != null)
             {
-                IcTagSql summarySQL = new(utility.ProgramDir);
+                IcTagSql summarySQL = new(base.ProgramDir);
                 summarySQL.SQLiteinit();
                 string[] attributes = new[] { "file_output_path", "datetime", "format", "camera_model", "location", "categorized_date" };
                 SummaryModel.SelectedDBData = summarySQL.SelectQuery(attributes);
@@ -175,9 +175,10 @@ namespace image_categorizer.MVVM.ViewModel
         private Dictionary<string, List<string?>> GetYearMonthList(Dictionary<string, List<string?>> dateTimes)
         {
             Dictionary<string, List<string?>> YearMonth = new();
+            IDataConverter dataConverter = new DataConverter();
             foreach (KeyValuePair<string, List<string?>> item in dateTimes)
             {
-                string? formatedDate = utility.FormatYearMonth(item.Key);
+                string? formatedDate = dataConverter.FormatYearMonth(item.Key);
                 if (!string.IsNullOrEmpty(formatedDate))
                 {
                     if (YearMonth.ContainsKey(formatedDate))
@@ -192,10 +193,11 @@ namespace image_categorizer.MVVM.ViewModel
         }
         private Dictionary<string, List<string?>> GetYearList(Dictionary<string, List<string?>> dateTimes)
         {
+            IDataConverter dataConverter = new DataConverter();
             Dictionary<string, List<string?>> Year = new();
             foreach (KeyValuePair<string, List<string?>> item in dateTimes)
             {
-                string? formatedDate = utility.FormatYear(item.Key);
+                string? formatedDate = dataConverter.FormatYear(item.Key);
                 if (!string.IsNullOrEmpty(formatedDate))
                 {
                     if (Year.ContainsKey(formatedDate))

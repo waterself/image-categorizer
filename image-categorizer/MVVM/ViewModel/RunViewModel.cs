@@ -60,7 +60,7 @@ namespace image_categorizer.MVVM.ViewModel
             RelayCommand ret = new RelayCommand(o =>
             {
                 Logger PathSelectLogger = new Logger(base.ProgramDir, "PathSelect");
-                IUtility utility = new Utility(base.ProgramDir, ref PathSelectLogger);
+                IUtility utility = new Utility(ref PathSelectLogger);
                 CommonOpenFileDialog openFileDialog = new();
                 //TODO:이니셜 디렉토리를 전에 선택한 디렉토리로 수정 
                 openFileDialog.InitialDirectory = RunModel.InputDirectorytPath ?? "C:\\";
@@ -109,8 +109,8 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RunModel.MaxProgress = RunModel.FileCount;
             Logger RunLogger = new(base.ProgramDir, "Categorize");
-            IUtility _utility = new Utility(base.ProgramDir, ref RunLogger);
-            IGeoCoding geoCoding = new GeoCoding(_utility.ProgramDir);
+            IUtility _utility = new Utility( ref RunLogger);
+            IGeoCoding geoCoding = new GeoCoding(base.ProgramDir);
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
@@ -335,7 +335,7 @@ namespace image_categorizer.MVVM.ViewModel
                     }
                     RunModel.CategorizeProgress += 1;
                 }
-                IcTagSql summarySQL = new(_utility.ProgramDir);
+                IcTagSql summarySQL = new(base.ProgramDir);
                 summarySQL.SQLiteinit();
                 summarySQL.InsertQuery(insertQueries);
                 //messageBox for check delete original files
@@ -355,14 +355,23 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void ReadSetting()
         {
-            Logger logger = new Logger(base.ProgramDir, "RunTab ReadSetting");
-            IUtility utility = new Utility(base.ProgramDir, ref logger);
-            if (RunModel != null)
+            Logger ReadSettingLogger = new Logger(base.ProgramDir, "RunTab ReadSetting");
+            IUtility utility = new Utility(ref ReadSettingLogger);
+            try
             {
-                RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
-                RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
-                RunModel.FileCount = utility.GetImageFiles(RunModel.InputDirectorytPath).Count + utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
+                if (RunModel != null)
+                {
+                    RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
+                    RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
+                    RunModel.FileCount = utility.GetImageFiles(RunModel.InputDirectorytPath).Count + utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
+                }
             }
+            catch (Exception e)
+            {
+                ReadSettingLogger.WriteLog(e.Message, true);
+                return;
+            }
+            
         }
         #endregion Logical Function
     }

@@ -115,33 +115,48 @@ namespace image_categorizer.MVVM.ViewModel
         public void SaveSetting(SettingModel model)
         {
             Logger logger = new Logger(base.ProgramDir, "SettingTab SaveSetting");
-            IUtility utility = new Utility(base.ProgramDir, ref logger);
-            Properties.Settings.Default.InputDirectory = model.InputDirectorytPath;
-            Properties.Settings.Default.OutputDirctory = model.OutputDirectorytPath;
-            Properties.Settings.Default.DirectoryNameRule = String.Join(",", utility.ArrayLengthCheck(model.DirectoryRules, 4));
-            Properties.Settings.Default.FileNameRule = String.Join(",", utility.ArrayLengthCheck(model.FileNameRules, 4));
-            //Properties.Settings.Default.FileNameRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.FileNameRulesIndexes, 4));
-            //Properties.Settings.Default.DirectoryRuleIndexes = String.Join(",", Utility.ArrayLengthCheck(model.DirectoryRulesIndexes, 4));
-            Properties.Settings.Default.Save();
-            MessageBox.Show("Setting Saved");
+            IUtility utility = new Utility( ref logger);
+            try
+            {
+                Properties.Settings.Default.InputDirectory = model.InputDirectorytPath;
+                Properties.Settings.Default.OutputDirctory = model.OutputDirectorytPath;
+                Properties.Settings.Default.DirectoryNameRule = String.Join(",", utility.ArrayLengthCheck(model.DirectoryRules, 4));
+                Properties.Settings.Default.FileNameRule = String.Join(",", utility.ArrayLengthCheck(model.FileNameRules, 4));
+                Properties.Settings.Default.Save();
+                MessageBox.Show("Setting Saved");
+            }
+            catch (Exception e)
+            {
+                logger.WriteLog(e.Message, true);
+                return;
+            }
         }
         public void ReadSetting()
         {
             Logger logger = new Logger(ProgramDir, "SettingTab ReadSetting");
-            IUtility utility = new Utility(ProgramDir, ref logger);
-            if (SettingModel != null)
+            IUtility utility = new Utility(ref logger);
+            try
             {
-                SettingModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
-                SettingModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
-                string? directoryNameRule = Properties.Settings.Default.DirectoryNameRule;
-                SettingModel.DirectoryRules = utility.ArrayLengthCheck(directoryNameRule.Split(","), 4);
-                string? fileNameRule = Properties.Settings.Default.FileNameRule;
-                SettingModel.FileNameRules = utility.ArrayLengthCheck(fileNameRule.Split(","), 4);
-                //string[]? directoryNameRuleIndexes = Properties.Settings.Default.DirectoryRuleIndexes.Split(",");
-                SettingModel.DirectoryRulesIndexes = Array.ConvertAll(SettingModel.DirectoryRules, s => ComboBoxIndexConverter(s));
-                //string[]? fileNameRuleIndexes = Properties.Settings.Default.FileNameRuleIndexes.Split(",");
-                SettingModel.FileNameRulesIndexes = Array.ConvertAll(SettingModel.FileNameRules, s => ComboBoxIndexConverter(s));
+                if (SettingModel != null)
+                {
+                    SettingModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
+                    SettingModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
+                    string? directoryNameRule = Properties.Settings.Default.DirectoryNameRule;
+                    SettingModel.DirectoryRules = utility.ArrayLengthCheck(directoryNameRule.Split(","), 4);
+                    string? fileNameRule = Properties.Settings.Default.FileNameRule;
+                    SettingModel.FileNameRules = utility.ArrayLengthCheck(fileNameRule.Split(","), 4);
+                    //string[]? directoryNameRuleIndexes = Properties.Settings.Default.DirectoryRuleIndexes.Split(",");
+                    SettingModel.DirectoryRulesIndexes = Array.ConvertAll(SettingModel.DirectoryRules, s => ComboBoxIndexConverter(s));
+                    //string[]? fileNameRuleIndexes = Properties.Settings.Default.FileNameRuleIndexes.Split(",");
+                    SettingModel.FileNameRulesIndexes = Array.ConvertAll(SettingModel.FileNameRules, s => ComboBoxIndexConverter(s));
+                }
             }
+            catch (Exception e)
+            {
+                logger.WriteLog(e.Message, true);
+                return;
+            }
+
         }
 
         public void PathExampleSetter()

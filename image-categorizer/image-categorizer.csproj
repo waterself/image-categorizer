@@ -19,6 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Feature\**" />
+    <EmbeddedResource Remove="Feature\**" />
+    <None Remove="Feature\**" />
+    <Page Remove="Feature\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="MVVM\View\RankedDataRowView.cs" />
   </ItemGroup>
 
@@ -56,10 +63,6 @@
     <Page Update="Theme\SaveButtonThemes.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Feature\" />
   </ItemGroup>
 
 </Project>
