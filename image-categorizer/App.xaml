@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="Theme/ColorSet.xaml" />
                 <ResourceDictionary Source="Theme/PathSelectButtonThemes.xaml" />
                 <ResourceDictionary Source="Theme/MainAcceptButtonThemes.xaml" />
-                <ResourceDictionary Source="Theme/CloseIcon.xaml" />
+                <ResourceDictionary Source="Theme/SaveButtonThemes.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewModel:RunViewModel}">
                 <view:RunView />

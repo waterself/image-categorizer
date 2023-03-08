@@ -87,7 +87,8 @@
                     Content="Save"
                     DockPanel.Dock="right"
                     FontSize="20"
-                    Foreground="{StaticResource WhiteSolidColorBrush}" />
+                    Foreground="{StaticResource WhiteSolidColorBrush}"
+                    Style="{StaticResource SaveButtonThemes}" />
             </DockPanel>
         </DockPanel>
     </Grid>

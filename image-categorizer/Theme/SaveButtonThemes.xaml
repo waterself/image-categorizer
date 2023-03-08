@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Style x:Key="MainAcceptButtonThemes" TargetType="{x:Type Button}">
+    <Style x:Key="SaveButtonThemes" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -19,7 +19,7 @@
                                 Grid.Column="0"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
-                                Content="&#xE768;"
+                                Content="&#xE74E;"
                                 DockPanel.Dock="Left"
                                 FontFamily="Segoe MDL2 Assets" />
                             <TextBlock

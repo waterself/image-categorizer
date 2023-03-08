@@ -22,7 +22,8 @@
                     Command="{Binding Path=SelectButtonCommand, ElementName=PathSelectorControl}"
                     Content="SelectPath"
                     DockPanel.Dock="Right"
-                    Foreground="{StaticResource WhiteSolidColorBrush}" />
+                    Foreground="{StaticResource WhiteSolidColorBrush}"
+                    Style="{StaticResource PathSelectButtonThemes}" />
                 <Canvas
                     Width="5"
                     Background="{StaticResource FrameSolidColorBrush}"

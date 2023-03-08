@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <SignAssembly>False</SignAssembly>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,13 +17,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <Optimize>False</Optimize>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Feature\**" />
-    <EmbeddedResource Remove="Feature\**" />
-    <None Remove="Feature\**" />
-    <Page Remove="Feature\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="MVVM\View\RankedDataRowView.cs" />
@@ -45,7 +38,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Update="Utility\IcTagSql.cs">
+    <Compile Update="Feature\IcTagSql.cs">
       <CustomToolNamespace>ICTagSql</CustomToolNamespace>
     </Compile>
   </ItemGroup>
