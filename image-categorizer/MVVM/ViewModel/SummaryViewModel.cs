@@ -3,13 +3,15 @@ using image_categorizer.MVVM.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System;
+using System.IO;
+using System.Windows;
 
 namespace image_categorizer.MVVM.ViewModel
 {
     class SummaryViewModel : BaseViewModel
     {
         public SummaryViewModel()
-        { 
+        {
             _summaryModel = new SummaryModel();
             InitSummaryModel();
         }
@@ -23,18 +25,39 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void InitSummaryModel()
         {
+
             //exception: KeyNotFoundException -> DataBase has no Data
-            //exception: NullValueException
-            SQLite summarySQL = new();
-            summarySQL.SQLiteinit();
-            if (SummaryModel != null && summarySQL.isInit == true)
+            //exception: NullValueException;
+            Logger logger = new Logger(base.ProgramDir, "SummaryTab Loading");
+            IUtility utility = new Utility(ref logger);
+            if (SummaryModel != null)
             {
-                string[] attributes = new[] { "file_path", "datetime", "format", "camera_model","location", "modified_date" }; 
+                IcTagSql summarySQL = new(base.ProgramDir);
+                summarySQL.SQLiteinit();
+                string[] attributes = new[] { "file_output_path", "datetime", "format", "camera_model", "location", "categorized_date" };
                 SummaryModel.SelectedDBData = summarySQL.SelectQuery(attributes);
+                List<string> outputFilePaths = new();
+                List<string> notExitsFiles = new();
+                foreach (string attribute in SummaryModel.SelectedDBData.Keys)
+                {
+                    if (attribute == "file_output_path")
+                    {
+                        outputFilePaths = SummaryModel.SelectedDBData[attribute];
+                        foreach (string outputFile in outputFilePaths)
+                        {
+                            if (!File.Exists(outputFile))
+                            { 
+                                notExitsFiles.Add(outputFile);
+                            }
+                        }
+                        break;
+                    }
+                }
+                summarySQL.DeleteQuary("file_output_path", notExitsFiles);
 
                 try
                 {
-                    Dictionary<string, List<string?>> CameraModels = Utility.GetSameValueList(SummaryModel.SelectedDBData["camera_model"]);
+                    Dictionary<string, List<string?>> CameraModels = utility.GetSameValueList(SummaryModel.SelectedDBData["camera_model"]);
                     int CameraModelListSum = 0;
                     SummaryModel.CameraModelList = GetRankData(CameraModels, out CameraModelListSum);
                     CameraModels.Clear();
@@ -42,27 +65,32 @@ namespace image_categorizer.MVVM.ViewModel
 
                     int YearMonthsListSum = 0;
                     int YearMonthsOtherSum = YearMonthsListSum;
-                    Dictionary<string, List<string?>> YearMonths = Utility.GetSameValueList(SummaryModel.SelectedDBData["datetime"]);
+                    Dictionary<string, List<string?>> YearMonths = utility.GetSameValueList(SummaryModel.SelectedDBData["datetime"]);
                     SummaryModel.YearMonthRankList = GetRankData(GetYearMonthList(YearMonths), out YearMonthsListSum);
 
                     int YearListSum = 0;
                     SummaryModel.YearRankList = GetRankData(GetYearList(YearMonths), out YearListSum);
                     YearMonths.Clear();
 
-                    Dictionary<string, List<string?>> Locations = Utility.GetSameValueList(SummaryModel.SelectedDBData["location"]);
+                    Dictionary<string, List<string?>> Locations = utility.GetSameValueList(SummaryModel.SelectedDBData["location"]);
                     int LocationListSum = 0;
                     SummaryModel.LocationRankList = GetRankData(Locations, out LocationListSum);
                     Locations.Clear();
                     System.Diagnostics.Debug.WriteLine("initialized");
 
                 }
-                catch(KeyNotFoundException)
-                { 
+                catch (KeyNotFoundException)
+                {
                     ObservableCollection<RankedDataModel> None = new ObservableCollection<RankedDataModel>(new(6));
                     SummaryModel.CameraModelList = None;
                     SummaryModel.YearRankList = None;
                     SummaryModel.YearMonthRankList = None;
                     SummaryModel.LocationRankList = None;
+                }
+                catch (Exception e)
+                {
+                    logger.WriteLog(e.Message, true);
+                    MessageBox.Show(e.Message);
                 }
             }
         }
@@ -108,12 +136,12 @@ namespace image_categorizer.MVVM.ViewModel
             }
             ObservableCollection<RankedDataModel> ret = new ObservableCollection<RankedDataModel>();
             for (int i = 0; i < High.Length; i++)
-            { 
+            {
                 ret.Add(High[i]);
             }
             return ret;
         }
-        private ObservableCollection<RankedDataModel> GetRankData(Dictionary<string, List<string?>> cameraModels, out int sum) 
+        private ObservableCollection<RankedDataModel> GetRankData(Dictionary<string, List<string?>> cameraModels, out int sum)
         {
             int countSum = 0;
             ObservableCollection<RankedDataModel> Data = new();
@@ -126,15 +154,15 @@ namespace image_categorizer.MVVM.ViewModel
                 countSum += item.Value.Count;
             }
             sum = countSum;
-            ObservableCollection<RankedDataModel> RankedList =  GetTopRank(Data, 5);
-             ObservableCollection < RankedDataModel > result = new();
+            ObservableCollection<RankedDataModel> RankedList = GetTopRank(Data, 5);
+            ObservableCollection<RankedDataModel> result = new();
             int otherSum = countSum;
             int count = 0;
             for (int i = 0; i < RankedList.Count; i++)
             {
                 RankedDataModel dataModel = new();
                 dataModel.Count = RankedList[i].Count;
-                dataModel.Index = i+1;
+                dataModel.Index = i + 1;
                 dataModel.Name = RankedList[i].Name;
                 dataModel.Rate = Math.Round(((double)RankedList[i].Count / (double)countSum) * 100, 2);
                 otherSum -= RankedList[i].Count;
@@ -147,9 +175,10 @@ namespace image_categorizer.MVVM.ViewModel
         private Dictionary<string, List<string?>> GetYearMonthList(Dictionary<string, List<string?>> dateTimes)
         {
             Dictionary<string, List<string?>> YearMonth = new();
+            IDataConverter dataConverter = new DataConverter();
             foreach (KeyValuePair<string, List<string?>> item in dateTimes)
             {
-                string? formatedDate = Utility.FormatYearMonth(item.Key);
+                string? formatedDate = dataConverter.FormatYearMonth(item.Key);
                 if (!string.IsNullOrEmpty(formatedDate))
                 {
                     if (YearMonth.ContainsKey(formatedDate))
@@ -158,16 +187,17 @@ namespace image_categorizer.MVVM.ViewModel
                     }
                     else { YearMonth.Add(formatedDate, item.Value); }
                 }
-                
+
             }
             return YearMonth;
         }
         private Dictionary<string, List<string?>> GetYearList(Dictionary<string, List<string?>> dateTimes)
         {
+            IDataConverter dataConverter = new DataConverter();
             Dictionary<string, List<string?>> Year = new();
             foreach (KeyValuePair<string, List<string?>> item in dateTimes)
             {
-                string? formatedDate = Utility.FormatYear(item.Key);
+                string? formatedDate = dataConverter.FormatYear(item.Key);
                 if (!string.IsNullOrEmpty(formatedDate))
                 {
                     if (Year.ContainsKey(formatedDate))

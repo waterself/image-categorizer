@@ -76,7 +76,7 @@
                             Background="{StaticResource BackgroundSolidColorBrush}"
                             CornerRadius="5">
                             <ProgressBar
-                                Maximum="{Binding RunModel.FileCount}"
+                                Maximum="{Binding RunModel.MaxProgress}"
                                 Minimum="0"
                                 Value="{Binding RunModel.CategorizeProgress, Mode=OneWay}" />
                         </Border>
@@ -92,8 +92,11 @@
                     Content="Run"
                     DockPanel.Dock="Right"
                     FontSize="20"
-                    Foreground="{StaticResource WhiteSolidColorBrush}" />
-
+                    IsEnabled="{Binding RunModel.IsIdle}"
+                    Foreground="{StaticResource WhiteSolidColorBrush}"
+                    Style="{StaticResource MainAcceptButtonThemes}"
+                    ToolTip="Categorize With Setting Tap's Settings"
+                    ToolTipService.Placement="Left" />
             </DockPanel>
         </StackPanel>
     </Border>

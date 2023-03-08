@@ -1,0 +1,16 @@
+본 프로그램은
+사진의 메타데이터를 활용합니다.
+사진의 메타데이터를 로컬 저장소에 저장합니다.
+정렬한 파일의 무결성을 보장하지 않습니다.
+
+본 프로그램을 이용함으로써 생기는 책임은
+모두 이용자에게 있음을 알립니다.
+
+This Program use
+MetaData of images
+Save metadata in local drive
+The integrity of the sorted files is not guaranteed
+
+Responsibilities arising from the use of this program
+All users are informed.
+

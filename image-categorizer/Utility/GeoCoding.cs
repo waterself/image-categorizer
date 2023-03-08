@@ -8,31 +8,46 @@ using System.Windows;
 
 namespace image_categorizer
 {
-    public class GeoCoding
+    public class GeoCoding : IGeoCoding
     {
-        public GeoCoding()
-        { 
-            dbName = $"D:\\DB\\Data\\allcountries.db";
-            dbversion = "3";
-            connectString = String.Format($"Data Source={dbName};");
-        }
 
+        #region ClassMember
         private string dbName;
         private string dbversion;
-        private string connectString;
+        private SQLiteConnectionStringBuilder connectString;
+        private bool _hasDataBase = false;
+        #endregion ClassMember
+
+        #region Constructor
+        public GeoCoding(string baseDirectory)
+        {
+
+            dbName = $"{baseDirectory}\\Data\\allcountries.db";
+            dbversion = "3";
+            connectString = new();
+            connectString.DataSource = dbName;
+        }
 
         public void GeoCodingInit()
         {
             if (!System.IO.File.Exists(dbName))
             {
                 MessageBox.Show("Not Found Geocoding Data");
+                _hasDataBase = false;
                 return;
             }
+            _hasDataBase = true;
+            return;
         }
+        #endregion Constructor
+
+        #region Queries
         public string? GetLocation(double? latitude, double? longitude)
         {
+            if (_hasDataBase == false) { return "No Geocode Data"; }
             string getAdmin3Query = String.Format($"SELECT country, admin1, admin2 FROM lite ORDER BY ABS(latitude - {latitude})+ABS(longitude - {longitude}) LIMIT 1;");
-            using (SQLiteConnection connection = new SQLiteConnection(connectString)) {
+            using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
+            {
                 connection.Open();
                 using SQLiteCommand GetAdmin3Command = new(getAdmin3Query, connection);
                 using SQLiteDataReader Admin3Reader = GetAdmin3Command.ExecuteReader();
@@ -42,9 +57,9 @@ namespace image_categorizer
                     admin2code = String.Format($"{Admin3Reader["country"]}.{Admin3Reader["admin1"]}.{Admin3Reader["admin2"]}");
                 }
                 else { admin2code = "None"; }
-                if(admin2code.Length > 1) 
+                if (admin2code.Length > 1)
                 {
-                    admin2code = admin2code.Substring(0, admin2code.Length - 1); 
+                    admin2code = admin2code.Substring(0, admin2code.Length - 1);
                 }
 
                 string? location = "None";
@@ -53,22 +68,16 @@ namespace image_categorizer
                     string getAdmin2Query = String.Format($"SELECT altname FROM admin2 WHERE admin2code LIKE '{admin2code}%';");
                     using (SQLiteCommand GetAdmin2Command = new(getAdmin2Query, connection))
                     {
-                        using (SQLiteDataReader Admin2Reader = GetAdmin2Command.ExecuteReader()) 
+                        using (SQLiteDataReader Admin2Reader = GetAdmin2Command.ExecuteReader())
                         {
                             if (Admin2Reader.Read()) { location = Admin2Reader["altname"] as string; break; }
                             else { admin2code = admin2code.Substring(0, admin2code.Length - 1); }
                         }
                     }
                 }
-
-                /*                Admin3Reader.Close();
-                                GetAdmin3Command.Dispose();
-                                Admin2Reader.Close();
-                                GetAdmin2Command.Dispose();
-                                connection.Dispose();*/
-                connection.Dispose();
                 return location;
             }
         }
+        #endregion Queries
     }
 }

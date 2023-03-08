@@ -6,6 +6,8 @@
     <RootNamespace>image_categorizer</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <SignAssembly>False</SignAssembly>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,21 +19,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Feature\**" />
+    <EmbeddedResource Remove="Feature\**" />
+    <None Remove="Feature\**" />
+    <Page Remove="Feature\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="MVVM\View\RankedDataRowView.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="20131124_223504.jpg" />
-    <None Remove="Assets\Close.png" />
-    <None Remove="Assets\Minimize.png" />
     <None Remove="Close.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.sqlite.core" Version="7.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1" />
   </ItemGroup>
@@ -41,6 +44,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Utility\IcTagSql.cs">
+      <CustomToolNamespace>ICTagSql</CustomToolNamespace>
     </Compile>
   </ItemGroup>
 

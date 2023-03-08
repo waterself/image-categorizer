@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace image_categorizer.MVVM.Model
 {
-    class SettingModel : BaseViewModel
+    class SettingModel : ObservableObject
     {
         #region Binding Data
         private string? _inputDirectoryPath = "C:\\Test";
