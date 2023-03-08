@@ -10,14 +10,6 @@ namespace image_categorizer.Core
 {
     class BaseViewModel : INotifyPropertyChanged, ICloneable
     {
-        public string ProgramDir { get; set; }
-        private DependencyContainer container;
-        public BaseViewModel()
-        {
-            container = new DependencyContainer();
-            ProgramDir = container.programDir;    
-        }
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         { 

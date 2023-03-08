@@ -15,7 +15,7 @@
                             <TextBlock
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                FontSize="10"
+                                FontSize="20"
                                 Foreground="#f2f2f2"
                                 Text="{TemplateBinding Content}" />
                         </Border>

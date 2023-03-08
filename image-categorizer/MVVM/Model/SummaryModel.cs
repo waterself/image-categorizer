@@ -11,9 +11,6 @@ namespace image_categorizer.MVVM.Model
 {
     class SummaryModel : ObservableObject
     {
-        /// <summary>
-        /// Key string is Attributes, List<string> is Rows of Attribute
-        /// </summary>
         private Dictionary<string, List<string?>>? _selectedDBData = new();
 
         public Dictionary<string, List<string?>>? SelectedDBData

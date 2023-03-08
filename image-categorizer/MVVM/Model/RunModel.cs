@@ -19,15 +19,6 @@ namespace image_categorizer.MVVM.Model
             }
         }
 
-        private int _maxProgress = 100;
-
-        public int MaxProgress
-        {
-            get { return _maxProgress; }
-            set { _maxProgress = value; OnPropertyChanged(); }
-        }
-
-
         //private string? _inputDirectoryPath = null;
 
         private string? _inputDirectoryPath = "D:\\Test";
@@ -55,25 +46,6 @@ namespace image_categorizer.MVVM.Model
                 OnPropertyChanged();
             }
         }
-
-        private bool _isIdle = true;
-
-        public bool IsIdle
-        {
-            get { return _isIdle; }
-            set { _isIdle = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _runButtonIcon;
-
-        public string RunButtonIcon
-        {
-            get { return _runButtonIcon; }
-            set { _runButtonIcon = value; }
-        }
-
         #endregion Binding Data
 
         #region Logical Data

@@ -26,7 +26,6 @@
             MouseLeftButtonDown="TitleBar_DragMove">
 
             <DockPanel
-                Height="30"
                 x:Name="TitleBar"
                 Grid.Row="0"
                 Grid.Column="1"
@@ -37,7 +36,6 @@
                     <TextBlock
                         Padding="15,0,0,0"
                         DockPanel.Dock="Left"
-                        FontSize="15"
                         Foreground="{StaticResource WhiteSolidColorBrush}"
                         Text="Image Categorizer" />
                 </Border>

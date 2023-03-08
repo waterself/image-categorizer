@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using Microsoft.Win32;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,9 +26,7 @@ namespace image_categorizer.MVVM.ViewModel
             CategorizeThread.DoWork += new DoWorkEventHandler(ImageCategorize);
             CategorizeThread.WorkerReportsProgress = true;
             CategorizeThread.WorkerSupportsCancellation = true;
-            ReadSetting();
         }
-
         #endregion Constructor
 
         #region Model Property
@@ -59,11 +56,8 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RelayCommand ret = new RelayCommand(o =>
             {
-                Logger PathSelectLogger = new Logger(base.ProgramDir, "PathSelect");
-                IUtility utility = new Utility(ref PathSelectLogger);
                 CommonOpenFileDialog openFileDialog = new();
-                //TODO:이니셜 디렉토리를 전에 선택한 디렉토리로 수정 
-                openFileDialog.InitialDirectory = RunModel.InputDirectorytPath ?? "C:\\";
+                openFileDialog.InitialDirectory = "C:\\";
                 openFileDialog.IsFolderPicker = true;
                 if (openFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
@@ -73,7 +67,8 @@ namespace image_categorizer.MVVM.ViewModel
                         if (mode == "input")
                         {
                             RunModel.InputDirectorytPath = fileName;
-                            RunModel.FileCount = utility.GetImageFiles(RunModel.InputDirectorytPath).Count + utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
+                            List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                            RunModel.FileCount = imageFiles.Count;
                         }
                         else if (mode == "output")
                         {
@@ -107,38 +102,18 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void ImageCategorize(object? sender, DoWorkEventArgs doWorkEventArgs)
         {
-            RunModel.MaxProgress = RunModel.FileCount;
-            Logger RunLogger = new(base.ProgramDir, "Categorize");
-            IUtility _utility = new Utility( ref RunLogger);
-            IGeoCoding geoCoding = new GeoCoding(base.ProgramDir);
+            
+            Random rand = new();
+            GeoCoding geoCoding = new GeoCoding();
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
-            DirectoryInfo outputPathCheck = new(RunModel.OutputDirectorytPath);
-            if (!outputPathCheck.Exists)
-            {
-                try
-                {
-                    outputPathCheck.Create();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    RunLogger.WriteLog(e.Message, true);
-                    return;           
-                }
-            }
-     
             RunModel.CategorizeProgress = 0;
-
             if (RunModel.InputDirectorytPath != null || RunModel.OutputDirectorytPath != null || inputPathCheck.Exists)
             {
-                RunModel.IsIdle = false;
-                List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
-                //TODO: 비디오파일의 복사를 처리하기 - 가급적 이미지파일과 같이
-                List<string> videoFiles = _utility.GetVideoFiles(RunModel.InputDirectorytPath);
-
+                List<string> imageFiles = Utility.GetImageFiles(RunModel.InputDirectorytPath);
+                
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
                 {
                     ImageDetails imageDetails = new ImageDetails();
@@ -149,14 +124,7 @@ namespace image_categorizer.MVVM.ViewModel
                         BitmapSource image = BitmapFrame.Create(fs); //COMException
                         BitmapMetadata? metaData = image.Metadata as BitmapMetadata;
 
-                        imageDetails.IsoDateTime = _utility.FormatIsoDateTime(metaData.DateTaken);
-                        imageDetails.DateTaken = _utility.FormatDateTaken(metaData.DateTaken);
-                        imageDetails.TimeTaken = _utility.FormatTimeTaken(metaData.DateTaken);
-                        imageDetails.CameraModel = _utility.GetCameraModelWithCameraManufacturer(
-                            metaData.CameraManufacturer, metaData.CameraModel);
-                        imageDetails.Format = metaData.Format;
-
-                        double[]? coordinate = _utility.GetCoordinate(metaData);
+                        double[]? coordinate = Utility.GetCoordinate(metaData);
                         if (coordinate != null)
                         {
                             imageDetails.Latitude = coordinate[0];
@@ -164,12 +132,18 @@ namespace image_categorizer.MVVM.ViewModel
                         }
                         if (coordinate != null)
                         {
-                            lock (geoCoding) { imageDetails.Location = geoCoding.GetLocation(coordinate[0], coordinate[1]); }
+                            imageDetails.Location = geoCoding.GetLocation(coordinate[0], coordinate[1]);
                         }
                         else
                         {
                             imageDetails.Location = metaData.Location;
                         }
+                        imageDetails.IsoDateTime = Utility.FormatIsoDateTime(metaData.DateTaken);
+                        imageDetails.DateTaken = Utility.FormatDateTaken(metaData.DateTaken);
+                        imageDetails.TimeTaken = Utility.FormatTimeTaken(metaData.DateTaken);
+                        imageDetails.CameraModel = Utility.GetCameraModelWithCameraManufacturer(
+                            metaData.CameraManufacturer, metaData.CameraModel);
+                        imageDetails.Format = metaData.Format;
 
                         List<string?> pathBuf = new();
                         for (int i = 0; i < directoryRules.Length; i++)
@@ -203,7 +177,6 @@ namespace image_categorizer.MVVM.ViewModel
                         imageDetails.FilePath = String.Join("\\", pathBuf);
 
                         List<string?> fileBuf = new();
-                        Random rand = new();
                         for (int i = 0; i < fileNameRules.Length; i++)
                         {
                             switch (fileNameRules[i])
@@ -237,26 +210,19 @@ namespace image_categorizer.MVVM.ViewModel
                         FileInfo notSupported = new(file);
                         imageDetails.FilePath = "No_Data_To_Categorize";
                         imageDetails.FileName = notSupported.Name;
-                        string message = $"File : {file}, Error : Not Supported File";
-                        RunLogger.WriteLog(message);
                     }
                     catch (FileFormatException e)
                     {
                         //error: file has damaged
-                        string message = $"File : {file}, Error : Corrupted File";
-                        RunLogger.WriteLog(message);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                     }
-                    lock (RunModel.FileWithDetails) {
-                        if (!RunModel.FileWithDetails.ContainsKey(file))
-                        {
-                            RunModel.FileWithDetails.Add(file, imageDetails);
-                        }//An item with the same key has already been added.'
-                    }
+                    if (!RunModel.FileWithDetails.ContainsKey(file))
+                    {
+                        RunModel.FileWithDetails.Add(file, imageDetails);
+                    }//An item with the same key has already been added.'
 
                     RunModel.CategorizeProgress = RunModel.ProgressIncrement();
                 }));
-                RunLogger.WriteLog("extract end", true);
                 dataExtractTask.Wait();
                 imageFiles.Clear();
                 DateTime currentTime = DateTime.Now;
@@ -264,6 +230,7 @@ namespace image_categorizer.MVVM.ViewModel
                 List<InsertQueryModel> insertQueries = new();
                 foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
                 {
+                    
                     string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
                     try
@@ -277,65 +244,25 @@ namespace image_categorizer.MVVM.ViewModel
                     catch (Exception e)
                     {
                         //write log file
-                        string message = "directory create error";
-                        RunLogger.WriteLog(message, true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
-                        MessageBox.Show("Error! Please Check Log file");
-                        return;
                     }
 
                     try
                     {
-                        string outputPath = String.Format($"{destPath}\\{fileName}");
-                        File.Copy(item.Key, outputPath, true);
-                        //IcTagSql.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
-                        //Insert OutputPath
-                        insertQueries.Add(new InsertQueryModel(outputPath, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
+                        File.Copy(item.Key, String.Format($"{destPath}\\{fileName}"), true);
+                        //SQLite.InsertQuery(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel,item.Value.Location , currentTime.ToString("yyyy-MM-dd HH:MM:ss"));
+                        insertQueries.Add(new InsertQueryModel(fileName, item.Value.IsoDateTime, item.Value.Format, item.Value.CameraModel, item.Value.Location, currentTime.ToString("yyyy-MM-dd HH:MM:ss")));
                     }
                     catch (Exception e)
                     {
                         //write log file
-                        string message = $"File : {fileName}, Error : {e.Message}";
-                        RunLogger.WriteLog(message, false);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
                     RunModel.CategorizeProgress += 1;
-
+                    
                 }
-                foreach (string videoFile in videoFiles)
-                {
-                    string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\VideoFolder");
-                    try
-                    {
-                        DirectoryInfo directoryInfo = new DirectoryInfo(destPath);
-                        if (directoryInfo.Exists == false)
-                        {
-                            directoryInfo.Create();
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        string message = "directory create error";
-                        RunLogger.WriteLog(message, true);
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                        MessageBox.Show("Error! Please Check Log file");
-                    }
-                    try
-                    {
-                        string outputPath = String.Format($"{destPath}\\{videoFile}");
-                        File.Copy(videoFile, outputPath, false);
-                    }
-                    catch (Exception e)
-                    {
-                        string message = $"File : {videoFile}, Error : {e.Message}";
-                        RunLogger.WriteLog(message, false);
-                        System.Diagnostics.Debug.WriteLine(e.Message);
-                        continue;
-                    }
-                    RunModel.CategorizeProgress += 1;
-                }
-                IcTagSql summarySQL = new(base.ProgramDir);
+                SQLite summarySQL = new();
                 summarySQL.SQLiteinit();
                 summarySQL.InsertQuery(insertQueries);
                 //messageBox for check delete original files
@@ -346,32 +273,20 @@ namespace image_categorizer.MVVM.ViewModel
                 RunModel.FileWithDetails.Clear();
             }
             RunModel.CategorizeProgress = RunModel.FileCount;
-            RunLogger.WriteLog("file copy done", true);
-            RunModel.IsIdle = true;
-            RunModel.FileWithDetails.Clear();
+            
             MessageBox.Show("Categorize Done!");
+            RunModel.FileWithDetails.Clear();
         }
 
 
         public void ReadSetting()
         {
-            Logger ReadSettingLogger = new Logger(base.ProgramDir, "RunTab ReadSetting");
-            IUtility utility = new Utility(ref ReadSettingLogger);
-            try
+            if (RunModel != null)
             {
-                if (RunModel != null)
-                {
-                    RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
-                    RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
-                    RunModel.FileCount = utility.GetImageFiles(RunModel.InputDirectorytPath).Count + utility.GetVideoFiles(RunModel.InputDirectorytPath).Count;
-                }
+                RunModel.InputDirectorytPath = Properties.Settings.Default.InputDirectory;
+                RunModel.OutputDirectorytPath = Properties.Settings.Default.OutputDirctory;
+                RunModel.FileCount = Utility.GetImageFiles(RunModel.InputDirectorytPath).Count;
             }
-            catch (Exception e)
-            {
-                ReadSettingLogger.WriteLog(e.Message, true);
-                return;
-            }
-            
         }
         #endregion Logical Function
     }

@@ -9,24 +9,24 @@ using image_categorizer;
 
 namespace image_categorizer.MVVM.ViewModel
 {
-    class ShellViewModel : ObservableObject
+    class ShellViewModel : BaseViewModel
     {
         // Command Properties
         public RelayCommand RunViewCommand { get; set; }
         public RelayCommand SettingViewCommand { get; set; }
         public RelayCommand SummaryViewCommand { get; set; }
 
-       /* private RunViewModel? _runVM;
+
+        private RunViewModel? _runVM;
 
         public RunViewModel? RunVM
         {
-            get { return new RunViewModel(); }
+            get => _runVM ?? (_runVM = new RunViewModel());
             set { _runVM = value; }
         }
-        private SettingViewModel? _settingVM;
         public SettingViewModel? SettingVM
         {
-            get { return new SettingViewModel(); }
+            get { return _settingVM ?? (_settingVM = new SettingViewModel()); }
             set { _settingVM = value; }
         }
 
@@ -34,13 +34,15 @@ namespace image_categorizer.MVVM.ViewModel
 
         public SummaryViewModel? SummaryVM
         {
-            get { return new SummaryViewModel(); }
+            get => _summaryVM ?? (_summaryVM = new SummaryViewModel());
             set { _summaryVM = value; }
-        }*/
+        }
+        private SettingViewModel? _settingVM;
 
 
-        private BaseViewModel? _currentView;
-        public BaseViewModel? CurrentView
+
+        private object _currentView;
+        public object CurrentView
         {
             get { return _currentView; }
             set
@@ -52,20 +54,19 @@ namespace image_categorizer.MVVM.ViewModel
 
         public ShellViewModel()
         {
-
-            CurrentView = new RunViewModel();
+            CurrentView = RunVM;
 
             RunViewCommand = new RelayCommand(o =>
             {
-                CurrentView = new RunViewModel();
+                CurrentView = RunVM;
             });
             SummaryViewCommand = new RelayCommand(o =>
             {
-                CurrentView = new SummaryViewModel();
+                CurrentView = SummaryVM;
             });
             SettingViewCommand = new RelayCommand(o =>
             {
-                CurrentView = new SettingViewModel();
+                CurrentView = SettingVM;
             });
 
         }
