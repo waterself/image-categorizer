@@ -8,7 +8,7 @@ namespace image_categorizer.MVVM.Model
 {
      public class RankedDataModel
     {
-        public RankedDataModel(int index = 0, string name = null, double rate = 0, int count=0)
+        public RankedDataModel(int index = 0, string name = "", double rate = 0, int count=0)
         { 
             this.Count = count;
             this.Rate = rate;

@@ -21,33 +21,33 @@ namespace image_categorizer.MVVM.Model
             get { return _selectedDBData; }
             set { _selectedDBData = value; }
         }
-        private ObservableCollection<RankedDataModel> _yearMonthRankList = new();
+        private List<RankedDataModel> _yearMonthRankList = new();
 
-        public ObservableCollection<RankedDataModel> YearMonthRankList
+        public List<RankedDataModel> YearMonthRankList
         {
             get { return _yearMonthRankList; }
             set { _yearMonthRankList = value; }
         }
 
-        private ObservableCollection<RankedDataModel> _yearRankList = new();
+        private List<RankedDataModel> _yearRankList = new();
 
-        public ObservableCollection<RankedDataModel> YearRankList
+        public List<RankedDataModel> YearRankList
         {
             get { return _yearRankList; }
             set { _yearRankList = value; }
         }
 
-        private ObservableCollection<RankedDataModel> _locationRankList = new();
+        private List<RankedDataModel> _locationRankList = new();
 
-        public ObservableCollection<RankedDataModel> LocationRankList
+        public List<RankedDataModel> LocationRankList
         {
             get { return _locationRankList; }
             set { _locationRankList = value; }
         }
 
-        private ObservableCollection<RankedDataModel> _cameraModelList = new();
+        private List<RankedDataModel> _cameraModelList = new();
 
-        public ObservableCollection<RankedDataModel> CameraModelList
+        public List<RankedDataModel> CameraModelList
         {
             get { return _cameraModelList; }
             set { _cameraModelList = value; }

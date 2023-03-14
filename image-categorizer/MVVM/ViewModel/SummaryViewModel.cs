@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System;
 using System.IO;
 using System.Windows;
+using System.Linq;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -81,7 +82,7 @@ namespace image_categorizer.MVVM.ViewModel
                 }
                 catch (KeyNotFoundException)
                 {
-                    ObservableCollection<RankedDataModel> None = new ObservableCollection<RankedDataModel>(new(6));
+                    List<RankedDataModel> None = Enumerable.Repeat(new RankedDataModel(), 6).ToList();
                     SummaryModel.CameraModelList = None;
                     SummaryModel.YearRankList = None;
                     SummaryModel.YearMonthRankList = None;
@@ -97,7 +98,7 @@ namespace image_categorizer.MVVM.ViewModel
 
 
         #region init Logic
-        private ObservableCollection<RankedDataModel> GetTopRank(ObservableCollection<RankedDataModel> ModelList, int size)
+        private List<RankedDataModel> GetTopRank(List<RankedDataModel> ModelList, int size)
         {
             RankedDataModel[] High = new RankedDataModel[size];
             for (int i = 0; i < size; i++)
@@ -134,17 +135,17 @@ namespace image_categorizer.MVVM.ViewModel
                     }
                 }
             }
-            ObservableCollection<RankedDataModel> ret = new ObservableCollection<RankedDataModel>();
+            List<RankedDataModel> ret = new List<RankedDataModel>();
             for (int i = 0; i < High.Length; i++)
             {
                 ret.Add(High[i]);
             }
             return ret;
         }
-        private ObservableCollection<RankedDataModel> GetRankData(Dictionary<string, List<string?>> cameraModels, out int sum)
+        private List<RankedDataModel> GetRankData(Dictionary<string, List<string?>> cameraModels, out int sum)
         {
             int countSum = 0;
-            ObservableCollection<RankedDataModel> Data = new();
+            List<RankedDataModel> Data = new();
             foreach (KeyValuePair<string, List<string?>> item in cameraModels)
             {
                 RankedDataModel rankedDataModel = new RankedDataModel();
@@ -154,8 +155,8 @@ namespace image_categorizer.MVVM.ViewModel
                 countSum += item.Value.Count;
             }
             sum = countSum;
-            ObservableCollection<RankedDataModel> RankedList = GetTopRank(Data, 5);
-            ObservableCollection<RankedDataModel> result = new();
+            List<RankedDataModel> RankedList = GetTopRank(Data, 5);
+            List<RankedDataModel> result = new();
             int otherSum = countSum;
             int count = 0;
             for (int i = 0; i < RankedList.Count; i++)

@@ -42,7 +42,6 @@
                     NameLabel="Month Rank"
                     RankedData="{Binding SummaryModel.YearMonthRankList}" />
             </Border>
-
             <Border
                 Grid.Row="1"
                 Grid.Column="0"

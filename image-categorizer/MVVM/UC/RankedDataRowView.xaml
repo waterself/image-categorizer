@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:image_categorizer.MVVM.UC"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     x:Name="RankedDataRowViewControl"
     DataContext="{Binding}"
     mc:Ignorable="d">
@@ -35,7 +36,7 @@
                     Background="{StaticResource BackgroundSolidColorBrush}"
                     FontSize="12"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
-                    Text="{Binding ElementName=RankedDataRowViewControl, Path=DataModel.Rate}"
+                    Text="{Binding ElementName=RankedDataRowViewControl, Path=DataModel.Rate, TargetNullValue={x:Static system:String.Empty}}"
                     TextAlignment="Center" />
             </Border>
             <Border Margin="2,0,2,0" Background="{StaticResource BackgroundSolidColorBrush}">
@@ -47,7 +48,7 @@
                     DockPanel.Dock="Right"
                     FontSize="12"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
-                    Text="{Binding ElementName=RankedDataRowViewControl, Path=DataModel.Name}"
+                    Text="{Binding ElementName=RankedDataRowViewControl, Path=DataModel.Name, TargetNullValue={x:Static system:String.Empty}}"
                     TextAlignment="Center" />
             </Border>
 
