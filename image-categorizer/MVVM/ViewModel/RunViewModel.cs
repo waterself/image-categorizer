@@ -109,7 +109,7 @@ namespace image_categorizer.MVVM.ViewModel
         {
             RunModel.MaxProgress = RunModel.FileCount;
             Logger RunLogger = new(base.ProgramDir, "Categorize");
-            IUtility _utility = new Utility( ref RunLogger);
+            IUtility _utility = new Utility(ref RunLogger);
             IGeoCoding geoCoding = new GeoCoding(base.ProgramDir);
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
@@ -306,6 +306,7 @@ namespace image_categorizer.MVVM.ViewModel
                 foreach (string videoFile in videoFiles)
                 {
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\VideoFolder");
+                    string destFile = Path.GetFileName(videoFile);
                     try
                     {
                         DirectoryInfo directoryInfo = new DirectoryInfo(destPath);
@@ -323,7 +324,7 @@ namespace image_categorizer.MVVM.ViewModel
                     }
                     try
                     {
-                        string outputPath = String.Format($"{destPath}\\{videoFile}");
+                        string outputPath = String.Format($"{destPath}\\{destFile}");
                         File.Copy(videoFile, outputPath, false);
                     }
                     catch (Exception e)
