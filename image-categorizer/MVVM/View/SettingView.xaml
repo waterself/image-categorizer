@@ -42,7 +42,7 @@
                 CornerRadius="10"
                 DockPanel.Dock="Top">
                 <StackPanel>
-                    <UC:RuleSelector
+                    <UC:StructureSelector
                         x:Name="DirectoryRuleSelector"
                         ComboBoxSelectedIndex="{Binding SettingModel.DirectoryRulesIndexes}"
                         NameLabel="Select Directory Structure"
@@ -64,7 +64,7 @@
                 CornerRadius="10"
                 DockPanel.Dock="Top">
                 <StackPanel>
-                    <UC:RuleSelector
+                    <UC:StructureSelector
                         ComboBoxSelectedIndex="{Binding SettingModel.FileNameRulesIndexes}"
                         NameLabel="Select FileName Structure"
                         RuleSelectedCommand="{Binding FileNameRuleSelectorCommand}"

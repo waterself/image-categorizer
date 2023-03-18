@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <Style x:Key="PreViewerTextStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="{StaticResource WhiteSolidColorBrush}" />
-            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="Padding" Value="5,2,2,5" />
         </Style>
     </UserControl.Resources>
     <Border Background="{StaticResource FrameSolidColorBrush}" CornerRadius="5">

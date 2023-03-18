@@ -7,8 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
     Title="ShellWindow"
+    MinWidth="920"
+    MinHeight="640"
     Width="920"
-    Height="600"
+    Height="640"
     Background="Transparent"
     ResizeMode="NoResize"
     WindowStyle="None"
@@ -25,7 +27,6 @@
             VerticalAlignment="Stretch"
             Background="{StaticResource PointSolidColorBrush}"
             MouseLeftButtonDown="TitleBar_DragMove">
-
             <DockPanel
                 x:Name="TitleBar"
                 Grid.Row="0"

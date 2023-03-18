@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="image_categorizer.MVVM.UC.RuleSelector"
+    x:Class="image_categorizer.MVVM.UC.StructureSelector"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -13,7 +13,7 @@
             <StackPanel Margin="10">
                 <Border Background="{StaticResource BackgroundSolidColorBrush}">
                     <TextBlock
-                        Margin="5,0,0,0"
+                        Padding="{StaticResource BorderTextPadding}"
                         Background="{StaticResource BackgroundSolidColorBrush}"
                         Foreground="#ffffff"
                         Text="{Binding Path=NameLabel, ElementName=RuleSelectorControl}" />

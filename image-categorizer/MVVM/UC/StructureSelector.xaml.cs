@@ -20,9 +20,9 @@ namespace image_categorizer.MVVM.UC
     /// <summary>
     /// RuleSelector.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class RuleSelector : UserControl
+    public partial class StructureSelector : UserControl
     {
-        public RuleSelector()
+        public StructureSelector()
         {
             InitializeComponent();
         }
@@ -56,19 +56,19 @@ namespace image_categorizer.MVVM.UC
 
 
         public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
-            nameof(NameLabel), typeof(string), typeof(RuleSelector), new PropertyMetadata(string.Empty));
+            nameof(NameLabel), typeof(string), typeof(StructureSelector), new PropertyMetadata(string.Empty));
 
         public static readonly DependencyProperty RulesArrayProperty = DependencyProperty.Register(
-       nameof(RulesArray), typeof(string[]), typeof(RuleSelector), new PropertyMetadata(new string[4] {"None", "None", "None", "None" }));
+       nameof(RulesArray), typeof(string[]), typeof(StructureSelector), new PropertyMetadata(new string[4] {"None", "None", "None", "None" }));
 
         public static readonly DependencyProperty RulesForComboBoxProperty = DependencyProperty.Register(
-            nameof(RulesForComboBox), typeof(ObservableCollection<string>), typeof(RuleSelector), new PropertyMetadata(null));
+            nameof(RulesForComboBox), typeof(ObservableCollection<string>), typeof(StructureSelector), new PropertyMetadata(null));
 
         public static readonly DependencyProperty ComboBoxSelectedIndexProperty = DependencyProperty.Register(
-            nameof(ComboBoxSelectedIndex), typeof(int[]), typeof(RuleSelector), new PropertyMetadata(new int[4] { 0, 0, 0, 0 }));
+            nameof(ComboBoxSelectedIndex), typeof(int[]), typeof(StructureSelector), new PropertyMetadata(new int[4] { 0, 0, 0, 0 }));
 
         public static readonly DependencyProperty RuleSelectedCommandProperty = DependencyProperty.Register(
-            nameof(RuleSelectedCommand), typeof(RelayCommand), typeof(RuleSelector), new FrameworkPropertyMetadata(null));
+            nameof(RuleSelectedCommand), typeof(RelayCommand), typeof(StructureSelector), new FrameworkPropertyMetadata(null));
 
         private void RuleSelectedEventHandler(object sender, SelectionChangedEventArgs e)
         {

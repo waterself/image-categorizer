@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Thickness x:Key="BorderTextPadding"
+               Left="5" Top="2" Right="5" Bottom="2"/>
+    
+</ResourceDictionary>

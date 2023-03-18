@@ -7,14 +7,19 @@
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    HorizontalContentAlignment="Stretch"
+    VerticalContentAlignment="Stretch">
     <UserControl.DataContext>
         <viewModel:RunViewModel />
     </UserControl.DataContext>
 
-    <Border Background="{StaticResource BackgroundSolidColorBrush}">
-        <StackPanel VerticalAlignment="Top">
+    <Grid
+        Background="{StaticResource BackgroundSolidColorBrush}">
+        <DockPanel LastChildFill="True"      
+            VerticalAlignment="Stretch">
             <Border
+                DockPanel.Dock="Top"
                 x:Name="PathSelector"
                 Margin="10"
                 HorizontalAlignment="Stretch"
@@ -44,13 +49,13 @@
                             Background="{StaticResource BackgroundSolidColorBrush}"
                             LastChildFill="True">
                             <TextBlock
-                                Margin="5,0,0,0"
+                                Padding="{StaticResource BorderTextPadding}"
                                 Background="{StaticResource BackgroundSolidColorBrush}"
                                 DockPanel.Dock="Left"
                                 Foreground="{StaticResource WhiteSolidColorBrush}"
                                 Text="TotalFiles :  " />
                             <TextBlock
-                                Margin="0,0,5,0"
+                                Padding="{StaticResource BorderTextPadding}"
                                 Background="{StaticResource BackgroundSolidColorBrush}"
                                 DockPanel.Dock="Left"
                                 Foreground="{StaticResource WhiteSolidColorBrush}"
@@ -60,8 +65,9 @@
                     </Border>
                 </StackPanel>
             </Border>
-            <Canvas MinHeight="140" />
-            <DockPanel LastChildFill="False">
+
+            <DockPanel DockPanel.Dock="Bottom"
+                LastChildFill="False">
                 <Border
                     Height="150"
                     MinWidth="550"
@@ -98,8 +104,10 @@
                     ToolTip="Categorize With Setting Tap's Settings"
                     ToolTipService.Placement="Left" />
             </DockPanel>
-        </StackPanel>
-    </Border>
+
+            <Canvas/>
+        </DockPanel>
+    </Grid>
 </UserControl>
 
 
