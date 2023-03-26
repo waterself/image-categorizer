@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using image_categorizer.MVVM.View;
+using System.Windows;
 using System.Windows.Input;
 
 namespace image_categorizer
@@ -26,6 +27,11 @@ namespace image_categorizer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+        private void Onboard_click(object sender, RoutedEventArgs e)
+            {
+            var onboardingView = new OnBoardingView();
+            onboardingView.ShowDialog();
         }
     }
 }

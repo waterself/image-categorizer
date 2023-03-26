@@ -64,15 +64,15 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180" />
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="91*" />
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock
-                        Grid.Row="0"
-                        Grid.Column="0"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="35"
@@ -94,11 +94,15 @@
                             Content="Summery"
                             IsChecked="False"
                             Style="{StaticResource MenuButtonThemes}" />
+                        <Button
+                            Content="OnBoarding"
+                            Command="{Binding OnBoardingViewCommand}"
+                            />
                     </StackPanel>
                     <ContentControl
                         Grid.Row="1"
                         Grid.Column="1"
-                        Content="{Binding CurrentView, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" />
+                        Content="{Binding CurrentView, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" Grid.ColumnSpan="3" />
                 </Grid>
             </Border>
         </DockPanel>

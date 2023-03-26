@@ -24,6 +24,9 @@
 
   <ItemGroup>
     <None Remove="20131124_223504.jpg" />
+    <None Remove="Assets\OnBoardingAssets\RunView.png" />
+    <None Remove="Assets\OnBoardingAssets\SettingView.png" />
+    <None Remove="Assets\OnBoardingAssets\SummaryView.png" />
     <None Remove="Close.png" />
   </ItemGroup>
 
@@ -33,6 +36,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\OnBoardingAssets\RunView.png" />
+    <Resource Include="Assets\OnBoardingAssets\SettingView.png" />
+    <Resource Include="Assets\OnBoardingAssets\SummaryView.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
@@ -44,10 +58,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

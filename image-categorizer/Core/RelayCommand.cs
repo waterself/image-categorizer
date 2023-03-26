@@ -8,17 +8,14 @@ namespace image_categorizer.Core
         private Action<object> _execute;
         private Func<object, bool>? _canExecute;
         private Action<object> value;
-        private EventArgs? _args;
 
         public event System.EventHandler? CanExecuteChanged;
 
-        public RelayCommand(Action<object> execute, Func<object, bool>? canExecute = null, EventArgs? args = null)
+        public RelayCommand(Action<object> execute, Func<object, bool>? canExecute = null)
         {
             _execute = execute;
             _canExecute = canExecute;
-            _args = args;
         }
-
 
         public event System.EventHandler CanExcuteChanged
         {

@@ -26,6 +26,9 @@
             <DataTemplate DataType="{x:Type viewModel:SettingViewModel}">
                 <view:SettingView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:OnBoardingViewModel}">
+                <view:OnBoardingView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
