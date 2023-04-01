@@ -7,10 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
     Title="ShellWindow"
-    MinWidth="920"
-    MinHeight="640"
     Width="920"
     Height="640"
+    MinWidth="920"
+    MinHeight="640"
     Background="Transparent"
     ResizeMode="NoResize"
     WindowStyle="None"
@@ -65,8 +65,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180" />
                         <ColumnDefinition Width="91*" />
-                        <ColumnDefinition Width="0*"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0*" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
@@ -80,37 +80,39 @@
                         Text="" />
                     <DockPanel Grid.Row="1" Grid.Column="0">
                         <RadioButton
-                            DockPanel.Dock="Top"
                             Command="{Binding RunViewCommand}"
                             Content="Run Categorizer"
+                            DockPanel.Dock="Top"
                             IsChecked="True"
                             Style="{StaticResource MenuButtonThemes}" />
                         <RadioButton
-                            DockPanel.Dock="Top"
                             Command="{Binding SettingViewCommand}"
                             Content="Setting"
+                            DockPanel.Dock="Top"
                             IsChecked="False"
                             Style="{StaticResource MenuButtonThemes}" />
                         <RadioButton
-                            DockPanel.Dock="Top"
                             Command="{Binding SummaryViewCommand}"
                             Content="Summery"
+                            DockPanel.Dock="Top"
                             IsChecked="False"
                             Style="{StaticResource MenuButtonThemes}" />
                         <Button
-                            DockPanel.Dock="Bottom"
                             Background="{StaticResource FrameSolidColorBrush}"
-                            Foreground="{StaticResource WhiteSolidColorBrush}"
-                            FontSize="20"
+                            Command="{Binding OnBoardingViewCommand}"
                             Content="Tutorial"
-                            Command="{Binding OnBoardingViewCommand}"/>
+                            DockPanel.Dock="Bottom"
+                            FontSize="20"
+                            Foreground="{StaticResource WhiteSolidColorBrush}"
+                            Style="{StaticResource TutorialButtonThemes}" />
                         <Canvas Background="Transparent" />
 
                     </DockPanel>
                     <ContentControl
                         Grid.Row="1"
                         Grid.Column="1"
-                        Content="{Binding CurrentView, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" Grid.ColumnSpan="3" />
+                        Grid.ColumnSpan="3"
+                        Content="{Binding CurrentView, BindsDirectlyToSource=True, NotifyOnSourceUpdated=True, NotifyOnTargetUpdated=True, Mode=TwoWay}" />
                 </Grid>
             </Border>
         </DockPanel>

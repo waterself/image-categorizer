@@ -136,7 +136,6 @@ namespace image_categorizer.MVVM.ViewModel
             {
                 RunModel.IsIdle = false;
                 List<string> imageFiles = _utility.GetImageFiles(RunModel.InputDirectorytPath);
-                //TODO: 비디오파일의 복사를 처리하기 - 가급적 이미지파일과 같이
                 List<string> videoFiles = _utility.GetVideoFiles(RunModel.InputDirectorytPath);
 
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
@@ -238,13 +237,13 @@ namespace image_categorizer.MVVM.ViewModel
                         imageDetails.FilePath = "No_Data_To_Categorize";
                         imageDetails.FileName = notSupported.Name;
                         string message = $"File : {file}, Error : Not Supported File";
-                        RunLogger.WriteLog(message);
+                        RunLogger.WriteLog(message, isError:true);
                     }
                     catch (FileFormatException e)
                     {
                         //error: file has damaged
                         string message = $"File : {file}, Error : Corrupted File";
-                        RunLogger.WriteLog(message);
+                        RunLogger.WriteLog(message, isError: true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                     }
                     lock (RunModel.FileWithDetails) {
@@ -256,7 +255,7 @@ namespace image_categorizer.MVVM.ViewModel
 
                     RunModel.CategorizeProgress = RunModel.ProgressIncrement();
                 }));
-                RunLogger.WriteLog("extract end", true);
+                RunLogger.WriteLog("extract end", false, true);
                 dataExtractTask.Wait();
                 imageFiles.Clear();
                 DateTime currentTime = DateTime.Now;
@@ -278,7 +277,7 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         //write log file
                         string message = "directory create error";
-                        RunLogger.WriteLog(message, true);
+                        RunLogger.WriteLog(message, isError: true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         MessageBox.Show("Error! Please Check Log file");
                         return;
@@ -296,7 +295,7 @@ namespace image_categorizer.MVVM.ViewModel
                     {
                         //write log file
                         string message = $"File : {fileName}, Error : {e.Message}";
-                        RunLogger.WriteLog(message, false);
+                        RunLogger.WriteLog(message, isError: true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
@@ -318,9 +317,8 @@ namespace image_categorizer.MVVM.ViewModel
                     catch (Exception e)
                     {
                         string message = "directory create error";
-                        RunLogger.WriteLog(message, true);
+                        RunLogger.WriteLog(message, isError: true, true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
-                        MessageBox.Show("Error! Please Check Log file");
                     }
                     try
                     {
@@ -330,7 +328,7 @@ namespace image_categorizer.MVVM.ViewModel
                     catch (Exception e)
                     {
                         string message = $"File : {videoFile}, Error : {e.Message}";
-                        RunLogger.WriteLog(message, false);
+                        RunLogger.WriteLog(message, isError: true);
                         System.Diagnostics.Debug.WriteLine(e.Message);
                         continue;
                     }
@@ -347,10 +345,12 @@ namespace image_categorizer.MVVM.ViewModel
                 RunModel.FileWithDetails.Clear();
             }
             RunModel.CategorizeProgress = RunModel.FileCount;
-            RunLogger.WriteLog("file copy done", true);
+            RunLogger.WriteLog("Categorize Done", isError: false, true);
             RunModel.IsIdle = true;
             RunModel.FileWithDetails.Clear();
-            MessageBox.Show("Categorize Done!");
+            if (!RunLogger.ShowLogFile()) {
+                MessageBox.Show("Categorize Done!");
+            }
         }
 
 

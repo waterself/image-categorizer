@@ -7,25 +7,23 @@
     xmlns:local="clr-namespace:image_categorizer.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:image_categorizer.MVVM.ViewModel"
-    mc:Ignorable="d"
     HorizontalContentAlignment="Stretch"
-    VerticalContentAlignment="Stretch">
+    VerticalContentAlignment="Stretch"
+    mc:Ignorable="d">
     <UserControl.DataContext>
         <viewModel:RunViewModel />
     </UserControl.DataContext>
 
-    <Grid
-        Background="{StaticResource BackgroundSolidColorBrush}">
-        <DockPanel LastChildFill="True"      
-            VerticalAlignment="Stretch">
+    <Grid Background="{StaticResource BackgroundSolidColorBrush}">
+        <DockPanel VerticalAlignment="Stretch" LastChildFill="True">
             <Border
-                DockPanel.Dock="Top"
                 x:Name="PathSelector"
                 Margin="10"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 Background="{StaticResource WhiteSolidColorBrush}"
-                CornerRadius="10">
+                CornerRadius="10"
+                DockPanel.Dock="Top">
                 <StackPanel
                     x:Name="InputPathSelector"
                     Margin="5,5,5,5"
@@ -66,8 +64,7 @@
                 </StackPanel>
             </Border>
 
-            <DockPanel DockPanel.Dock="Bottom"
-                LastChildFill="False">
+            <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
                 <Border
                     Height="150"
                     MinWidth="550"
@@ -98,14 +95,14 @@
                     Content="Run"
                     DockPanel.Dock="Right"
                     FontSize="20"
-                    IsEnabled="{Binding RunModel.IsIdle}"
                     Foreground="{StaticResource WhiteSolidColorBrush}"
+                    IsEnabled="{Binding RunModel.IsIdle}"
                     Style="{StaticResource MainAcceptButtonThemes}"
                     ToolTip="Categorize With Setting Tap's Settings"
                     ToolTipService.Placement="Left" />
             </DockPanel>
 
-            <Canvas/>
+            <Canvas />
         </DockPanel>
     </Grid>
 </UserControl>

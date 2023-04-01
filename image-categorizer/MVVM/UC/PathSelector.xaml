@@ -28,16 +28,15 @@
                     Width="5"
                     Background="{StaticResource FrameSolidColorBrush}"
                     DockPanel.Dock="Right" />
-                <StackPanel Orientation="Vertical"
-                            Background="{StaticResource BackgroundSolidColorBrush}">
+                <StackPanel Background="{StaticResource BackgroundSolidColorBrush}" Orientation="Vertical">
                     <TextBlock
-                       Padding="{StaticResource BorderTextPadding}"
                         MinWidth="50"
+                        Padding="{StaticResource BorderTextPadding}"
                         Foreground="{StaticResource WhiteSolidColorBrush}"
                         Text="{Binding Path=PathSelectorNameLabel, ElementName=PathSelectorControl}" />
                     <TextBlock
-                        Padding="{StaticResource BorderTextPadding}"
                         MinWidth="50"
+                        Padding="{StaticResource BorderTextPadding}"
                         Foreground="{StaticResource WhiteSolidColorBrush}"
                         Text="{Binding Path=DirectoryPath, ElementName=PathSelectorControl, TargetNullValue=Please Select Input Directory}" />
                 </StackPanel>
@@ -45,4 +44,4 @@
         </StackPanel>
     </Border>
 </UserControl>
-<!--Padding="5,0,0,0"-->
+<!--  Padding="5,0,0,0"  -->

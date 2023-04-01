@@ -1,41 +1,39 @@
-﻿<UserControl x:Class="image_categorizer.MVVM.UC.ImageSlider"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:image_categorizer.MVVM.UC"
-             mc:Ignorable="d" 
-             DataContext="{Binding}"
-             MinHeight="200"
-             MinWidth="200"
-             x:Name="ImageSliderControl"
-             >
-    <Grid Background="Transparent"
-          >
-        <Grid.RowDefinitions>
-        </Grid.RowDefinitions>
-        <Image Grid.Row="0" 
-               Stretch="Fill"
-               Source="{Binding ElementName=ImageSliderControl, Path=CurrentImageSource}">
-        </Image>
+﻿<UserControl
+    x:Class="image_categorizer.MVVM.UC.ImageSlider"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:image_categorizer.MVVM.UC"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ImageSliderControl"
+    MinWidth="200"
+    MinHeight="200"
+    DataContext="{Binding}"
+    mc:Ignorable="d">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions />
+        <Image
+            Grid.Row="0"
+            Source="{Binding ElementName=ImageSliderControl, Path=CurrentImageSource}"
+            Stretch="Fill" />
         <DockPanel Grid.Row="0" LastChildFill="True">
-            <Button DockPanel.Dock="Left"
-                    Content="&#xF743;"
-                    Height="50"
-                    Width="30"
-                    Style="{StaticResource ImageSliderButtonThemes}"
-                    IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsLeftButtonEnable}"
-                    Command="{Binding ElementName=ImageSliderControl, Path=PreviousButtonCommand}"
-                    />
-            <Button DockPanel.Dock="Right"
-                    Content="&#xF745;"
-                    Height="50"
-                    Width="30"
-                    Style="{StaticResource ImageSliderButtonThemes}"
-                    IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsRightButtonEnable}"
-                    Command="{Binding ElementName=ImageSliderControl, Path=NextButtonCommand}"
-                    />
-            <Canvas Background="Transparent"/>
+            <Button
+                Width="30"
+                Height="50"
+                Command="{Binding ElementName=ImageSliderControl, Path=PreviousButtonCommand}"
+                Content="&#xF743;"
+                DockPanel.Dock="Left"
+                IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsLeftButtonEnable}"
+                Style="{StaticResource ImageSliderButtonThemes}" />
+            <Button
+                Width="30"
+                Height="50"
+                Command="{Binding ElementName=ImageSliderControl, Path=NextButtonCommand}"
+                Content="&#xF745;"
+                DockPanel.Dock="Right"
+                IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsRightButtonEnable}"
+                Style="{StaticResource ImageSliderButtonThemes}" />
+            <Canvas Background="Transparent" />
         </DockPanel>
     </Grid>
 </UserControl>

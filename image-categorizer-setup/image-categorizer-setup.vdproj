@@ -27,13 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_BE76B6FAD4B74CFA85A5A24DFD36F114"
+        "MsmKey" = "8:_C20196C101BA4B549F10E4870D71CB80"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C20196C101BA4B549F10E4870D71CB80"
+        "MsmKey" = "8:_CDA1E613B0C44F60A2952583CEAF17FA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -174,12 +174,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BE76B6FAD4B74CFA85A5A24DFD36F114"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C20196C101BA4B549F10E4870D71CB80"
             {
-            "SourcePath" = "8:ic.db"
-            "TargetName" = "8:ic.db"
+            "SourcePath" = "8:LICENSE.rtf"
+            "TargetName" = "8:LICENSE.rtf"
             "Tag" = "8:"
-            "Folder" = "8:_C2B5ABDB54A14FD2B61620E7D55BEDE1"
+            "Folder" = "8:_996E4746955A412A8D95E4F2F539C9C6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -194,12 +194,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C20196C101BA4B549F10E4870D71CB80"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CDA1E613B0C44F60A2952583CEAF17FA"
             {
-            "SourcePath" = "8:LICENSE.rtf"
-            "TargetName" = "8:LICENSE.rtf"
+            "SourcePath" = "8:ic.db"
+            "TargetName" = "8:ic.db"
             "Tag" = "8:"
-            "Folder" = "8:_996E4746955A412A8D95E4F2F539C9C6"
+            "Folder" = "8:_C2B5ABDB54A14FD2B61620E7D55BEDE1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -282,7 +282,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:image-categorizer-setup"
         "ProductCode" = "8:{89E38493-EFE8-4300-80A7-A0FAD7D4CE67}"
-        "PackageCode" = "8:{18A6D723-8B3D-4C58-AB66-3C41CD2D3A75}"
+        "PackageCode" = "8:{7CF9949F-E257-409C-9B6B-5A282B26CE34}"
         "UpgradeCode" = "8:{911F805D-5FA7-4664-A085-C5DB965369DD}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

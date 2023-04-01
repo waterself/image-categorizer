@@ -106,11 +106,12 @@ namespace image_categorizer
             {
                 connection.Open();
                 using SQLiteCommand command = new(sql, connection);
+
                 using SQLiteDataReader reader = command.ExecuteReader();
                 while (reader.Read()) //for one row
                 {
                     Dictionary<string, string?> attributeValue = new();
-                    for (int i = 0; i < select.Length; i++) // for attribute
+                    for (int i = 0; i < select.Length; i++) // get attribute
                     {
                         attributeValue.Add(select[i], reader[select[i]] as string);
                         if (!ret.ContainsKey(select[i]))

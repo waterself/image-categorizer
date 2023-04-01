@@ -10,6 +10,7 @@ namespace image_categorizer
 {
     public class Logger
     {
+        private int errorCount;
         private string taskName;
         private string logFileName;
         private string logFolder;
@@ -18,16 +19,18 @@ namespace image_categorizer
 
         public Logger(string programDir, string taskName)
         {
+            errorCount = 0;
             logQueue = new();
             logFolder = $"{programDir}Log";
             this.taskName = taskName;
-            logFileName = $"{logFolder}\\{DateTime.Now.ToString("yyyy-MMddHHmmssff")}{taskName}.txt";
+            logFileName = $"{logFolder}\\{taskName}.{DateTime.Now.ToString("yyyy-MMddHHmmssff")}{taskName}.txt";
 
         }
-        public void WriteLog(string message, bool writeNow = false)
+        public void WriteLog(string message, bool isError, bool writeNow = false)
         {
+            if (isError) { errorCount++; }
             logQueue.Enqueue($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}] : {message}");
-            if (writeNow == true)
+            if (writeNow == true && errorCount > 0)
             {
                 DirectoryInfo di = new(logFolder);
                 if (!di.Exists)
@@ -36,7 +39,7 @@ namespace image_categorizer
                 }
                 if (!File.Exists(logFileName))
                 {
-                    using (File.Create(logFileName)) ;
+                    using (File.Create(logFileName));
                 }
                 using (streamWriter = new StreamWriter(logFileName))
                 {
@@ -51,6 +54,24 @@ namespace image_categorizer
                     }
                 }
             }
+        }
+        public bool ShowLogFile() {
+            if (errorCount > 0)
+            {
+                MessageBoxResult result = MessageBox.Show($"{errorCount} errors are found, would you like to check log file?", "Log Dialog", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                switch (result)
+                { 
+                    case MessageBoxResult.Yes:
+                        System.Diagnostics.Process.Start("Notepad.exe", logFileName);
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+            else return false;
         }
     }
 }
