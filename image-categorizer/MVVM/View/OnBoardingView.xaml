@@ -15,10 +15,12 @@
     </Window.DataContext>
     <Grid>
         <uc:ImageSlider
-            ImageSources="{Binding OnboardingImages}"
-            CurrentImageSource="{Binding CurrentImageSource}"
-            PreviousImageSource="{Binding PreviousImageSource}"
-            NextImageSource="{Binding NextImageSource}"
+            ImageSources="{Binding OnBoardingModel.OnboardingImages}"
+            CurrentImageSource="{Binding OnBoardingModel.CurrentImageSource}"
+            PreviousImageSource="{Binding OnBoardingModel.PreviousImageSource}"
+            NextImageSource="{Binding OnBoardingModel.NextImageSource}"
+            IsLeftButtonEnable="{Binding OnBoardingModel.IsLeftButtonEnable}"
+            IsRightButtonEnable="{Binding OnBoardingModel.IsRightButtonEnable}"
             />
     </Grid>
 </Window>

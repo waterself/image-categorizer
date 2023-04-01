@@ -1,4 +1,5 @@
 ﻿using image_categorizer.Core;
+using image_categorizer.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,52 +11,26 @@ namespace image_categorizer.MVVM.ViewModel
 {
     class OnBoardingViewModel : BaseViewModel
     {
-        public OnBoardingViewModel() {
-            _onboardingImages = new() {
-                /*"pack://application:,,,/image-categorizer/Assets/RunView.png",
-                "pack://application:,,,/image-categorizer/Assets/SettingView.png",
-                "pack://application:,,,/image-categorizer/Assets/SummaryView.png"*/
-                @"\Assets\OnBoardingAssets\RunView.png",
-                @"\Assets\OnBoardingAssets\SettingView.png",
-                @"\Assets\OnBoardingAssets\SummaryView.png"
+        private OnBoardingModel? _onBoardingModel;
 
-        };
-            CurrentImageSource = OnboardingImages.First();
-        }
-
-        private string? _currenImageSource;
-            
-        public string? CurrentImageSource
+        public OnBoardingModel? OnBoardingModel
         {
-            get { return _currenImageSource; }
-            set { _currenImageSource = value;
-                OnPropertyChanged();
-            }
+            get { return _onBoardingModel; }
+            set { _onBoardingModel = value; }
         }
 
-        private string? _previousImageSource;
 
-        public string? PreviousImageSource
+        public OnBoardingViewModel()
         {
-            get { return _previousImageSource; }
-            set { _previousImageSource = value; }
+            OnBoardingModel = new OnBoardingModel(
+                    onboardingImages: new() {
+                    //need register to Properties/Resource.resx
+                    @"\Assets\OnBoardingAssets\RunView.png",
+                    @"\Assets\OnBoardingAssets\SettingView.png",
+                    @"\Assets\OnBoardingAssets\SummaryView.png" },
+                    isLeftButtonEnable: false,
+                    isRightButtonEnable: true
+                );
         }
-        private string? _nextImageSource;
-
-        public string? NextImageSource
-        {
-            get { return _nextImageSource; }
-            set { _nextImageSource = value; }
-        }
-
-
-        private List<string> _onboardingImages;
-
-        public List<string> OnboardingImages
-        {
-            get { return _onboardingImages; }
-            set { _onboardingImages = value; }
-        }
-
     }
 }

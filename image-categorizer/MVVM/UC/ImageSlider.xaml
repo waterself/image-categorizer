@@ -20,19 +20,19 @@
         </Image>
         <DockPanel Grid.Row="0" LastChildFill="True">
             <Button DockPanel.Dock="Left"
-                    FontFamily="Segoe MDL2 Assets"
                     Content="&#xF743;"
                     Height="50"
-                    Width="50"
-                    IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsLeftRemain}"
+                    Width="30"
+                    Style="{StaticResource ImageSliderButtonThemes}"
+                    IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsLeftButtonEnable}"
                     Command="{Binding ElementName=ImageSliderControl, Path=PreviousButtonCommand}"
-                />
+                    />
             <Button DockPanel.Dock="Right"
-                    FontFamily="Segoe MDL2 Assets"
                     Content="&#xF745;"
                     Height="50"
-                    Width="50"
-                    IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsRightRemain}"
+                    Width="30"
+                    Style="{StaticResource ImageSliderButtonThemes}"
+                    IsEnabled="{Binding ElementName=ImageSliderControl, Path=IsRightButtonEnable}"
                     Command="{Binding ElementName=ImageSliderControl, Path=NextButtonCommand}"
                     />
             <Canvas Background="Transparent"/>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace image_categorizer.Core
 {
-    class BaseViewModel : INotifyPropertyChanged, ICloneable
+    class BaseViewModel : ObservableObject, ICloneable
     {
         public string ProgramDir { get; set; }
         private DependencyContainer container;
@@ -16,12 +16,6 @@ namespace image_categorizer.Core
         {
             container = new DependencyContainer();
             ProgramDir = container.programDir;    
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        { 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));  
         }
 
         public object Clone()

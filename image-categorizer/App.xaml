@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Theme/MainAcceptButtonThemes.xaml" />
                 <ResourceDictionary Source="Theme/SaveButtonThemes.xaml" />
                 <ResourceDictionary Source="Theme/Spaces.xaml"/>
+                <ResourceDictionary Source="Theme/ImageSliderButtonThemes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewModel:RunViewModel}">
                 <view:RunView />

@@ -43,15 +43,41 @@ namespace image_categorizer.MVVM.UC
                 }
             }
         }
-        public bool IsLeftRemain { get; set; }
-        public bool IsRightRemain { get; set; }
+        /* public bool IsLeftButtonEnable { get; set; }
+         public bool IsRightButtonEnable { get; set; }*/
+
+
+        public bool IsLeftButtonEnable
+        {
+            get { return (bool)GetValue(IsLeftButtonEnableProperty); }
+            set { SetValue(IsLeftButtonEnableProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsLeftButtonEnable.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsLeftButtonEnableProperty =
+            DependencyProperty.Register("IsLeftButtonEnable", typeof(bool), typeof(ImageSlider), new PropertyMetadata(null));
+
+
+        public bool IsRightButtonEnable
+        {
+            get { return (bool)GetValue(IsRightButtonEnableProperty); }
+            set { SetValue(IsRightButtonEnableProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsRightButtonEnable.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsRightButtonEnableProperty =
+            DependencyProperty.Register("IsRightButtonEnable", typeof(bool), typeof(ImageSlider), new PropertyMetadata(null));
+
+
+
+
         public ImageSlider()
         {
             _selectedIndex = 0;
             NextButtonCommand = NextCommand();
             PreviousButtonCommand = PreviousCommand();
-            IsLeftRemain = false;
-            IsRightRemain = true;
+            IsLeftButtonEnable = false;
+            IsRightButtonEnable = true;
             InitializeComponent();
         }
 
@@ -133,8 +159,8 @@ namespace image_categorizer.MVVM.UC
             return ret;
         }
         private void CheckButtonEnable() {
-            IsLeftRemain = PreviousImageSource != null ? true : false;
-            IsRightRemain = NextImageSource != null ? true : false;
+            IsLeftButtonEnable = (SelectedIndex > 0) ? true : false;
+            IsRightButtonEnable = (SelectedIndex < ImageSources.Count - 1) ? true : false;
         }
 
         private string? FindValueAtIndex(List<string> list, int index)

@@ -78,27 +78,35 @@
                         FontSize="35"
                         Foreground="#ffffff"
                         Text="" />
-                    <StackPanel Grid.Row="1" Grid.Column="0">
+                    <DockPanel Grid.Row="1" Grid.Column="0">
                         <RadioButton
+                            DockPanel.Dock="Top"
                             Command="{Binding RunViewCommand}"
                             Content="Run Categorizer"
                             IsChecked="True"
                             Style="{StaticResource MenuButtonThemes}" />
                         <RadioButton
+                            DockPanel.Dock="Top"
                             Command="{Binding SettingViewCommand}"
                             Content="Setting"
                             IsChecked="False"
                             Style="{StaticResource MenuButtonThemes}" />
                         <RadioButton
+                            DockPanel.Dock="Top"
                             Command="{Binding SummaryViewCommand}"
                             Content="Summery"
                             IsChecked="False"
                             Style="{StaticResource MenuButtonThemes}" />
                         <Button
-                            Content="OnBoarding"
-                            Command="{Binding OnBoardingViewCommand}"
-                            />
-                    </StackPanel>
+                            DockPanel.Dock="Bottom"
+                            Background="{StaticResource FrameSolidColorBrush}"
+                            Foreground="{StaticResource WhiteSolidColorBrush}"
+                            FontSize="20"
+                            Content="Tutorial"
+                            Command="{Binding OnBoardingViewCommand}"/>
+                        <Canvas Background="Transparent" />
+
+                    </DockPanel>
                     <ContentControl
                         Grid.Row="1"
                         Grid.Column="1"

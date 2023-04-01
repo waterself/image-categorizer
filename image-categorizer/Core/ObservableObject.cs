@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace image_categorizer.Core
 {
-    internal class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
