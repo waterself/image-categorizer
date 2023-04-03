@@ -10,7 +10,7 @@ using System.IO;
 
 namespace image_categorizer
 {
-    public class IcTagSql
+    public class IcTagSql : IIcTagSql
     {
 
         #region ClassMember
@@ -21,11 +21,13 @@ namespace image_categorizer
         //private string connectStringString;
         private SQLiteConnectionStringBuilder connectString;
         public bool isInit = false;
+        public Logger SqlLogger { get; set; }
         #endregion ClassMember
 
         #region Constructor
-        public IcTagSql(string baseDirectory)
+        public IcTagSql(string baseDirectory, ref Logger taskLogger)
         {
+            SqlLogger = taskLogger;
             dbFolder = $"{baseDirectory}\\Data";
             dbName = $"{baseDirectory}\\Data\\ic.db";
             tagTable = "image_tags";
@@ -41,24 +43,33 @@ namespace image_categorizer
 
         public void SQLiteinit()
         {
-            using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
+            try
             {
-                if (!System.IO.File.Exists(dbName))
+                using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
                 {
-                    DirectoryInfo di = new(dbFolder);
-                    if (di.Exists == false)
+                    if (!System.IO.File.Exists(dbName))
                     {
-                        di.Create();
+                        DirectoryInfo di = new(dbFolder);
+                        if (di.Exists == false)
+                        {
+                            di.Create();
+                        }
+                        SQLiteConnection.CreateFile(dbName);
                     }
-                    SQLiteConnection.CreateFile(dbName);
+                    connection.Open();
+                    //connection.ChangePassword(Properties.Settings.Default.IcTagDBPassword);
+                    string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}({allAttributes});");
+                    SQLiteCommand createCommand = new(createSql, connection);
+                    int result = createCommand.ExecuteNonQuery();
                 }
-                connection.Open();
-                //connection.ChangePassword(Properties.Settings.Default.IcTagDBPassword);
-                string createSql = String.Format($"CREATE TABLE IF NOT EXISTS {tagTable}({allAttributes});");
-                SQLiteCommand createCommand = new(createSql, connection);
-                int result = createCommand.ExecuteNonQuery();
+                isInit = true;
             }
-            isInit = true;
+            catch (Exception e)
+            {
+                SqlLogger.WriteLog(e.Message, isError: true, writeNow: true);
+                SqlLogger.ShowLogFile();
+            }
+
         }
         #endregion Constructor
 
@@ -66,16 +77,25 @@ namespace image_categorizer
         //Need Location Data
         public void InsertQuery(InsertQueryModel queryModel)
         {
-            int result = -1;
-            //need generation
-            string sql = String.Format($"INSERT INTO image_tags VALUES(\'{queryModel.fileOutputPath}\', \'{queryModel.dateTime}\', \'{queryModel.format}\', \'{queryModel.cameraModel}\', \'{queryModel.location}', \'{queryModel.currentTime}\');");
-            using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
+            try
             {
-                connection.Open();
-                using SQLiteCommand command = new(sql, connection);
-                result = command.ExecuteNonQuery();
-                connection.Close();
+                int result = -1;
+                //need generation
+                string sql = String.Format($"INSERT INTO image_tags VALUES(\'{queryModel.fileOutputPath}\', \'{queryModel.dateTime}\', \'{queryModel.format}\', \'{queryModel.cameraModel}\', \'{queryModel.location}', \'{queryModel.currentTime}\');");
+                using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
+                {
+                    connection.Open();
+                    using SQLiteCommand command = new(sql, connection);
+                    result = command.ExecuteNonQuery();
+                    connection.Close();
+                }
             }
+            catch (Exception e)
+            {
+                SqlLogger.WriteLog(e.Message, isError: true, writeNow: true);
+                SqlLogger.ShowLogFile();
+            }
+
         }
 
         public void InsertQuery(List<InsertQueryModel> queryModels)
@@ -102,33 +122,41 @@ namespace image_categorizer
             Dictionary<string, List<string?>>? ret = new();
             string attribute = String.Join(",", select);
             string sql = String.Format($"SELECT {attribute} FROM {tagTable};");
-            using (SQLiteConnection connection = new(connectString.ToString()))
+            try
             {
-                connection.Open();
-                using SQLiteCommand command = new(sql, connection);
-
-                using SQLiteDataReader reader = command.ExecuteReader();
-                while (reader.Read()) //for one row
+                using (SQLiteConnection connection = new(connectString.ToString()))
                 {
-                    Dictionary<string, string?> attributeValue = new();
-                    for (int i = 0; i < select.Length; i++) // get attribute
+                    connection.Open();
+                    using SQLiteCommand command = new(sql, connection);
+
+                    using SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read()) //for one row
                     {
-                        attributeValue.Add(select[i], reader[select[i]] as string);
-                        if (!ret.ContainsKey(select[i]))
+                        Dictionary<string, string?> attributeValue = new();
+                        for (int i = 0; i < select.Length; i++) // get attribute
                         {
-                            ret.Add(select[i], new List<string?>());
+                            attributeValue.Add(select[i], reader[select[i]] as string);
+                            if (!ret.ContainsKey(select[i]))
+                            {
+                                ret.Add(select[i], new List<string?>());
+                            }
+                        }
+                        foreach (KeyValuePair<string, string?> item in attributeValue)
+                        {
+                            if (ret.ContainsKey(item.Key))
+                            {
+                                string? colunmn = "";
+                                if (item.Value != null) { colunmn = item.Value; ret[item.Key].Add(colunmn); }
+                            }
                         }
                     }
-                    foreach (KeyValuePair<string, string?> item in attributeValue)
-                    {
-                        if (ret.ContainsKey(item.Key))
-                        {
-                            string? colunmn = "";
-                            if (item.Value != null) { colunmn = item.Value; ret[item.Key].Add(colunmn); }
-                        }
-                    }
+                    connection.Close();
                 }
-                connection.Close();
+            }
+            catch (Exception e)
+            {
+                SqlLogger.WriteLog(e.Message, isError: true, writeNow: true);
+                SqlLogger.ShowLogFile();
             }
             return ret;
         }
@@ -140,19 +168,28 @@ namespace image_categorizer
         /// <param name="keys">values for delete row</param>
         public void DeleteQuary(string attribute, List<string> keys)
         {
-            using (SQLiteConnection connection = new(connectString.ToString()))
+            try
             {
-                connection.Open();
-                foreach (string key in keys)
+                using (SQLiteConnection connection = new(connectString.ToString()))
                 {
-                    string sql = String.Format($"DELETE FROM {tagTable} WHERE {attribute} = \"{key}\";");
-                    using (SQLiteCommand command = new(sql, connection))
+                    connection.Open();
+                    foreach (string key in keys)
                     {
-                        command.ExecuteNonQuery();
+                        string sql = String.Format($"DELETE FROM {tagTable} WHERE {attribute} = \"{key}\";");
+                        using (SQLiteCommand command = new(sql, connection))
+                        {
+                            command.ExecuteNonQuery();
+                        }
+
                     }
-                   
                 }
             }
+            catch (Exception e)
+            {
+                SqlLogger.WriteLog(e.Message, isError: true, writeNow: true);
+                SqlLogger.ShowLogFile();
+            }
+
         }
         #endregion Queries
     }

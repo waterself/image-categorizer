@@ -36,12 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\OnBoardingAssets\RunView.png" />
-    <Resource Include="Assets\OnBoardingAssets\SettingView.png" />
-    <Resource Include="Assets\OnBoardingAssets\SummaryView.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Properties\Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -69,6 +63,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\OnBoardingAssets\RunView.png" />
+    <Resource Include="Assets\OnBoardingAssets\SettingView.png" />
+    <Resource Include="Assets\OnBoardingAssets\SummaryView.png" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

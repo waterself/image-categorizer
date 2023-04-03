@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace image_categorizer.Core
 {
-    class BaseViewModel : ObservableObject, ICloneable
+    public class BaseViewModel : ObservableObject, ICloneable
     {
-        public string ProgramDir { get; set; }
+        protected string ProgramDir { get; set; }
         private DependencyContainer container;
         public BaseViewModel()
         {

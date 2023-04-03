@@ -8,61 +8,62 @@ using System.Windows;
 
 namespace image_categorizer
 {
-    public class Logger
+    public class Logger : ILogger
     {
-        private int errorCount;
-        private string taskName;
-        private string logFileName;
-        private string logFolder;
-        private StreamWriter streamWriter;
-        private Queue<string> logQueue;
+        private int ErrorCount { get; set; }
+        private string LogFileName { get; set; }
+        private string LogFolder { get; set; }
+        private string TaskName { get; set; }
+        private StreamWriter StreamWriter { get; set; }
+        private Queue<string> LogQueue { get; set; }
 
         public Logger(string programDir, string taskName)
         {
-            errorCount = 0;
-            logQueue = new();
-            logFolder = $"{programDir}Log";
-            this.taskName = taskName;
-            logFileName = $"{logFolder}\\{taskName}.{DateTime.Now.ToString("yyyy-MMddHHmmssff")}{taskName}.txt";
+            ErrorCount = 0;
+            LogQueue = new();
+            TaskName = taskName;
+            LogFolder = $"{programDir}Log";
+            LogFileName = $"{LogFolder}\\{TaskName}.{DateTime.Now.ToString("yyyy-MMddHHmmssff")}{taskName}.txt";
 
         }
         public void WriteLog(string message, bool isError, bool writeNow = false)
         {
-            if (isError) { errorCount++; }
-            logQueue.Enqueue($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}] : {message}");
-            if (writeNow == true && errorCount > 0)
+            if (isError) { ErrorCount += 1; }
+            LogQueue.Enqueue($"[{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ff")}] : {message}");
+            if (writeNow == true && ErrorCount > 0)
             {
-                DirectoryInfo di = new(logFolder);
+                DirectoryInfo di = new(LogFolder);
                 if (!di.Exists)
                 {
                     di.Create();
                 }
-                if (!File.Exists(logFileName))
+                if (!File.Exists(LogFileName))
                 {
-                    using (File.Create(logFileName));
+                    using (File.Create(LogFileName)) ;
                 }
-                using (streamWriter = new StreamWriter(logFileName))
+                using (StreamWriter = new StreamWriter(LogFileName))
                 {
-                    lock (streamWriter)
+                    lock (StreamWriter)
                     {
-                        while (logQueue.Count > 0)
+                        while (LogQueue.Count > 0)
                         {
-                            string log = logQueue.Dequeue();
-                            streamWriter.WriteLine(log);
+                            string log = LogQueue.Dequeue();
+                            StreamWriter.WriteLine(log);
                         }
 
                     }
                 }
             }
         }
-        public bool ShowLogFile() {
-            if (errorCount > 0)
+        public bool ShowLogFile()
+        {
+            if (ErrorCount > 0)
             {
-                MessageBoxResult result = MessageBox.Show($"{errorCount} errors are found, would you like to check log file?", "Log Dialog", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show($"{ErrorCount} errors are found, would you like to check log file?", "Log Dialog", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 switch (result)
-                { 
+                {
                     case MessageBoxResult.Yes:
-                        System.Diagnostics.Process.Start("Notepad.exe", logFileName);
+                        System.Diagnostics.Process.Start("Notepad.exe", LogFileName);
                         break;
                     case MessageBoxResult.No:
                         break;

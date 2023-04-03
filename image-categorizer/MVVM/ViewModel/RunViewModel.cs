@@ -108,9 +108,9 @@ namespace image_categorizer.MVVM.ViewModel
         public void ImageCategorize(object? sender, DoWorkEventArgs doWorkEventArgs)
         {
             RunModel.MaxProgress = RunModel.FileCount;
-            Logger RunLogger = new(base.ProgramDir, "Categorize");
+            Logger RunLogger = new Logger(base.ProgramDir, "Categorize");
             IUtility _utility = new Utility(ref RunLogger);
-            IGeoCoding geoCoding = new GeoCoding(base.ProgramDir);
+            IGeoCoding geoCoding = new GeoCoding(base.ProgramDir, ref RunLogger);
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
@@ -334,7 +334,7 @@ namespace image_categorizer.MVVM.ViewModel
                     }
                     RunModel.CategorizeProgress += 1;
                 }
-                IcTagSql summarySQL = new(base.ProgramDir);
+                IIcTagSql summarySQL = new IcTagSql(base.ProgramDir, ref RunLogger);
                 summarySQL.SQLiteinit();
                 summarySQL.InsertQuery(insertQueries);
                 //messageBox for check delete original files

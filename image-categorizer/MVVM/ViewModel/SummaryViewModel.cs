@@ -33,7 +33,7 @@ namespace image_categorizer.MVVM.ViewModel
             IUtility utility = new Utility(ref logger);
             if (SummaryModel != null)
             {
-                IcTagSql summarySQL = new(base.ProgramDir);
+                IcTagSql summarySQL = new(base.ProgramDir, ref logger);
                 summarySQL.SQLiteinit();
                 string[] attributes = new[] { "file_output_path", "datetime", "format", "camera_model", "location", "categorized_date" };
                 SummaryModel.SelectedDBData = summarySQL.SelectQuery(attributes);
@@ -91,7 +91,7 @@ namespace image_categorizer.MVVM.ViewModel
                 catch (Exception e)
                 {
                     logger.WriteLog(e.Message, true);
-                    MessageBox.Show(e.Message);
+                    logger.ShowLogFile();
                 }
             }
         }
