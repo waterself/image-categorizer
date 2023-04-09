@@ -81,7 +81,7 @@
                     <DockPanel Grid.Row="1" Grid.Column="0">
                         <RadioButton
                             Command="{Binding RunViewCommand}"
-                            Content="Run Categorizer"
+                            Content="Categorize"
                             DockPanel.Dock="Top"
                             IsChecked="True"
                             Style="{StaticResource MenuButtonThemes}" />
