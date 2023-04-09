@@ -63,9 +63,9 @@ namespace image_categorizer.Properties {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] RunView {
+        internal static byte[] _1 {
             get {
-                object obj = ResourceManager.GetObject("RunView", resourceCulture);
+                object obj = ResourceManager.GetObject("_1", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace image_categorizer.Properties {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] SettingView {
+        internal static byte[] _10 {
             get {
-                object obj = ResourceManager.GetObject("SettingView", resourceCulture);
+                object obj = ResourceManager.GetObject("_10", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -83,9 +83,109 @@ namespace image_categorizer.Properties {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] SummaryView {
+        internal static byte[] _11 {
             get {
-                object obj = ResourceManager.GetObject("SummaryView", resourceCulture);
+                object obj = ResourceManager.GetObject("_11", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _12 {
+            get {
+                object obj = ResourceManager.GetObject("_12", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _13 {
+            get {
+                object obj = ResourceManager.GetObject("_13", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _2 {
+            get {
+                object obj = ResourceManager.GetObject("_2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _3 {
+            get {
+                object obj = ResourceManager.GetObject("_3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _4 {
+            get {
+                object obj = ResourceManager.GetObject("_4", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _5 {
+            get {
+                object obj = ResourceManager.GetObject("_5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _6 {
+            get {
+                object obj = ResourceManager.GetObject("_6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _7 {
+            get {
+                object obj = ResourceManager.GetObject("_7", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _8 {
+            get {
+                object obj = ResourceManager.GetObject("_8", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        internal static byte[] _9 {
+            get {
+                object obj = ResourceManager.GetObject("_9", resourceCulture);
                 return ((byte[])(obj));
             }
         }

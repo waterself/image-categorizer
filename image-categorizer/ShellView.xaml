@@ -97,6 +97,12 @@
                             DockPanel.Dock="Top"
                             IsChecked="False"
                             Style="{StaticResource MenuButtonThemes}" />
+                        <RadioButton
+                            Command="{Binding LicenseViewCommand}"
+                            Content="License"
+                            DockPanel.Dock="Top"
+                            IsChecked="False"
+                            Style="{StaticResource MenuButtonThemes}" />
                         <Button
                             Background="{StaticResource FrameSolidColorBrush}"
                             Command="{Binding OnBoardingViewCommand}"

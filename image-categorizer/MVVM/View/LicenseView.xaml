@@ -1,0 +1,33 @@
+﻿<UserControl
+    x:Class="image_categorizer.MVVM.View.LicenseView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:image_categorizer.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Background="{StaticResource BackgroundSolidColorBrush}">
+        <Border
+            Margin="5"
+            Background="{StaticResource PointSolidColorBrush}"
+            CornerRadius="5">
+            <Border
+                Margin="10"
+                Background="{StaticResource BackgroundSolidColorBrush}"
+                CornerRadius="5">
+                <StackPanel>
+                    <TextBlock
+                        Padding="5"
+                        Foreground="{StaticResource WhiteSolidColorBrush}"
+                        Text="Location Features are implemented with www.geoname.org/free_gazetteer_data/allcountries.zip" />
+                    <TextBlock
+                        Padding="5"
+                        Foreground="{StaticResource WhiteSolidColorBrush}"
+                        Text="by Creative Commons License CC BY 4.0" />
+
+                    <Separator Background="{StaticResource WhiteSolidColorBrush}" />
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

@@ -161,7 +161,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void PathExampleSetter()
         {
-            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "samsung SM-G998N", "jpg", null, null, null, null, null);
+            ImageDetails exImage = new ImageDetails("20050813", "094723", "Thika", "KODAK CX7530", "jpg", null, null, null, "Kodak_CX7530.jpg", null);
 
             List<string?> pathBuf = new();
             for (int i = 0; i < SettingModel.DirectoryRules.Length; i++)
@@ -198,7 +198,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void FileNameExampleSetter()
         {
-            ImageDetails exImage = new ImageDetails("20080825", "132157", "Location", "samsung SM-G998N", "jpg", null, null, null, "Sample.jpg", null);
+            ImageDetails exImage = new ImageDetails("20050813", "094723", "Thika", "KODAK CX7530", "jpg", null, null, null, "Kodak_CX7530.jpg", null);
             List<string?> fileBuf = new();
                 for (int i = 0; i < SettingModel.FileNameRules.Length; i++)
                 {

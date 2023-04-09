@@ -22,6 +22,10 @@
                                 <Setter TargetName="ImageSliderButtonBorder" Property="Background" Value="Transparent" />
                                 <Setter TargetName="ImageSliderButtonIcon" Property="Foreground" Value="Azure" />
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ImageSliderButtonBorder" Property="Background" Value="Transparent" />
+                                <Setter TargetName="ImageSliderButtonIcon" Property="Foreground" Value="Transparent" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>

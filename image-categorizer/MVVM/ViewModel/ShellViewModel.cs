@@ -16,6 +16,7 @@ namespace image_categorizer.MVVM.ViewModel
         public RelayCommand RunViewCommand { get; set; }
         public RelayCommand SettingViewCommand { get; set; }
         public RelayCommand SummaryViewCommand { get; set; }
+        public RelayCommand LicenseViewCommand { get; set; }
         public ICommand OnBoardingViewCommand { get; set; }
 
         /* private RunViewModel? _runVM;
@@ -69,14 +70,28 @@ namespace image_categorizer.MVVM.ViewModel
             {
                 CurrentView = new SettingViewModel();
             });
+            LicenseViewCommand = new RelayCommand(o => {
+                CurrentView = new LicenseViewModel();
+            });
             OnBoardingViewCommand = new RelayCommand(o=> { ShowOnboarding(); });
 
+            FirstRunCheck(Properties.Settings.Default.IsFirstRun);
+
         }
+        public void FirstRunCheck(bool isFirstRun) {
+            if (isFirstRun) {
+                Properties.Settings.Default.IsFirstRun = false;
+                Properties.Settings.Default.Save();
+                ShowOnboarding();
+            }
+        }
+
         public void ShowOnboarding()
         {
             OnBoardingView onBoardingView = new();
             OnBoardingViewModel onBoardingViewModel = new();
             onBoardingView.DataContext = onBoardingViewModel;
+            onBoardingView.Title = "Tutorial";
             onBoardingView.Show();
         }
 

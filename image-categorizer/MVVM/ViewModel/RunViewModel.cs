@@ -114,6 +114,10 @@ namespace image_categorizer.MVVM.ViewModel
             geoCoding.GeoCodingInit();
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
+            if (!RulesChecker(directoryRules) || !RulesChecker(fileNameRules)) {
+                MessageBox.Show("Please Setting Directory and FileName Structure");
+                return;
+            }
             DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
             DirectoryInfo outputPathCheck = new(RunModel.OutputDirectorytPath);
             if (!outputPathCheck.Exists)
@@ -373,6 +377,16 @@ namespace image_categorizer.MVVM.ViewModel
                 return;
             }
             
+        }
+
+        public bool RulesChecker(string[]? rules) {
+            int cnt = 0;
+            for (int i = 0; i < rules.Length; i++)
+            {
+                if (rules[i] != "None") cnt++;
+            }
+            if (cnt == 0) return false;
+            else return true;
         }
         #endregion Logical Function
     }

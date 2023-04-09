@@ -24,9 +24,19 @@
 
   <ItemGroup>
     <None Remove="20131124_223504.jpg" />
-    <None Remove="Assets\OnBoardingAssets\RunView.png" />
-    <None Remove="Assets\OnBoardingAssets\SettingView.png" />
-    <None Remove="Assets\OnBoardingAssets\SummaryView.png" />
+    <None Remove="Assets\OnBoardingAssets\1.png" />
+    <None Remove="Assets\OnBoardingAssets\10.png" />
+    <None Remove="Assets\OnBoardingAssets\11.png" />
+    <None Remove="Assets\OnBoardingAssets\12.png" />
+    <None Remove="Assets\OnBoardingAssets\13.png" />
+    <None Remove="Assets\OnBoardingAssets\2.png" />
+    <None Remove="Assets\OnBoardingAssets\3.png" />
+    <None Remove="Assets\OnBoardingAssets\4.png" />
+    <None Remove="Assets\OnBoardingAssets\5.png" />
+    <None Remove="Assets\OnBoardingAssets\6.png" />
+    <None Remove="Assets\OnBoardingAssets\7.png" />
+    <None Remove="Assets\OnBoardingAssets\8.png" />
+    <None Remove="Assets\OnBoardingAssets\9.png" />
     <None Remove="Close.png" />
   </ItemGroup>
 
@@ -66,9 +76,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\OnBoardingAssets\RunView.png" />
-    <Resource Include="Assets\OnBoardingAssets\SettingView.png" />
-    <Resource Include="Assets\OnBoardingAssets\SummaryView.png" />
+    <Resource Include="Assets\OnBoardingAssets\1.png" />
+    <Resource Include="Assets\OnBoardingAssets\10.png" />
+    <Resource Include="Assets\OnBoardingAssets\11.png" />
+    <Resource Include="Assets\OnBoardingAssets\12.png" />
+    <Resource Include="Assets\OnBoardingAssets\13.png" />
+    <Resource Include="Assets\OnBoardingAssets\2.png" />
+    <Resource Include="Assets\OnBoardingAssets\3.png" />
+    <Resource Include="Assets\OnBoardingAssets\4.png" />
+    <Resource Include="Assets\OnBoardingAssets\5.png" />
+    <Resource Include="Assets\OnBoardingAssets\6.png" />
+    <Resource Include="Assets\OnBoardingAssets\7.png" />
+    <Resource Include="Assets\OnBoardingAssets\8.png" />
+    <Resource Include="Assets\OnBoardingAssets\9.png" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
