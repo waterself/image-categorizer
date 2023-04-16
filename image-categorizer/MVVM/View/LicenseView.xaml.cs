@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +25,15 @@ namespace image_categorizer.MVVM.View
         {
             InitializeComponent();
         }
-/*        public void HyperLinkNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        public void HyperLinkNavigate(object sender, RequestNavigateEventArgs e)
         {
-            System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
+            var uri = e.Uri.AbsoluteUri;
+            var sInfo = new System.Diagnostics.ProcessStartInfo(uri)
+            {
+                UseShellExecute = true,
+            };
+            System.Diagnostics.Process.Start(sInfo);
             e.Handled = true;
-        }*/
+        }
     }
 }

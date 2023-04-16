@@ -21,13 +21,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AA4839643C824A6A9027E29C25EEA4C3"
+        "MsmKey" = "8:_752C611162CA47FABD87CB6A54959A15"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C20196C101BA4B549F10E4870D71CB80"
+        "MsmKey" = "8:_AA4839643C824A6A9027E29C25EEA4C3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -154,12 +154,12 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AA4839643C824A6A9027E29C25EEA4C3"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_752C611162CA47FABD87CB6A54959A15"
             {
-            "SourcePath" = "8:allcountries.db"
-            "TargetName" = "8:allcountries.db"
+            "SourcePath" = "8:LICENSE.rtf"
+            "TargetName" = "8:LICENSE.rtf"
             "Tag" = "8:"
-            "Folder" = "8:_C2B5ABDB54A14FD2B61620E7D55BEDE1"
+            "Folder" = "8:_996E4746955A412A8D95E4F2F539C9C6"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -174,12 +174,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C20196C101BA4B549F10E4870D71CB80"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AA4839643C824A6A9027E29C25EEA4C3"
             {
-            "SourcePath" = "8:LICENSE.rtf"
-            "TargetName" = "8:LICENSE.rtf"
+            "SourcePath" = "8:allcountries.db"
+            "TargetName" = "8:allcountries.db"
             "Tag" = "8:"
-            "Folder" = "8:_996E4746955A412A8D95E4F2F539C9C6"
+            "Folder" = "8:_C2B5ABDB54A14FD2B61620E7D55BEDE1"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -282,18 +282,18 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:image-categorizer-setup"
         "ProductCode" = "8:{89E38493-EFE8-4300-80A7-A0FAD7D4CE67}"
-        "PackageCode" = "8:{03AB519E-F8C8-479F-A06D-01E4F74EC16E}"
+        "PackageCode" = "8:{4A7E1E1D-3754-42BC-A3E7-1645D516BAFB}"
         "UpgradeCode" = "8:{911F805D-5FA7-4664-A085-C5DB965369DD}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:0.0.1"
         "Manufacturer" = "8:Waterself"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:image-categorizer-setup"
+        "Title" = "8:image-categorizer"
         "Subject" = "8:"
         "ARPCONTACT" = "8:WaterSelf"
         "Keywords" = "8:"
@@ -529,7 +529,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "EulaText"
@@ -541,7 +541,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_C20196C101BA4B549F10E4870D71CB80"
+                            "Value" = "8:_752C611162CA47FABD87CB6A54959A15"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -897,7 +897,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_C20196C101BA4B549F10E4870D71CB80"
+                            "Value" = "8:_752C611162CA47FABD87CB6A54959A15"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"

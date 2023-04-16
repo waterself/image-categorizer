@@ -24,6 +24,14 @@
                         Padding="5"
                         Foreground="{StaticResource WhiteSolidColorBrush}"
                         Text="by Creative Commons License CC BY 4.0" />
+                    <TextBlock Padding="5" TextWrapping="Wrap">
+                        <Hyperlink
+                            Foreground="{StaticResource WhiteSolidColorBrush}"
+                            NavigateUri="https://www.geonames.org/"
+                            RequestNavigate="HyperLinkNavigate">
+                            https://www.geonames.org/
+                        </Hyperlink>
+                    </TextBlock>
 
                     <Separator Background="{StaticResource WhiteSolidColorBrush}" />
                 </StackPanel>
