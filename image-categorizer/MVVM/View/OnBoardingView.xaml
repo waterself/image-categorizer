@@ -10,6 +10,7 @@
     Title="OnBoardWindow"
     Width="920"
     Height="640"
+    ResizeMode="NoResize"
     mc:Ignorable="d">
     <Window.DataContext>
         <viewModel:OnBoardingViewModel />
