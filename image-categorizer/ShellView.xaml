@@ -93,7 +93,7 @@
                             Style="{StaticResource MenuButtonThemes}" />
                         <RadioButton
                             Command="{Binding SummaryViewCommand}"
-                            Content="Summery"
+                            Content="Summary"
                             DockPanel.Dock="Top"
                             IsChecked="False"
                             Style="{StaticResource MenuButtonThemes}" />
