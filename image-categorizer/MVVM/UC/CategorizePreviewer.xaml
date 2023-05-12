@@ -22,16 +22,25 @@
                 <ColumnDefinition Width="9*" />
             </Grid.ColumnDefinitions>
             <Border Grid.Column="0">
-                <TextBlock Style="{DynamicResource PreViewerTextStyle}" Text="{Binding ElementName=CategorizePreviewerControl, Path=CategorizePreViewerNameLabel}" />
+                <TextBlock
+                    Style="{DynamicResource PreViewerTextStyle}"
+                    Text="{Binding ElementName=CategorizePreviewerControl, Path=CategorizePreViewerNameLabel}"
+                    TextTrimming="CharacterEllipsis" />
             </Border>
             <Border Grid.Column="1">
-                <TextBlock Style="{DynamicResource PreViewerTextStyle}" Text="{Binding ElementName=CategorizePreviewerControl, Path=OldValue}" />
+                <TextBlock
+                    Style="{DynamicResource PreViewerTextStyle}"
+                    Text="{Binding ElementName=CategorizePreviewerControl, Path=OldValue}"
+                    TextTrimming="CharacterEllipsis" />
             </Border>
             <Border Grid.Column="2">
                 <TextBlock Style="{DynamicResource PreViewerTextStyle}" Text="=&gt;" />
             </Border>
             <Border Grid.Column="3">
-                <TextBlock Style="{DynamicResource PreViewerTextStyle}" Text="{Binding ElementName=CategorizePreviewerControl, Path=NewValue}" />
+                <TextBlock
+                    Style="{DynamicResource PreViewerTextStyle}"
+                    Text="{Binding ElementName=CategorizePreviewerControl, Path=NewValue}"
+                    TextTrimming="CharacterEllipsis" />
             </Border>
         </Grid>
     </Border>

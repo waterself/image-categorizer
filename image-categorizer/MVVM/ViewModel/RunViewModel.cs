@@ -353,7 +353,7 @@ namespace image_categorizer.MVVM.ViewModel
             RunModel.IsIdle = true;
             RunModel.FileWithDetails.Clear();
             if (!RunLogger.ShowLogFile()) {
-                MessageBox.Show("Categorize Done!");
+                showCategorizeDoneDialog(RunModel.OutputDirectorytPath);
             }
         }
 
@@ -387,6 +387,20 @@ namespace image_categorizer.MVVM.ViewModel
             }
             if (cnt == 0) return false;
             else return true;
+        }
+
+        public void showCategorizeDoneDialog(string outputPath) {
+            MessageBoxResult result = MessageBox.Show($"Categorize Done! would you like to check output path?", "Log Dialog", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    System.Diagnostics.Process.Start("explorer.exe", outputPath);
+                    break;
+                case MessageBoxResult.No:
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion Logical Function
     }

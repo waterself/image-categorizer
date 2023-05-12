@@ -33,12 +33,14 @@
                         MinWidth="50"
                         Padding="{StaticResource BorderTextPadding}"
                         Foreground="{StaticResource WhiteSolidColorBrush}"
-                        Text="{Binding Path=PathSelectorNameLabel, ElementName=PathSelectorControl}" />
+                        Text="{Binding Path=PathSelectorNameLabel, ElementName=PathSelectorControl}"
+                        TextTrimming="CharacterEllipsis" />
                     <TextBlock
                         MinWidth="50"
                         Padding="{StaticResource BorderTextPadding}"
                         Foreground="{StaticResource WhiteSolidColorBrush}"
-                        Text="{Binding Path=DirectoryPath, ElementName=PathSelectorControl, TargetNullValue=Please Select Input Directory}" />
+                        Text="{Binding Path=DirectoryPath, ElementName=PathSelectorControl, TargetNullValue=Please Select Input Directory}"
+                        TextTrimming="CharacterEllipsis" />
                 </StackPanel>
             </DockPanel>
         </StackPanel>
