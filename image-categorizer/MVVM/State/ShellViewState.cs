@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using image_categorizer.Core;
 
-namespace image_categorizer.MVVM.Model
+namespace image_categorizer.MVVM.State
 {
-    class ShellModel : ObservableObject
+    class ShellViewState : ObservableObject
     {
         private string? _programDirectory;
 

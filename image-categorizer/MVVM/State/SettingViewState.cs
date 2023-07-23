@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
-namespace image_categorizer.MVVM.Model
+namespace image_categorizer.MVVM.State
 {
-    class SettingModel : ObservableObject
+    class SettingViewState : ObservableObject
     {
         #region Binding Data
         private string? _inputDirectoryPath = "C:\\Test";
@@ -48,7 +48,9 @@ namespace image_categorizer.MVVM.Model
         public int[]? DirectoryRulesIndexes
         {
             get { return _directoryRulesIndexes; }
-            set { _directoryRulesIndexes = value;
+            set
+            {
+                _directoryRulesIndexes = value;
                 OnPropertyChanged();
             }
         }
@@ -58,7 +60,9 @@ namespace image_categorizer.MVVM.Model
         public int[]? FileNameRulesIndexes
         {
             get { return _fileNameRulesIndexes; }
-            set { _fileNameRulesIndexes = value;
+            set
+            {
+                _fileNameRulesIndexes = value;
                 OnPropertyChanged();
             }
         }

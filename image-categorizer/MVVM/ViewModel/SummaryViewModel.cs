@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Windows;
 using System.Linq;
+using image_categorizer.MVVM.State;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -13,12 +14,12 @@ namespace image_categorizer.MVVM.ViewModel
     {
         public SummaryViewModel()
         {
-            _summaryModel = new SummaryModel();
+            _summaryModel = new SummaryViewState();
             InitSummaryModel();
         }
-        private SummaryModel? _summaryModel = new();
+        private SummaryViewState? _summaryModel = new();
 
-        public SummaryModel? SummaryModel
+        public SummaryViewState? SummaryModel
         {
             get { return _summaryModel; }
             set { _summaryModel = value; OnPropertyChanged(); }

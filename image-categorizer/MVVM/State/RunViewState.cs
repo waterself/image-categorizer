@@ -1,10 +1,11 @@
 ﻿using image_categorizer.Core;
+using image_categorizer.MVVM.Model;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace image_categorizer.MVVM.Model
+namespace image_categorizer.MVVM.State
 {
-    class RunModel : ObservableObject
+    class RunViewState : ObservableObject
     {
         #region Binding Data
         private int _fileCount;
@@ -61,7 +62,9 @@ namespace image_categorizer.MVVM.Model
         public bool IsIdle
         {
             get { return _isIdle; }
-            set { _isIdle = value;
+            set
+            {
+                _isIdle = value;
                 OnPropertyChanged();
             }
         }
@@ -77,9 +80,9 @@ namespace image_categorizer.MVVM.Model
         #endregion Binding Data
 
         #region Logical Data
-        private Dictionary<string, ImageDetails>? _fileWithdetails = new();
+        private Dictionary<string, ImageDetailsModel>? _fileWithdetails = new();
 
-        public Dictionary<string, ImageDetails>? FileWithDetails
+        public Dictionary<string, ImageDetailsModel>? FileWithDetails
         {
             get { return _fileWithdetails; }
             set { _fileWithdetails = value; }
@@ -90,9 +93,11 @@ namespace image_categorizer.MVVM.Model
 
         public long CategorizeProgress
         {
-            get { 
-               
-                return _categorizeProgress; }
+            get
+            {
+
+                return _categorizeProgress;
+            }
             set
             {
                 _categorizeProgress = value;
@@ -100,7 +105,7 @@ namespace image_categorizer.MVVM.Model
             }
         }
         public long ProgressIncrement()
-        { 
+        {
             Interlocked.Increment(ref _categorizeProgress);
             OnPropertyChanged(nameof(_categorizeProgress));
             return _categorizeProgress;

@@ -7,6 +7,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Collections.Generic;
 using System;
 using System.Windows.Controls;
+using image_categorizer.MVVM.State;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -26,14 +27,14 @@ namespace image_categorizer.MVVM.ViewModel
         #endregion Constructor
 
         #region Model Property
-        private static SettingModel _settingModel;
-        public SettingModel SettingModel
+        private static SettingViewState _settingModel;
+        public SettingViewState SettingModel
         {
             get
             {
                 if (_settingModel == null)
                 { 
-                _settingModel = new SettingModel();
+                _settingModel = new SettingViewState();
                     ReadSetting();
                 }
                 return _settingModel;
@@ -112,7 +113,7 @@ namespace image_categorizer.MVVM.ViewModel
 
 
         #region Logical Function
-        public void SaveSetting(SettingModel model)
+        public void SaveSetting(SettingViewState model)
         {
             Logger logger = new Logger(base.ProgramDir, "SettingTab SaveSetting");
             IUtility utility = new Utility( ref logger);
@@ -161,7 +162,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void PathExampleSetter()
         {
-            ImageDetails exImage = new ImageDetails("20050813", "094723", "Thika", "KODAK CX7530", "jpg", null, null, null, "Kodak_CX7530.jpg", null);
+            ImageDetailsModel exImage = new ImageDetailsModel("20050813", "094723", "Thika", "KODAK CX7530", "jpg", null, null, null, "Kodak_CX7530.jpg", null);
 
             List<string?> pathBuf = new();
             for (int i = 0; i < SettingModel.DirectoryRules.Length; i++)
@@ -198,7 +199,7 @@ namespace image_categorizer.MVVM.ViewModel
 
         public void FileNameExampleSetter()
         {
-            ImageDetails exImage = new ImageDetails("20050813", "094723", "Thika", "KODAK CX7530", "jpg", null, null, null, "Kodak_CX7530.jpg", null);
+            ImageDetailsModel exImage = new ImageDetailsModel("20050813", "094723", "Thika", "KODAK CX7530", "jpg", null, null, null, "Kodak_CX7530.jpg", null);
             List<string?> fileBuf = new();
                 for (int i = 0; i < SettingModel.FileNameRules.Length; i++)
                 {

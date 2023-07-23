@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using image_categorizer.Core;
 using image_categorizer.MVVM.Model;
 
-namespace image_categorizer.MVVM.Model
+namespace image_categorizer.MVVM.State
 {
-    class SummaryModel : ObservableObject
+    class SummaryViewState : ObservableObject
     {
         /// <summary>
         /// Key string is Attributes, List<string> is Rows of Attribute

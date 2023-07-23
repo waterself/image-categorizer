@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
-
+using image_categorizer.MVVM.State;
 
 namespace image_categorizer.MVVM.ViewModel
 {
@@ -33,15 +33,15 @@ namespace image_categorizer.MVVM.ViewModel
         #endregion Constructor
 
         #region Model Property
-        private static RunModel? _runModel;
+        private static RunViewState? _runModel;
 
-        public RunModel? RunModel
+        public RunViewState? RunModel
         {
             get
             {
                 if (_runModel == null)
                 {
-                    _runModel = new RunModel();
+                    _runModel = new RunViewState();
                     ReadSetting();
                 }
                 return _runModel;
@@ -144,7 +144,7 @@ namespace image_categorizer.MVVM.ViewModel
 
                 Task dataExtractTask = Task.Run(() => Parallel.ForEach(imageFiles, file =>
                 {
-                    ImageDetails imageDetails = new ImageDetails();
+                    ImageDetailsModel imageDetails = new ImageDetailsModel();
                     try
                     {
                         FileInfo fileInfo = new(file);
@@ -265,7 +265,7 @@ namespace image_categorizer.MVVM.ViewModel
                 DateTime currentTime = DateTime.Now;
                 RunModel.CategorizeProgress = 0;
                 List<InsertQueryModel> insertQueries = new();
-                foreach (KeyValuePair<string, ImageDetails> item in RunModel.FileWithDetails)
+                foreach (KeyValuePair<string, ImageDetailsModel> item in RunModel.FileWithDetails)
                 {
                     string fileName = String.Format($"{item.Value.FileName}.{item.Value.Format}");
                     string destPath = String.Format($"{RunModel.OutputDirectorytPath}\\{item.Value.FilePath}");
