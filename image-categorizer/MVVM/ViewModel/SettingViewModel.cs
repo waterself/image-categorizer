@@ -123,7 +123,7 @@ namespace image_categorizer.MVVM.ViewModel
                 Properties.Settings.Default.DirectoryNameRule = String.Join(",", utility.ArrayLengthCheck(model.DirectoryRules, 4));
                 Properties.Settings.Default.FileNameRule = String.Join(",", utility.ArrayLengthCheck(model.FileNameRules, 4));
                 Properties.Settings.Default.Save();
-                MessageBox.Show("Setting Saved");
+                MessageBox.Show("Setting Saved", "Setting", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception e)
             {

@@ -23,7 +23,7 @@ namespace image_categorizer
             LogQueue = new();
             TaskName = taskName;
             LogFolder = $"{programDir}Log";
-            LogFileName = $"{LogFolder}\\{TaskName}.{DateTime.Now.ToString("yyyy-MMddHHmmssff")}{taskName}.txt";
+            LogFileName = $"{LogFolder}\\{DateTime.Now.ToString("yyyy-MMddHHmmssff")}_{taskName}.txt";
 
         }
         public void WriteLog(string message, bool isError, bool writeNow = false)
@@ -39,7 +39,7 @@ namespace image_categorizer
                 }
                 if (!File.Exists(LogFileName))
                 {
-                    using (File.Create(LogFileName)) ;
+                    using (File.Create(LogFileName));
                 }
                 using (StreamWriter = new StreamWriter(LogFileName))
                 {
@@ -64,6 +64,7 @@ namespace image_categorizer
                 {
                     case MessageBoxResult.Yes:
                         System.Diagnostics.Process.Start("Notepad.exe", LogFileName);
+                        System.Diagnostics.Process.Start("Explorer.exe", LogFolder);
                         break;
                     case MessageBoxResult.No:
                         break;
