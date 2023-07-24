@@ -24,5 +24,9 @@ namespace image_categorizer.MVVM.Model
             this.location = (location == null || location == "/") ? "No Location Data" : this.location = location;
             this.currentTime = currentTime;
         }
+
+        public string ToQuery() {
+            return String.Format($"INSERT INTO image_tags VALUES(\'{this.fileOutputPath}\', \'{this.dateTime}\', \'{this.format}\', \'{this.cameraModel}\', \'{this.location}', \'{this.currentTime}\');");
+        }
     }
 }

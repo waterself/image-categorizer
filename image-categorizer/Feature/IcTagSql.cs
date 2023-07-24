@@ -81,7 +81,7 @@ namespace image_categorizer
             {
                 int result = -1;
                 //need generation
-                string sql = String.Format($"INSERT INTO image_tags VALUES(\'{queryModel.fileOutputPath}\', \'{queryModel.dateTime}\', \'{queryModel.format}\', \'{queryModel.cameraModel}\', \'{queryModel.location}', \'{queryModel.currentTime}\');");
+                string sql = queryModel.ToQuery();
                 using (SQLiteConnection connection = new SQLiteConnection(connectString.ToString()))
                 {
                     connection.Open();

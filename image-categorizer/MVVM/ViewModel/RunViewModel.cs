@@ -115,7 +115,7 @@ namespace image_categorizer.MVVM.ViewModel
             string[]? directoryRules = Properties.Settings.Default.DirectoryNameRule.Split(',');
             string[]? fileNameRules = Properties.Settings.Default.FileNameRule.Split(',');
             if (!RulesChecker(directoryRules) || !RulesChecker(fileNameRules)) {
-                MessageBox.Show("Please Setting Directory and FileName Structure");
+                MessageBox.Show("Please Set Directory and FileName Structure");
                 return;
             }
             DirectoryInfo inputPathCheck = new(RunModel.InputDirectorytPath);
